@@ -261,6 +261,54 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--amber);outline-
   .lifehelp{grid-template-columns:1fr}
   #panel.wide{width:auto}
 }
+/* كمّل القائمة: phone (host) view */
+.rv-feud{display:flex;flex-direction:column;gap:12px}
+.rv-feud .ff-head{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.rv-feud .ff-status{font-size:13px;font-weight:800;color:var(--bone-dim)}
+.rv-feud .ff-status.ok{color:var(--jade)} .rv-feud .ff-status.bad{color:#f08a6a}
+.rv-feud .ff-tabs{display:flex;gap:8px}
+.rv-feud .ff-tabs button{flex:1;font:inherit;font-weight:800;font-size:15px;padding:10px;border-radius:10px;border:1px solid var(--line);background:transparent;color:var(--bone)}
+.rv-feud .ff-tabs button[aria-pressed="true"]{background:var(--amber);color:#1b1408;border-color:transparent}
+.rv-feud .ff-team{display:flex;align-items:center;gap:8px;font-weight:800;font-size:15px;min-height:22px}
+.rv-feud .ff-team i{font-style:normal;color:#f08a6a;letter-spacing:2px}
+.rv-feud .ff-q{background:var(--bone);color:#2a2116;border-radius:14px;padding:14px 16px;font-size:20px;font-weight:800;line-height:1.4}
+.rv-feud .ff-q small{display:block;font-size:12px;color:#7a5a2e;margin-bottom:4px}
+.rv-feud .ff-list{display:flex;flex-direction:column;gap:8px}
+.rv-feud .ff-a{display:flex;align-items:center;gap:10px;font:inherit;font-size:18px;font-weight:800;text-align:start;padding:13px 14px;border-radius:12px;border:1px solid var(--line);background:var(--moss);color:var(--bone)}
+.rv-feud .ff-a b{width:30px;height:30px;border-radius:50%;background:var(--amber);color:#1b1408;display:grid;place-items:center;flex:none}
+.rv-feud .ff-a small{margin-inline-start:auto;color:var(--bone-dim);font-weight:700}
+.rv-feud .ff-a.on{background:#24543f;border-color:var(--jade)}
+.rv-feud .ff-a.on::after{content:"انكشف";margin-inline-start:auto;font-size:12px;color:var(--jade)}
+.rv-feud .ff-a.on small{display:none}
+.rv-feud .ff-x{font:inherit;font-weight:900;font-size:22px;padding:16px;border-radius:14px;border:0;background:var(--ember);color:#fff}
+.rv-feud .ff-x:disabled,.rv-feud .ff-a:disabled{opacity:.5}
+/* كمّل القائمة: screen side */
+#feudBar{position:absolute;left:50%;transform:translateX(-50%);bottom:calc(14px + env(safe-area-inset-bottom,0px));width:min(1000px, calc(100% - 24px));background:var(--glass);border:1px solid var(--line);border-radius:16px;padding:12px 14px;display:flex;flex-wrap:wrap;align-items:center;gap:12px;box-shadow:var(--shadow);backdrop-filter:blur(8px);z-index:3}
+#feudBar .who{display:flex;align-items:center;gap:10px}
+#feudBar .who b{font-size:17px}
+#feudBar .strikes{display:flex;gap:5px}
+#feudBar .strikes i{width:30px;height:30px;border-radius:8px;border:2px solid rgba(212,89,63,.55);display:grid;place-items:center;font-style:normal;font-weight:900;font-size:18px;color:transparent}
+#feudBar .strikes i.on{background:var(--ember);color:#fff;border-color:var(--ember)}
+#feudBar .nums{display:flex;gap:6px;margin-inline-start:auto;flex-wrap:wrap}
+#feudBar .nums button{width:42px;height:42px;border-radius:10px;border:1px solid var(--line);background:var(--moss);color:var(--bone);font:inherit;font-weight:800;font-size:17px;cursor:pointer}
+#feudBar .nums button:hover:not(:disabled){border-color:var(--amber)}
+#feudBar .nums button:disabled{opacity:.3;cursor:default}
+#feudBar .xbtn{flex:0 0 auto;padding:11px 18px}
+#feudBar .hint{width:100%;font-size:12.5px;color:var(--bone-dim)}
+#feudBar .hint.ok{color:var(--jade)}
+#feudX{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none;opacity:0;transform:scale(.55);transition:opacity .15s, transform .3s cubic-bezier(.2,1.6,.4,1);z-index:6;direction:ltr}
+#feudX span{font-family:var(--body);font-weight:900;font-size:min(30vw,300px);line-height:1;color:#e0402a;letter-spacing:.05em;text-shadow:0 0 50px rgba(255,60,30,.65), 0 10px 0 #6e170c}
+#feudX.on{opacity:1;transform:scale(1)}
+.ffcats{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:8px}
+.ffcats .pickbtn{justify-content:center;color:var(--bone);font:inherit;font-weight:800}
+.ffcats .pickbtn[aria-pressed="true"]{border-color:var(--amber);background:rgba(232,163,58,.2)}
+.ffnote{margin:0;font-size:13px;color:var(--bone-dim)}
+.ffrules{margin:0;padding-inline-start:18px;display:flex;flex-direction:column;gap:6px;font-size:14.5px;line-height:1.5}
+.fflink{margin:0;font-size:13.5px;font-weight:700;color:var(--bone-dim)}
+.fflink.ok{color:var(--jade)} .fflink.bad{color:#f08a6a}
+.ffsum{display:flex;flex-direction:column;gap:8px}
+.ffsum div{display:flex;align-items:center;gap:10px;background:var(--moss);border:1px solid var(--line);border-radius:12px;padding:10px 14px;font-weight:800}
+.ffsum div em{margin-inline-start:auto;font-style:normal;color:var(--amber);font-size:18px}
 @media (prefers-reduced-motion: reduce){ *{transition:none!important} }
 </style>
 
@@ -288,6 +336,15 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--amber);outline-
     </div>
     <div class="dr-end" id="drEnd" hidden>خلص الوقت</div>
   </section>
+  <section id="rvFeud" class="rv-feud" hidden aria-label="كمّل القائمة: جوال المقدّم">
+    <div class="ff-head"><b>جوال المقدّم</b><span class="ff-status" id="ffStatus">يتصل بالشاشة…</span></div>
+    <div class="ff-tabs" id="ffTabs"></div>
+    <div class="ff-team" id="ffTeam"></div>
+    <div class="ff-q" id="ffQ"></div>
+    <div class="ff-list" id="ffList"></div>
+    <button class="ff-x" id="ffX" type="button">✗ غلط</button>
+    <p class="rv-note" id="ffNote"></p>
+  </section>
 </main>
 <div id="app">
 <div id="drawBoard" class="drawboard" hidden><div class="db-head"><b>الرسمة</b><span id="dbStatus"></span></div><canvas id="dbCanvas"></canvas></div>
@@ -308,6 +365,9 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--amber);outline-
   <div id="toast" role="status" aria-live="polite"></div>
   <div id="fxOverlay" aria-hidden="true"></div>
   <button class="iconbtn" id="skip" type="button" hidden>تخطي</button>
+  <div id="feudBar" hidden></div>
+  <div id="feudX" aria-hidden="true"><span></span></div>
+  <div class="modal" id="feud" hidden><div class="sheet wide" id="feudBody"></div></div>
 
   <div class="modal" id="setup" hidden>
     <div class="sheet">
@@ -429,7 +489,13 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--amber);outline-
         <span><b>Lebombo</b> lighting environment from Poly Haven, CC0. <a href="https://polyhaven.com/a/lebombo" target="_blank" rel="noopener">Source</a></span>
         <span><b>Alnwyck Sofa</b>, source and licence to be confirmed.</span>
         <span><b>Creative Character (free)</b> character and wardrobe pack, supplied by the game owner under a free licence for games. The walking, running and jumping are animated in code.</span>
-        <span>The Riffa Clock Tower roundabout, the room furniture and the statues are drawn in code from reference photos for this prototype.</span>
+        <span><b>Peyton styled Coffee Table</b> by Rakshaan, CC BY 4.0. Changes: Plant removed, resized and reduced for the web. <a href="https://sketchfab.com/3d-models/peyton-styled-coffee-table-9a84f85a27184cd5865f8d0101aecb46" target="_blank" rel="noopener">Source</a></span>
+        <span><b>Exquisite Very Fine Tabriz Carpet</b> by mfb64, CC BY 4.0. Changes: Fringe simplified. <a href="https://sketchfab.com/3d-models/exquisite-very-fine-tabriz-carpet-0c9c6030b3b3498ba47f8f996c2908eb" target="_blank" rel="noopener">Source</a></span>
+        <span><b>Ottoman Pillow and Carpets v2</b> by gauvain_boiche, CC BY 4.0. Changes: Cushions only, textures reduced. <a href="https://sketchfab.com/3d-models/ottoman-pillow-and-carpets-v2-58b855b5e2f34e42b9670e252c40c68a" target="_blank" rel="noopener">Source</a></span>
+        <span><b>Air Condition</b> by TkachenkoPA, CC BY 4.0. Changes: Maker name removed, textures reduced. <a href="https://sketchfab.com/3d-models/air-condition-a9899a3a32d94b3fb5f631fb881ee4ac" target="_blank" rel="noopener">Source</a></span>
+        <span><b>nen va hoa</b> by Furniture (hung.t33), CC BY 4.0. <a href="https://sketchfab.com/3d-models/nen-va-hoa-b10c761ae45f4140884cc7a8722b4f66" target="_blank" rel="noopener">Source</a></span>
+        <span><b>Fondant</b> by Carl (carleid), CC BY 4.0. Changes: Simplified. <a href="https://sketchfab.com/3d-models/fondant-3f25a988b391481881a02733fd198414" target="_blank" rel="noopener">Source</a></span>
+        <span>The Riffa Clock Tower roundabout, the TV picture, the remaining furniture and the statues are drawn in code for this prototype.</span>
       </div>
       <button class="btn ghost" id="creditsClose" type="button">إغلاق</button>
     </div>
@@ -446,6 +512,7 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--amber);outline-
 <script src="boards.js"></script>
 <script src="riffa.js"></script>
 <script src="questions.js"></script>
+<script src="feud_data.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/peerjs@1.5.4/dist/peerjs.min.js"></script>
 <script>
@@ -478,6 +545,45 @@ function strokePaint(cv, ctx, st, from){
   if(p.length===1){ ctx.beginPath(); ctx.arc(p[0][0]*k, p[0][1]*k, ctx.lineWidth/2, 0, Math.PI*2); ctx.fill(); return; }
   const i0 = Math.max(1, from||1); ctx.beginPath(); ctx.moveTo(p[i0-1][0]*k, p[i0-1][1]*k);
   for(let i=i0;i<p.length;i++) ctx.lineTo(p[i][0]*k, p[i][1]*k); ctx.stroke();
+}
+/* ================= كمّل القائمة: the host's phone =================
+   #f-<q1>-<q2>[-<peer id>] : the two questions of the round (same base36 code as above) and the screen's PeerJS id.
+   The phone lists the answers; tapping one reveals it on the screen, ✗ adds a strike. Without a link the host
+   reads the answers here and presses the matching number on the screen. */
+const FEUD_RE = /^#f-([0-9a-z]+)-([0-9a-z]+)(?:-(darb[0-9a-z]+))?$/;
+if(FEUD_RE.test(location.hash)){
+  $('app').hidden = true; $('reveal').hidden = false; $('rvMain').hidden = true; $('rvFeud').hidden = false;
+  document.title = 'درب: كمّل القائمة'; $('rvCat').textContent = 'كمّل القائمة';
+  const m = FEUD_RE.exec(location.hash), F = window.DARB_FEUD || {qs:[], cats:[]}, hostId = m[3];
+  const qs = [F.qs[decodeWord(m[1])], F.qs[decodeWord(m[2])]], catName = id=>((F.cats||[]).find(c=>c.id===id)||{}).name||'';
+  const view = {cur:0, rev:[[],[]], strikes:0, team:'', color:'', stage:'wait'}; let local = [[],[]], open = false, conn = null, peer = null, tries = 0;
+  const status = (t, cls)=>{ const el = $('ffStatus'); el.textContent = t; el.className = 'ff-status' + (cls ? ' '+cls : ''); };
+  const send = msg=>{ if(open && conn) try{ conn.send(msg); }catch(e){} };
+  const render = ()=>{
+    if(!qs[0] || !qs[1]){ $('ffQ').textContent = 'الباركود هذا مو صالح'; $('ffList').innerHTML = ''; $('ffX').hidden = true; $('ffNote').textContent = 'امسح الباركود اللي على الشاشة مرة ثانية.'; return; }
+    $('ffTabs').innerHTML = [0,1].map(k=>`<button type="button" data-k="${k}" aria-pressed="${k===view.cur}">السؤال ${k+1}</button>`).join('');
+    $('ffTabs').querySelectorAll('button').forEach(b=>b.onclick=()=>{ view.cur = +b.dataset.k; render(); });
+    const q = qs[view.cur], rev = open ? (view.rev[view.cur]||[]) : local[view.cur];
+    $('ffTeam').innerHTML = open && view.team ? `<span class="swatch" style="--tc:${escH(view.color||'#e8a33a')}"></span>يجاوب: ${escH(view.team)} <i>${'✗'.repeat(view.strikes||0)}</i>` : '';
+    $('ffQ').innerHTML = `<small>${escH(catName(q.c))}</small>${escH(q.q)}`;
+    const live = !open || view.stage==='play';
+    $('ffList').innerHTML = q.a.slice(0,10).map((a,i)=>`<button class="ff-a ${rev.includes(i)?'on':''}" type="button" data-i="${i}" ${rev.includes(i)||!live?'disabled':''}><b>${i+1}</b>${escH(a)}${q.n&&q.n[i]!=null?`<small>${escH(q.n[i])}</small>`:''}</button>`).join('');
+    $('ffList').querySelectorAll('.ff-a').forEach(b=>b.onclick=()=>{ const i = +b.dataset.i; if(open) send({t:'rev', k:view.cur, i}); else { local[view.cur].push(i); render(); } });
+    $('ffX').hidden = !open; $('ffX').disabled = !live;
+    $('ffNote').textContent = open ? 'لما يقول الفريق جواب صح اضغط عليه وينكشف على الشاشة. جواب غلط: اضغط ✗.'
+      : 'بدون اتصال: لما يقولون جواب صح، اضغط رقمه على الشاشة (وهنا عشان تتذكر). جواب غلط: اضغط ✗ على الشاشة.'; };
+  $('ffX').onclick = ()=>{ if(open) send({t:'x', k:view.cur}); };
+  const tryConn = ()=>{ if(open || tries++ > 15){ if(!open) status('بدون اتصال بالشاشة', 'bad'); return; }
+    conn = peer.connect(hostId, {reliable:true});
+    conn.on('open', ()=>{ open = true; status('متصل بالشاشة', 'ok'); send({t:'hello'}); render(); });
+    conn.on('data', d=>{ if(d && d.t==='sync'){ Object.assign(view, d); render(); } else if(d && d.t==='end'){ status('خلصت الجولة', ''); view.stage = 'end'; render(); } });
+    conn.on('close', ()=>{ open = false; status('انقطع الاتصال', 'bad'); render(); });
+    setTimeout(()=>{ if(!open) tryConn(); }, 2500); };
+  if(hostId && window.Peer){ try{ peer = new Peer(undefined, peerOptions()); peer.on('open', tryConn); peer.on('error', e=>{ if(!open && e && e.type!=='peer-unavailable') status('بدون اتصال بالشاشة', 'bad'); }); }catch(e){ status('بدون اتصال بالشاشة', 'bad'); } }
+  else status('بدون اتصال بالشاشة', 'bad');
+  render();
+  window.addEventListener('hashchange', ()=>location.reload());
+  return;
 }
 if(REVEAL_RE.test(location.hash)){
   $('app').hidden = true; $('reveal').hidden = false; document.title = 'درب: الكلمة';
@@ -530,7 +636,7 @@ if(REVEAL_RE.test(location.hash)){
   window.addEventListener('hashchange', show); show();
   return;
 }
-window.addEventListener('hashchange', ()=>{ if(REVEAL_RE.test(location.hash)) location.reload(); });
+window.addEventListener('hashchange', ()=>{ if(REVEAL_RE.test(location.hash) || FEUD_RE.test(location.hash)) location.reload(); });
 
 /* ================= game data ================= */
 const TEAM_STYLES = [
@@ -638,11 +744,11 @@ renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 renderer.outputEncoding = THREE.sRGBEncoding;
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
-renderer.toneMappingExposure = 0.95;
+renderer.toneMappingExposure = 0.76;
 renderer.physicallyCorrectLights = false;
 
 const scene = new THREE.Scene();
-scene.background = new THREE.Color(0xd9c9b0);
+scene.background = new THREE.Color(0xc79a6c);
 const camera = new THREE.PerspectiveCamera(45, 1, 0.01, 40);
 scene.add(camera);
 
@@ -662,8 +768,8 @@ function speckle(g, w, h, n, colors, rmax, r, a){
 }
 
 /* ---------- lights ---------- */
-const hemi = new THREE.HemisphereLight(0xffe0bc, 0x5e4028, 0.32); scene.add(hemi);
-const sun = new THREE.DirectionalLight(0xffc58a, 2.7);
+const hemi = new THREE.HemisphereLight(0xffc48c, 0x6a3a1c, 0.3); scene.add(hemi);
+const sun = new THREE.DirectionalLight(0xffa257, 2.55); // late-afternoon sun through the window
 const SUN_DIR = new THREE.Vector3(-Math.cos(0.38), Math.sin(0.38), 0.22).normalize();
 sun.position.copy(SUN_DIR).multiplyScalar(7).add(new THREE.Vector3(0,0.4,0));
 sun.target.position.set(0,0.4,0); scene.add(sun.target);
@@ -674,10 +780,10 @@ scene.add(sun);
 
 /* ---------- room ---------- */
 const ROOM = {x0:-3.5, x1:3.5, z0:-2.5, z1:3.2, h:2.9};
-const marbleTex = canvasTex(1024,(g,S)=>{ const r=rng(21); g.fillStyle='#ddcdb2'; g.fillRect(0,0,S,S);
-  for(let i=0;i<14;i++){ g.strokeStyle = r()>0.5?'#cfc3ad':'#d9cfbd'; g.globalAlpha=0.35; g.lineWidth=1+r()*2; g.beginPath(); let x=r()*S,y=r()*S; g.moveTo(x,y);
+const marbleTex = canvasTex(1024,(g,S)=>{ const r=rng(21); g.fillStyle='#cfa97c'; g.fillRect(0,0,S,S);
+  for(let i=0;i<14;i++){ g.strokeStyle = r()>0.5?'#c6ab88':'#d9c09c'; g.globalAlpha=0.35; g.lineWidth=1+r()*2; g.beginPath(); let x=r()*S,y=r()*S; g.moveTo(x,y);
     for(let k=0;k<8;k++){ x+= (r()-0.3)*160; y+=(r()-0.5)*120; g.lineTo(x,y);} g.stroke(); }
-  g.globalAlpha=1; speckle(g,S,S,3000,['#c9bda6','#f4eee3'],1.6,r);
+  g.globalAlpha=1; speckle(g,S,S,3000,['#c2a682','#ecd9bd'],1.6,r);
   g.strokeStyle='rgba(120,100,70,.35)'; g.lineWidth=3; for(let k=0;k<=2;k++){ g.beginPath(); g.moveTo(k*S/2,0); g.lineTo(k*S/2,S); g.stroke(); g.beginPath(); g.moveTo(0,k*S/2); g.lineTo(S,k*S/2); g.stroke(); }
 }, [7/1.2, 5.7/1.2]);
 const floor = new THREE.Mesh(new THREE.PlaneGeometry(ROOM.x1-ROOM.x0, ROOM.z1-ROOM.z0), new THREE.MeshStandardMaterial({map:marbleTex, roughness:0.35, metalness:0.0}));
@@ -705,7 +811,7 @@ const rugTex = canvasTex(1024,(g,S,H)=>{
 const rug = new THREE.Mesh(new THREE.PlaneGeometry(3.3,2.3), new THREE.MeshStandardMaterial({map:rugTex, roughness:0.95}));
 rug.rotation.x = -Math.PI/2; rug.position.set(0,0.004,0.1); rug.receiveShadow = true; scene.add(rug);
 
-const wallMat = new THREE.MeshStandardMaterial({color:0xe6d6bc, roughness:0.92});
+const wallMat = new THREE.MeshStandardMaterial({color:0xd9a874, roughness:0.92});
 function box(w,h,d,mat,x,y,z,cast){ const m=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),mat); m.position.set(x,y,z); m.receiveShadow=true; m.castShadow=!!cast; scene.add(m); return m; }
 // back wall (behind sofa), right wall, front wall (TV)
 box(ROOM.x1-ROOM.x0, ROOM.h, 0.1, wallMat, 0, ROOM.h/2, ROOM.z0-0.05, true);
@@ -718,15 +824,15 @@ box(0.1, WIN.y0, depthZ, wallMat, lw, WIN.y0/2, midZ, true);
 box(0.1, ROOM.h-WIN.y1, depthZ, wallMat, lw, (ROOM.h+WIN.y1)/2, midZ, true);
 box(0.1, WIN.y1-WIN.y0, WIN.z0-ROOM.z0, wallMat, lw, (WIN.y0+WIN.y1)/2, (ROOM.z0+WIN.z0)/2, true);
 box(0.1, WIN.y1-WIN.y0, ROOM.z1-WIN.z1, wallMat, lw, (WIN.y0+WIN.y1)/2, (WIN.z1+ROOM.z1)/2, true);
-const sky = new THREE.Mesh(new THREE.PlaneGeometry(WIN.z1-WIN.z0, WIN.y1-WIN.y0), new THREE.MeshBasicMaterial({color:0xfff8ec}));
+const sky = new THREE.Mesh(new THREE.PlaneGeometry(WIN.z1-WIN.z0, WIN.y1-WIN.y0), new THREE.MeshBasicMaterial({color:0xffcf94}));
 sky.rotation.y = Math.PI/2; sky.position.set(ROOM.x0-0.2,(WIN.y0+WIN.y1)/2,(WIN.z0+WIN.z1)/2); scene.add(sky);
-const frameMat = new THREE.MeshStandardMaterial({color:0xfaf8f4, roughness:0.5});
+const frameMat = new THREE.MeshStandardMaterial({color:0xf0dfc6, roughness:0.5});
 box(0.08,0.05,WIN.z1-WIN.z0+0.1,frameMat,ROOM.x0+0.02,WIN.y0,(WIN.z0+WIN.z1)/2);
 box(0.08,0.05,WIN.z1-WIN.z0+0.1,frameMat,ROOM.x0+0.02,WIN.y1,(WIN.z0+WIN.z1)/2);
 [WIN.z0, (WIN.z0+WIN.z1)/2, WIN.z1].forEach(z=>box(0.08, WIN.y1-WIN.y0, 0.05, frameMat, ROOM.x0+0.02, (WIN.y0+WIN.y1)/2, z));
 // sheer curtains, gathered at both sides
 const curtainTex = canvasTex(256,(g,S)=>{ for(let x=0;x<S;x++){ const v = 235 + Math.sin(x/S*Math.PI*14)*14; g.fillStyle=`rgb(${v},${v-3},${v-10})`; g.fillRect(x,0,1,S);} });
-const curtainMat = new THREE.MeshStandardMaterial({map:curtainTex, transparent:true, opacity:0.78, side:THREE.DoubleSide, roughness:1});
+const curtainMat = new THREE.MeshStandardMaterial({map:curtainTex, color:0xffdcb4, transparent:true, opacity:0.78, side:THREE.DoubleSide, roughness:1});
 [[WIN.z0-0.25, WIN.z0+0.35],[WIN.z1-0.35, WIN.z1+0.25]].forEach(([a,b])=>{
   const g = new THREE.PlaneGeometry(b-a, ROOM.h-0.15, 24, 1); const p = g.attributes.position;
   for(let i=0;i<p.count;i++){ p.setZ(i, Math.sin(p.getX(i)*28)*0.04); }
@@ -737,7 +843,7 @@ const skirtMat = new THREE.MeshStandardMaterial({color:0x6b4a2e, roughness:0.6})
 box(ROOM.x1-ROOM.x0, 0.09, 0.02, skirtMat, 0, 0.045, ROOM.z0+0.01);
 box(0.02, 0.09, ROOM.z1-ROOM.z0, skirtMat, ROOM.x1-0.01, 0.045, midZ);
 box(ROOM.x1-ROOM.x0, 0.09, 0.02, skirtMat, 0, 0.045, ROOM.z1-0.01);
-const ceil = new THREE.Mesh(new THREE.PlaneGeometry(ROOM.x1-ROOM.x0, depthZ), new THREE.MeshStandardMaterial({color:0xfbf9f5, roughness:1}));
+const ceil = new THREE.Mesh(new THREE.PlaneGeometry(ROOM.x1-ROOM.x0, depthZ), new THREE.MeshStandardMaterial({color:0xe2b98a, roughness:1}));
 ceil.rotation.x = Math.PI/2; ceil.position.set(0, ROOM.h, midZ); scene.add(ceil);
 // wall art above the sofa: an original eight-point star tessellation
 const artTex = canvasTex(1024,(g,S,H)=>{ g.fillStyle='#1f3b3a'; g.fillRect(0,0,S,H); const step=128;
@@ -752,6 +858,19 @@ box(1.38,0.94,0.03,new THREE.MeshStandardMaterial({color:0x3a2a1c, roughness:0.5
 const tvMat = new THREE.MeshStandardMaterial({color:0x0c0d10, roughness:0.15, metalness:0.4});
 box(2.0,0.42,0.42,new THREE.MeshStandardMaterial({color:0x5b4130, roughness:0.55}),0.2,0.21,ROOM.z1-0.25,true);
 box(1.45,0.84,0.05,tvMat,0.2,1.28,ROOM.z1-0.06,true);
+const drawTvScreen = (g,S,H)=>{ // an idle screen: dusk over the roundabout, with the game's name
+  const gr=g.createLinearGradient(0,0,0,H); gr.addColorStop(0,'#2a1530'); gr.addColorStop(0.55,'#8a3a22'); gr.addColorStop(0.8,'#e08a3c'); gr.addColorStop(1,'#f3c27a'); g.fillStyle=gr; g.fillRect(0,0,S,H);
+  g.fillStyle='rgba(255,226,170,.9)'; g.beginPath(); g.arc(S*0.72,H*0.74,H*0.09,0,7); g.fill();
+  g.fillStyle='#1d0f12'; g.fillRect(0,H*0.86,S,H); // ground
+  const cx=S*0.5; g.fillRect(cx-14,H*0.38,28,H*0.5); g.fillRect(cx-26,H*0.36,52,18); g.beginPath(); g.moveTo(cx-18,H*0.36); g.lineTo(cx,H*0.24); g.lineTo(cx+18,H*0.36); g.fill(); // clock tower
+  g.fillStyle='#f3c27a'; g.beginPath(); g.arc(cx,H*0.43,9,0,7); g.fill();
+  g.strokeStyle='#1d0f12'; g.lineWidth=10; g.beginPath(); g.ellipse(cx,H*0.88,S*0.3,H*0.05,0,0,7); g.stroke();
+  g.fillStyle='#fbe3b5'; g.font='800 150px Tajawal, sans-serif'; g.textAlign='center'; g.textBaseline='middle'; g.fillText('درب', S*0.5, H*0.17);
+};
+const tvScreenTex = canvasTex(1024, drawTvScreen, null, 576); 
+const tvScreen = new THREE.Mesh(new THREE.PlaneGeometry(1.39,0.78), new THREE.MeshBasicMaterial({map:tvScreenTex, color:0xb8a090, toneMapped:false}));
+tvScreen.rotation.y = Math.PI; tvScreen.position.set(0.2,1.28,ROOM.z1-0.0875); scene.add(tvScreen);
+if(document.fonts) document.fonts.ready.then(()=>{ const c = tvScreenTex.image; drawTvScreen(c.getContext('2d'), c.width, c.height); tvScreenTex.needsUpdate = true; });
 
 /* ---------- coffee table (stand-in until the table model arrives) ---------- */
 const TABLE = {w:1.45, d:1.1, h:0.42};
@@ -759,10 +878,10 @@ const woodTex = canvasTex(1024,(g,S)=>{ const r=rng(77); g.fillStyle='#6a4428'; 
   for(let y=0;y<S;y+=2){ g.fillStyle = r()>0.5?'#5a3820':'#7a5032'; g.globalAlpha=0.18+r()*0.2; g.fillRect(0,y+Math.sin(y*0.05)*3,S,1+r()*2);} g.globalAlpha=1;
   speckle(g,S,S,1500,['#3e2614','#8a603e'],1.5,r); });
 const tableMat = new THREE.MeshStandardMaterial({map:woodTex, roughness:0.45, metalness:0.0});
-const tableTop = box(TABLE.w, 0.05, TABLE.d, tableMat, 0, TABLE.h-0.025, 0, true);
+const standInTable = [box(TABLE.w, 0.05, TABLE.d, tableMat, 0, TABLE.h-0.025, 0, true)];
 const legMat = new THREE.MeshStandardMaterial({color:0x2a1b10, roughness:0.5});
-[[-1,-1],[1,-1],[-1,1],[1,1]].forEach(([sx,sz])=>box(0.06,TABLE.h-0.05,0.06,legMat,sx*(TABLE.w/2-0.08),(TABLE.h-0.05)/2,sz*(TABLE.d/2-0.08),true));
-box(TABLE.w-0.2,0.03,TABLE.d-0.2,tableMat,0,0.12,0,true); // lower shelf
+[[-1,-1],[1,-1],[-1,1],[1,1]].forEach(([sx,sz])=>standInTable.push(box(0.06,TABLE.h-0.05,0.06,legMat,sx*(TABLE.w/2-0.08),(TABLE.h-0.05)/2,sz*(TABLE.d/2-0.08),true)));
+standInTable.push(box(TABLE.w-0.2,0.03,TABLE.d-0.2,tableMat,0,0.12,0,true)); // lower shelf
 
 /* ---------- majlis floor seating (right side) ---------- */
 const saduTex = canvasTex(512,(g,S)=>{ const bands=['#7d1f1a','#1c1a19','#efe6d2','#7d1f1a','#c98b2a','#1c1a19','#7d1f1a','#efe6d2'];
@@ -779,8 +898,7 @@ const MX = 2.85;
 cushion(0.7,0.13,2.2,saduMat, MX,0.07,0.1);
 for(let i=0;i<3;i++) cushion(0.2,0.48,0.62,plainCushion, MX+0.3,0.36,-0.62+i*0.72,0,0.0).rotation.z = 0.18;
 cushion(0.24,0.26,0.24,saduMat, MX-0.05,0.27,1.1,0.4);
-cushion(0.5,0.12,0.5,plainCushion,-0.4,0.06,1.25,0.3);   // floor cushion in front
-cushion(0.5,0.12,0.5,saduMat,-1.0,0.06,1.0,-0.2);
+const floorCushions = [cushion(0.5,0.12,0.5,plainCushion,-0.4,0.06,1.25,0.3), cushion(0.5,0.12,0.5,saduMat,-1.0,0.06,1.0,-0.2)]; // stand-ins until the kilim cushions load
 
 /* ---------- smoke for the mabkhara ---------- */
 const puffTex = canvasTex(128,(g,S)=>{ const gr=g.createRadialGradient(S/2,S/2,0,S/2,S/2,S/2); gr.addColorStop(0,'rgba(255,255,255,.55)'); gr.addColorStop(0.5,'rgba(240,236,230,.2)'); gr.addColorStop(1,'rgba(240,236,230,0)'); g.fillStyle=gr; g.fillRect(0,0,S,S); });
@@ -1075,7 +1193,7 @@ function fitOverview(){
 }
 function resetView(){ camGoal.theta = START_ANGLE; camGoal.phi = 0.86; camGoal.radius = overviewRadius; camGoal.target.copy(TABLE_TARGET); }
 function resize(){ const w = canvas.clientWidth||innerWidth, h = canvas.clientHeight||innerHeight;
-  renderer.setSize(w,h,false); camera.aspect = w/h; fitOverview(); camera.updateProjectionMatrix(); }
+  renderer.setSize(w,h,false); camera.aspect = w/h; fitOverview(); camera.updateProjectionMatrix(); if(feudCam && feudCam.tv && !feudCam.from) feudCam = feudFrame(); }
 const pointers = new Map(); let pinchStart = 0, radiusStart = 0;
 canvas.addEventListener('pointerdown', e=>{ if(touring){ endTour(); return; } canvas.setPointerCapture(e.pointerId); pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});
   if(pointers.size===2){ const [a,b]=[...pointers.values()]; pinchStart=Math.hypot(a.x-b.x,a.y-b.y); radiusStart=camGoal.radius; } });
@@ -1107,7 +1225,9 @@ const clock = new THREE.Clock(); const tmpV = new THREE.Vector3(), endPos = new 
 function frame(){
   const now = performance.now(), dt = Math.min(clock.getDelta(), 0.05), t = clock.elapsedTime;
   for(let i=tweens.length-1;i>=0;i--){ const tw=tweens[i]; const k=Math.min(1,(now-tw.t0)/tw.dur); tw.fn(k); if(k>=1){ tweens.splice(i,1); tw.res(); } }
-  if(touring){
+  if(feudCam){ if(feudCam.from){ const k = Math.min(1, (now-feudCam.t0)/feudCam.dur), e = ease(k); camera.position.lerpVectors(feudCam.from.pos, feudCam.pos, e); feudLook.lerpVectors(feudCam.from.look, feudCam.look, e); if(k>=1) feudCam.from = null; }
+    else { camera.position.lerp(feudCam.pos, 0.15); feudLook.lerp(feudCam.look, 0.15); } camera.lookAt(feudLook); }
+  else if(touring){
     const k = Math.min(1,(now-tourT0)/tourDur), e = ease(k);
     camOrbitPos(cam.theta, cam.phi, cam.radius, TABLE_TARGET, endPos);
     tourPos.lerpVectors(TOUR_FROM.pos, endPos, e); tourPos.y += Math.sin(Math.PI*e)*0.25;
@@ -1127,6 +1247,8 @@ function frame(){
       s.position.set(SMOKE_ORIGIN.x + Math.sin(a*6+i)*0.03*a + a*0.05, SMOKE_ORIGIN.y + a*0.9, SMOKE_ORIGIN.z + Math.cos(a*5+i*1.3)*0.03*a);
       const sc = 0.05 + a*0.35; s.scale.set(sc,sc,1); s.material.opacity = Math.sin(Math.PI*a)*0.35; s.material.rotation = a*2+i; });
   }
+  if(state.feudRun) feudTick(now, t);
+  if(candleLight.visible) candleLight.intensity = 0.42 + Math.sin(t*9.3)*0.04 + Math.sin(t*23.1)*0.03;
   totems.forEach(m=>{ if(m.userData.char) animateChar(m.userData.char, t, dt); });
   totems.forEach((m,i)=>{ const ring = m.userData.ring; const target = i===activeTeam ? 0.6+Math.sin(t*4)*0.25 : 0; ring.material.opacity += (target-ring.material.opacity)*0.15; });
   for(let i=bursts.length-1;i>=0;i--){ const b=bursts[i]; b.life+=dt; const arr=b.p.geometry.attributes.position.array;
@@ -1171,6 +1293,7 @@ async function moveTeam(i, steps){
   for(let s=0;s<Math.abs(steps);s++){ const next = THREE.MathUtils.clamp(team.pos + dir, 0, GOAL); if(next===team.pos) break;
     const n = Math.abs(steps), kind = s===n-1 ? 'jump' : n>3 ? 'run' : 'walk';
     team.pos = next; await hopTo(i, team.pos, kind); renderTeams(); if(team.pos>=GOAL) break;
+    if(dir>0 && team.pos===state.feudSpot && !team.feudDone && !state.feudRun) break; // كمّل القائمة: passing the hidden square stops you on it
     if(dir>0 && state.blocks && state.blocks.includes(team.pos) && s<Math.abs(steps)-1){ clearBlock(team.pos); thump(60); toast('سد الطريق', `${team.name} وقف عند الحاجز`); break; }
     if(dir>0 && state.blocks && state.blocks.includes(team.pos)){ clearBlock(team.pos); } }
   const m = totems[i]; setAnim(m, 'idle');
@@ -1587,7 +1710,263 @@ async function swapTeams(i, j){
   await tween(REDUCED?40:450, k=>{ mi.scale.set(si*(0.1+k*0.9), si*(3-k*2), si*(0.1+k*0.9)); mj.scale.set(sj*(0.1+k*0.9), sj*(3-k*2), sj*(0.1+k*0.9)); });
   mi.scale.setScalar(si); mj.scale.setScalar(sj); chime(true);
 }
-function nextTurn(){ stopTimer(); phoneCleanup(); state.turn = (state.turn+1) % state.teams.length; state.pit = null; state.trap = null; state.badges = []; refillIfEmpty(); state.phase = 'pick'; renderPanel(); }
+
+/* ================= كمّل القائمة: a Family-Feud-style round =================
+   One unmarked square per game (random, never a special square). Each team plays it once: landing on it or
+   passing it stops the team there and starts the round. The wall TV becomes the answer board, the host runs it
+   from a phone (QR), and every answer a team reveals is one step forward for that team. */
+const FEUD = window.DARB_FEUD || {cats:[], qs:[]};
+const FEUD_OK = (FEUD.qs||[]).length >= 2;
+const FEUD_TEST = location.hash==='#fftest'; // demo: the hidden square is square 2
+function feudSpotPick(){ if(FEUD_TEST) return 2; const c = []; for(let k=6;k<=34;k++) if(!SPECIALS[k]) c.push(k); return c[(Math.random()*c.length)|0]; }
+function feudDue(){ if(!FEUD_OK || !state || state.feudRun || state.phase==='won') return -1;
+  return state.teams.findIndex(t=>!t.feudDone && t.pos>=state.feudSpot && t.pos<GOAL); }
+const encodeF = idx=>(idx*1296 + ((Math.random()*1296)|0)).toString(36);
+let feudCam = null; const feudLook = new THREE.Vector3();
+/* the TV board: drawn on a canvas that replaces the TV picture while the round is on */
+const FFW = 1600, FFH = 900, ffCanvas = document.createElement('canvas'); ffCanvas.width = FFW; ffCanvas.height = FFH;
+const ffCtx = ffCanvas.getContext('2d'), ffTex = new THREE.CanvasTexture(ffCanvas); ffTex.encoding = THREE.sRGBEncoding; ffTex.anisotropy = 8;
+let ffLast = 0;
+function ffRR(g,x,y,w,h,r){ g.beginPath(); g.moveTo(x+r,y); g.arcTo(x+w,y,x+w,y+h,r); g.arcTo(x+w,y+h,x,y+h,r); g.arcTo(x,y+h,x,y,r); g.arcTo(x,y,x+w,y,r); g.closePath(); }
+function ffFit(g, text, max, size, weight, family){ let s = size; do { g.font = `${weight} ${s}px ${family}`; s -= 2; } while(g.measureText(text).width > max && s > 14); }
+function ffWrap(g, text, max){ const words = String(text).split(/\s+/), lines = []; let cur = '';
+  words.forEach(w=>{ const t = cur ? cur+' '+w : w; if(g.measureText(t).width > max && cur){ lines.push(cur); cur = w; } else cur = t; }); if(cur) lines.push(cur); return lines; }
+function ffStage(g, t){ // deep teal stage, slow gold rays, a gold frame with marquee bulbs
+  const gr = g.createRadialGradient(FFW/2, FFH*0.42, 40, FFW/2, FFH*0.5, FFW*0.72); gr.addColorStop(0,'#21504c'); gr.addColorStop(0.6,'#122a2c'); gr.addColorStop(1,'#0a1316');
+  g.fillStyle = gr; g.fillRect(0,0,FFW,FFH);
+  g.save(); g.translate(FFW/2, FFH*0.46); g.rotate(t*0.12); for(let k=0;k<20;k++){ g.rotate(Math.PI/10); g.fillStyle = k%2 ? 'rgba(255,196,90,.045)' : 'rgba(255,196,90,.0)'; g.beginPath(); g.moveTo(0,0); g.lineTo(1400,-120); g.lineTo(1400,120); g.fill(); } g.restore();
+  const fg = g.createLinearGradient(0,0,FFW,FFH); fg.addColorStop(0,'#f6d47a'); fg.addColorStop(0.5,'#b8862a'); fg.addColorStop(1,'#f3cf6a');
+  g.lineWidth = 16; g.strokeStyle = fg; ffRR(g, 18, 18, FFW-36, FFH-36, 34); g.stroke();
+  g.lineWidth = 3; g.strokeStyle = 'rgba(246,212,122,.5)'; ffRR(g, 40, 40, FFW-80, FFH-80, 22); g.stroke();
+  const per = 2*(FFW-36) + 2*(FFH-36), n = 64;
+  for(let k=0;k<n;k++){ let d = k/n*per, x, y; const W = FFW-36, H = FFH-36;
+    if(d < W){ x = 18+d; y = 18; } else if((d -= W) < H){ x = FFW-18; y = 18+d; } else if((d -= H) < W){ x = FFW-18-d; y = FFH-18; } else { d -= W; x = 18; y = FFH-18-d; }
+    const on = ((k + Math.floor(t*6)) % 3) === 0; g.fillStyle = on ? '#fff3c4' : '#7a5a1e'; g.beginPath(); g.arc(x, y, on?6:4.5, 0, 7); g.fill(); }
+}
+function ffTitle(g, t){ const R = state.feudRun;
+  ffStage(g, t); g.direction = 'rtl'; g.textAlign = 'center'; g.textBaseline = 'middle';
+  const pulse = 1 + Math.sin(t*3)*0.03; g.save(); g.translate(FFW/2, FFH*0.42); g.scale(pulse, pulse);
+  ffFit(g, 'كمّل القائمة', FFW-240, 190, 400, 'Rakkas, serif'); g.fillStyle = '#5a3b0c'; g.fillText('كمّل القائمة', 0, 10); g.fillStyle = '#f6c65a'; g.fillText('كمّل القائمة', 0, 0); g.restore();
+  g.font = '800 54px Tajawal, sans-serif'; g.fillStyle = '#f3ecdc';
+  const sub = R.stage==='cats' ? `${teamName(R.lander)} يختارون فئتين` : R.stage==='scan' ? 'المقدّم يمسح الباركود…' : `${teamName(R.lander)} وقفوا على المربع المخفي!`;
+  g.fillText(sub, FFW/2, FFH*0.68);
+  if(R.cats){ g.font = '700 40px Tajawal, sans-serif'; g.fillStyle = '#f6d47a'; g.fillText(R.cats.map(c=>FEUD_CAT[c]||c).join('  ·  '), FFW/2, FFH*0.79); }
+}
+const FEUD_CAT = Object.fromEntries((FEUD.cats||[]).map(c=>[c.id, c.name]));
+function ffBoard(g, t, now){ const R = state.feudRun, k = R.k, q = R.qs[k], N = Math.min(10, q.a.length), rows = Math.ceil(N/2);
+  ffStage(g, t); g.direction = 'rtl'; g.textBaseline = 'middle';
+  g.textAlign = 'center'; g.font = '800 34px Tajawal, sans-serif'; g.fillStyle = '#f6d47a'; g.fillText(`${FEUD_CAT[q.c]||''}  ·  السؤال ${k+1} من 2`, FFW/2, 92);
+  g.font = '800 56px Tajawal, sans-serif'; g.fillStyle = '#ffffff'; const lines = ffWrap(g, q.q, 1300).slice(0,2);
+  lines.forEach((l,n)=>g.fillText(l, FFW/2, (lines.length>1?152:172) + n*62));
+  // who is playing, and the strikes
+  const pi = R.playing, col = TEAM_STYLES[pi].color; const ty = 252;
+  g.textAlign = 'right'; g.font = '800 36px Tajawal, sans-serif'; const label = (R.stealer!=null ? 'الفرصة الثانية: ' : 'يجاوب: ') + teamName(pi);
+  g.fillStyle = col; g.beginPath(); g.arc(FFW-118, ty, 13, 0, 7); g.fill(); g.fillStyle = '#f3ecdc'; g.fillText(label, FFW-146, ty+2);
+  for(let n=0;n<3;n++){ const x = 110 + n*70, on = n < R.strikes; ffRR(g, x, ty-26, 56, 52, 10); g.fillStyle = on ? '#d8432b' : 'rgba(255,255,255,.06)'; g.fill(); g.lineWidth = 3; g.strokeStyle = on ? '#ff8a6a' : 'rgba(216,67,43,.6)'; g.stroke();
+    if(on){ g.textAlign = 'center'; g.font = '900 40px Tajawal, sans-serif'; g.fillStyle = '#fff'; g.fillText('✗', x+28, ty+2); } }
+  // answer slots: right column first (reading order), most popular at the top
+  const top = 296, h = rows>4 ? 82 : rows>3 ? 100 : 116, gap = rows>4 ? 10 : 16, colW = 640, fs = rows>4 ? 40 : 46;
+  for(let n=0;n<N;n++){ const c = n < rows ? 0 : 1, r = n % rows; const x = c===0 ? FFW/2+20 : FFW/2-20-colW, y = top + r*(h+gap);
+    const rev = R.rev[k].includes(n), shown = rev || R.shown[k].includes(n);
+    let sy = 1, face = shown; const f = R.flip; if(f && f.k===k && f.i===n){ const p = Math.min(1, (now-f.t0)/450); sy = Math.abs(Math.cos(p*Math.PI)); face = p >= 0.5 ? shown : false; }
+    g.save(); g.translate(x+colW/2, y+h/2); g.scale(1, Math.max(0.02, sy)); g.translate(-(x+colW/2), -(y+h/2));
+    ffRR(g, x, y, colW, h, 18);
+    if(!face){ const bg = g.createLinearGradient(0,y,0,y+h); bg.addColorStop(0,'#1d5a8a'); bg.addColorStop(1,'#123a5c'); g.fillStyle = bg; g.fill(); g.lineWidth = 4; g.strokeStyle = '#f6d47a'; g.stroke();
+      g.fillStyle = '#f6d47a'; g.beginPath(); g.ellipse(x+colW/2, y+h/2, 58, h*0.33, 0, 0, 7); g.fill(); g.fillStyle = '#123a5c'; g.textAlign = 'center'; g.font = `900 ${fs}px Tajawal, sans-serif`; g.fillText(String(n+1), x+colW/2, y+h/2+3); }
+    else { const who = R.claim[k][n]; g.fillStyle = rev ? '#fbf3df' : 'rgba(251,243,223,.55)'; g.fill(); g.lineWidth = 4; g.strokeStyle = rev ? '#f6d47a' : 'rgba(246,212,122,.4)'; g.stroke();
+      if(rev && who!=null){ g.fillStyle = TEAM_STYLES[who].color; ffRR(g, x+colW-22, y+12, 10, h-24, 5); g.fill(); }
+      g.fillStyle = rev ? '#2a2116' : 'rgba(42,33,22,.6)'; g.textAlign = 'right'; ffFit(g, q.a[n], colW-(q.n&&q.n[n]!=null?190:90), fs, 800, 'Tajawal, sans-serif'); g.fillText(q.a[n], x+colW-44, y+h/2+3);
+      if(q.n && q.n[n]!=null){ g.fillStyle = '#123a5c'; ffRR(g, x+16, y+12, 96, h-24, 12); g.fill(); g.fillStyle = '#f6d47a'; g.textAlign = 'center'; g.font = `900 ${fs-4}px Tajawal, sans-serif`; g.fillText(String(q.n[n]), x+64, y+h/2+3); } }
+    g.restore(); }
+  // banner (second chance)
+  const B = R.banner; if(B && now - B.t0 < 3800){ const a = Math.min(1, (now-B.t0)/250, (B.t0+3800-now)/400);
+    g.save(); g.globalAlpha = a; g.fillStyle = 'rgba(8,16,18,.86)'; g.fillRect(40, FFH/2-110, FFW-80, 220); g.fillStyle = '#f6c65a'; g.fillRect(40, FFH/2-110, FFW-80, 6); g.fillRect(40, FFH/2+104, FFW-80, 6);
+    g.textAlign = 'center'; g.font = '400 96px Rakkas, serif'; g.fillStyle = '#f6c65a'; g.fillText(B.text, FFW/2, FFH/2-22); g.font = '800 42px Tajawal, sans-serif'; g.fillStyle = '#f3ecdc'; g.fillText(B.sub, FFW/2, FFH/2+58); g.restore(); }
+  // steps earned so far this round
+  const earned = state.teams.map((tm,j)=>({j, n:R.earned[j]})).filter(e=>e.n>0);
+  if(earned.length){ g.textAlign = 'center'; g.font = '800 34px Tajawal, sans-serif'; const txt = earned.map(e=>`${teamName(e.j)} \u200E+${e.n}\u200E`).join('     ');
+    g.fillStyle = 'rgba(0,0,0,.35)'; const w = g.measureText(txt).width + 80; ffRR(g, FFW/2-w/2, FFH-118, w, 58, 29); g.fill(); g.fillStyle = '#f6d47a'; g.fillText(txt + '  خطوات', FFW/2, FFH-88); }
+}
+function feudDraw(now, t){ const R = state.feudRun; if(!R) return;
+  if(R.stage==='intro' || R.stage==='cats' || R.stage==='scan') ffTitle(ffCtx, t); else ffBoard(ffCtx, t, now);
+  ffTex.needsUpdate = true; }
+/* stage lights that sweep the TV wall while the round is on */
+const stageLights = [0xffb347, 0xff5a6a].map((c,n)=>{ const L = new THREE.SpotLight(c, 0, 8, 0.3, 0.55, 1); L.position.set(n? 1.7 : -1.3, 2.75, 1.6); L.target.position.set(0.2, 1.3, ROOM.z1); scene.add(L); scene.add(L.target); return L; });
+const lightBase = {};
+function feudTick(now, t){
+  if(now - ffLast > 40){ ffLast = now; feudDraw(now, t); }
+  stageLights.forEach((L,n)=>{ if(L.intensity>0){ L.target.position.x = 0.2 + Math.sin(t*0.9 + n*2.4)*1.5; L.target.position.y = 1.4 + Math.cos(t*0.7 + n)*0.6; } });
+}
+const teamSpot = new THREE.SpotLight(0xfff0d0, 0, 4, 0.16, 0.5, 1); teamSpot.position.set(0, 2.85, 0); scene.add(teamSpot); scene.add(teamSpot.target);
+let dimList = null;
+function dimTargets(){ // every room light, the HDR reflections, and the exposure
+  const L = [], M = new Set(); scene.traverse(o=>{ if(o.isLight && o!==teamSpot && !stageLights.includes(o) && o!==flashLight) L.push(o);
+    if(o.isMesh && o!==tvScreen) (Array.isArray(o.material) ? o.material : [o.material]).forEach(m=>{ if(m && 'envMapIntensity' in m) M.add(m); }); });
+  return {L:L.map(l=>({l, base:l.intensity})), M:[...M].map(m=>({m, base:m.envMapIntensity})), exp:renderer.toneMappingExposure}; }
+async function feudDim(level, dur){ // level 1 = normal room, 0 = blackout
+  if(!dimList) dimList = dimTargets(); const D = dimList;
+  const from = D.cur==null ? 1 : D.cur; D.cur = level;
+  await tween(REDUCED?20:dur, k=>{ const v = from + (level-from)*ease(k);
+    D.L.forEach(x=>{ const keep = x.l===hemi ? 0.12 : x.l===sun ? 0.04 : x.l===candleLight ? 0.9 : 0.25; x.l.intensity = x.base*(keep + (1-keep)*v); });
+    D.M.forEach(x=>{ x.m.envMapIntensity = x.base*(0.12 + 0.88*v); }); renderer.toneMappingExposure = D.exp*(0.8 + 0.2*v); });
+  if(level===1) dimList = null; }
+function lightTween(list, to, dur){ const from = list.map(L=>L.intensity); return tween(REDUCED?20:dur, k=>{ list.forEach((L,n)=>{ L.intensity = from[n] + (to-from[n])*ease(k); }); }); }
+function feudTV(on){ const m = tvScreen.material; m.map = on ? ffTex : tvScreenTex; m.color.set(on ? 0xffffff : 0xb8a090); m.needsUpdate = true; }
+function feudFrame(){ // camera spot that fills the screen with the TV, above the control bar
+  const w = canvas.clientWidth||innerWidth, h = canvas.clientHeight||innerHeight, a = w/h, bar = Math.min(150, h*0.22), top = Math.min(70, h*0.1);
+  const tan = Math.tan(THREE.MathUtils.degToRad(camera.fov/2)), usable = (h-bar-top)/h;
+  const d = Math.max(0.9/(2*tan*usable), 1.53/(2*tan*a)), shift = ((bar-top)/2)/h * 2*d*tan, c = tvScreen.position;
+  return {tv:true, pos:new THREE.Vector3(c.x, c.y-shift, c.z-d), look:new THREE.Vector3(c.x, c.y-shift, c.z)}; }
+function feudFly(to, dur){ // glide the camera from where it is now
+  feudLook.copy(cam.target); const from = {pos:camera.position.clone(), look:cam.target.clone()};
+  feudCam = Object.assign(to, {from, t0:performance.now(), dur:REDUCED?1:dur}); return wait(REDUCED?20:dur); }
+async function feudCamOn(dur){ await feudFly(feudFrame(), dur); }
+async function feudCamOff(dur){ const to = {pos:camOrbitPos(cam.theta, cam.phi, cam.radius, cam.target, new THREE.Vector3()), look:cam.target.clone()};
+  feudCam = Object.assign(to, {from:{pos:camera.position.clone(), look:feudLook.clone()}, t0:performance.now(), dur:REDUCED?1:dur}); await wait(REDUCED?20:dur); feudCam = null; }
+/* sounds */
+function tone(f, at, dur, type, vol){ const a=audio(); if(!a) return; const o=a.createOscillator(), g=a.createGain(); o.type = type||'triangle'; o.frequency.value = f; const t0 = a.currentTime+at;
+  g.gain.setValueAtTime(0.0001,t0); g.gain.exponentialRampToValueAtTime(vol||0.18,t0+0.02); g.gain.exponentialRampToValueAtTime(0.0001,t0+dur); o.connect(g).connect(a.destination); o.start(t0); o.stop(t0+dur+0.05); }
+function drumroll(sec){ const n = Math.round(sec/0.055); for(let k=0;k<n;k++) setTimeout(()=>noise(0.05, 0.06 + 0.22*k/n), k*55); setTimeout(()=>{ noise(0.7, 0.45); thump(70); }, n*55); }
+function fanfare(){ [523,659,784,1046].forEach((f,k)=>tone(f, k*0.13, k===3?0.7:0.22, 'square', 0.07)); [523,659,784,1046].forEach((f,k)=>tone(f, k*0.13, k===3?0.7:0.22, 'triangle', 0.14)); }
+function buzzer(){ tone(110, 0, 0.7, 'sawtooth', 0.16); tone(117, 0, 0.7, 'square', 0.08); }
+function ding(){ tone(1046, 0, 0.5, 'triangle', 0.2); tone(1568, 0.08, 0.6, 'triangle', 0.14); }
+/* the square itself: a gold ring that pulses out when it is found, then stays as a faint mark */
+let feudMarker = null;
+function feudMarkerClear(){ if(feudMarker){ boardRoot.remove(feudMarker); feudMarker = null; } }
+async function feudSquareFx(i){ const p = tilePos[state.feudSpot];
+  const mat = new THREE.MeshBasicMaterial({color:0xffc24a, transparent:true, opacity:1, side:THREE.DoubleSide, depthWrite:false, blending:THREE.AdditiveBlending});
+  const ring = new THREE.Mesh(new THREE.RingGeometry(0.34, 0.48, 48), mat); ring.rotation.x = -Math.PI/2; ring.position.set(p.x, TILE_TOP+0.03, p.z); boardRoot.add(ring);
+  sparks(totems[i].position.clone().add(V3(0,0.5,0)), 0xffc24a, 60, 2.4); setAnim(totems[i], 'cheer'); setMood(i, 'happy', 4000);
+  for(let n=0;n<3;n++){ await tween(REDUCED?20:800, k=>{ ring.scale.setScalar(1+k*2.4); mat.opacity = 1-k; }); }
+  ring.scale.setScalar(1); mat.opacity = 0.45; mat.blending = THREE.NormalBlending; feudMarkerClear(); feudMarker = ring; }
+/* panels */
+function feudSheet(html){ $('feudBody').innerHTML = html; $('feud').hidden = false; }
+function feudSheetClose(){ $('feud').hidden = true; }
+function feudLinkText(R){ return R.link==='ok' ? 'جوال المقدّم متصل: يكشف الأجوبة ويحط الأخطاء من جواله.' : R.link==='lost' ? 'انقطع اتصال جوال المقدّم. المقدّم يضغط رقم الجواب هنا.'
+  : R.link==='fail' ? 'الاتصال المباشر ما اشتغل هنا (يحتاج نسخة الموقع وإنترنت). المقدّم يشوف الأجوبة بجواله ويضغط رقم الجواب هنا.' : 'ينتظر جوال المقدّم… (أو المقدّم يضغط رقم الجواب هنا)'; }
+function feudLinkUI(){ const R = state.feudRun; if(!R) return; const a = $('ffLink'); if(a){ a.textContent = feudLinkText(R); a.className = 'fflink' + (R.link==='ok'?' ok':R.link==='fail'||R.link==='lost'?' bad':''); }
+  const b = $('ffbLink'); if(b){ b.textContent = feudLinkText(R); b.className = 'hint' + (R.link==='ok'?' ok':''); } }
+function renderFeudBar(){ const R = state.feudRun, bar = $('feudBar');
+  if(!R || !['play','steal','qend'].includes(R.stage)){ bar.hidden = true; return; }
+  const q = R.qs[R.k], pi = R.playing, live = R.stage==='play'; bar.hidden = false;
+  bar.innerHTML = `<div class="who"><span class="swatch" style="--tc:${TEAM_STYLES[pi].color}"></span><div><div class="eyebrow">${R.stealer!=null?'الفرصة الثانية':'يجاوب'} · السؤال ${R.k+1} من 2</div><b>${esc(teamName(pi))}</b></div></div>
+    <div class="strikes" aria-label="الأخطاء ${R.strikes} من 3">${[0,1,2].map(n=>`<i class="${n<R.strikes?'on':''}">✗</i>`).join('')}</div>
+    <div class="nums" aria-label="اكشف جواب">${q.a.slice(0,10).map((_,n)=>`<button type="button" data-n="${n}" ${R.rev[R.k].includes(n)||!live?'disabled':''} aria-label="اكشف الجواب ${n+1}">${n+1}</button>`).join('')}</div>
+    <button class="btn bad xbtn" type="button" id="ffbX" ${live?'':'disabled'}>✗ غلط</button>
+    <div class="hint" id="ffbLink"></div>`;
+  bar.querySelectorAll('.nums button').forEach(b=>b.onclick=()=>feudReveal(R.k, +b.dataset.n));
+  $('ffbX').onclick = ()=>feudStrike(R.k); feudLinkUI(); }
+/* host phone link */
+let ffPeer = null, ffConn = null;
+function feudPeerStart(R){
+  if(!window.Peer){ R.link = 'fail'; return; }
+  R.peerId = 'darb' + Math.random().toString(36).slice(2, 10) + Date.now().toString(36).slice(-4); R.link = 'wait';
+  let p; try{ p = ffPeer = new Peer(R.peerId, peerOptions()); }catch(e){ R.link = 'fail'; return; }
+  setTimeout(()=>{ if(state.feudRun===R && R.link==='wait' && !R.peerOpen){ R.link = 'fail'; feudLinkUI(); } }, 9000);
+  p.on('open', ()=>{ R.peerOpen = true; });
+  p.on('error', ()=>{ if(!R.peerOpen && state.feudRun===R){ R.link = 'fail'; feudLinkUI(); } });
+  p.on('connection', c=>{ if(state.feudRun!==R) return; ffConn = c;
+    c.on('open', ()=>{ R.link = 'ok'; feudLinkUI(); feudSync(); });
+    c.on('data', m=>{ if(!m || state.feudRun!==R) return; if(m.t==='hello') feudSync(); else if(m.t==='rev') feudReveal(+m.k, +m.i); else if(m.t==='x') feudStrike(+m.k); });
+    c.on('close', ()=>{ if(state.feudRun===R && ffConn===c){ R.link = 'lost'; feudLinkUI(); } }); });
+}
+function feudPeerStop(){ if(ffConn) try{ ffConn.send({t:'end'}); }catch(e){} const p = ffPeer; ffPeer = null; ffConn = null; if(p) setTimeout(()=>{ try{ p.destroy(); }catch(e){} }, 400); }
+function feudSync(){ const R = state.feudRun; if(!R || !ffConn) return;
+  try{ ffConn.send({t:'sync', cur:R.k, rev:R.rev, strikes:R.strikes, team:R.playing!=null?teamName(R.playing):'', color:R.playing!=null?TEAM_STYLES[R.playing].color:'', stage:R.stage}); }catch(e){} }
+/* play */
+function feudReveal(k, n){ const R = state.feudRun; if(!R || R.stage!=='play' || R.k!==k) return; const q = R.qs[k];
+  if(!(n>=0 && n<Math.min(10,q.a.length)) || R.rev[k].includes(n)) return;
+  R.rev[k].push(n); R.claim[k][n] = R.playing; R.earned[R.playing]++; R.flip = {k, i:n, t0:performance.now()}; ding();
+  renderFeudBar(); feudSync();
+  if(R.rev[k].length >= Math.min(10,q.a.length)){ R.stage = 'qend'; renderFeudBar(); feudSync(); setTimeout(()=>feudQuestionEnd('clear'), 900); } }
+let feudXTimer = 0;
+function feudXFlash(n){ const el = $('feudX'); el.firstElementChild.textContent = '✗'.repeat(n); el.classList.add('on'); clearTimeout(feudXTimer); feudXTimer = setTimeout(()=>el.classList.remove('on'), 1000); }
+async function feudStrike(k){ const R = state.feudRun; if(!R || R.stage!=='play' || R.k!==k) return;
+  R.strikes++; buzzer(); feudXFlash(R.strikes); renderFeudBar(); feudSync();
+  if(R.strikes < 3) return;
+  R.stage = 'steal'; renderFeudBar(); feudSync(); await wait(REDUCED?100:1200);
+  if(R.stealer==null){
+    const j = await chooseTeam(`${teamName(R.lander)}: ثلاث أخطاء! أي فريق يكمل؟`, [R.lander]);
+    R.stealer = j; R.playing = j; R.strikes = 0; R.stage = 'play';
+    R.banner = {text:`الفرصة عند ${teamName(j)}`, sub:'كل جواب صح بخطوة، وعندكم ٣ أخطاء', t0:performance.now()}; chime(true); renderFeudBar(); feudSync();
+  } else { R.stage = 'qend'; feudQuestionEnd('out'); } }
+async function feudQuestionEnd(why){ const R = state.feudRun, k = R.k, q = R.qs[k]; R.stage = 'qend'; renderFeudBar(); feudSync();
+  if(why==='clear'){ fanfare(); await wait(REDUCED?100:1200); }
+  for(let n=0;n<Math.min(10,q.a.length);n++) if(!R.rev[k].includes(n)){ R.shown[k].push(n); R.flip = {k, i:n, t0:performance.now()}; thump(260); await wait(REDUCED?60:520); }
+  await wait(REDUCED?100:900);
+  const last = k===1;
+  $('feudBar').hidden = true;
+  feudSheet(`<h2>${last ? 'خلصت الجولة' : 'خلص السؤال الأول'}</h2>${feudSummary(R)}
+    <div class="row"><button class="btn primary" id="ffNext" type="button">${last ? 'نرجع للوحة ونتقدم' : 'السؤال الثاني'}</button></div>`);
+  $('ffNext').onclick = ()=>{ feudSheetClose(); const d = R.done; R.done = null; d && d(); }; }
+function feudSummary(R){ const rows = state.teams.map((tm,j)=>({j, n:R.earned[j]})).filter(e=>e.n>0 || e.j===R.lander);
+  return `<div class="ffsum">${rows.map(e=>`<div><span class="swatch" style="--tc:${TEAM_STYLES[e.j].color}"></span>${esc(teamName(e.j))}<em><bdi dir="ltr">+${e.n}</bdi> ${e.n===1?'خطوة':'خطوات'}</em></div>`).join('')}</div>`; }
+function feudPlay(k){ const R = state.feudRun; R.k = k; R.playing = R.lander; R.stealer = null; R.strikes = 0; R.stage = 'play'; R.flip = null;
+  renderFeudBar(); feudSync(); chime(true); return new Promise(res=>{ R.done = res; }); }
+function feudPickQ(cat, exclude){ const all = FEUD.qs.map((q,i)=>i).filter(i=>FEUD.qs[i].c===cat && !exclude.includes(i));
+  let pool = all.filter(i=>!state.feudUsed.includes(i)); if(!pool.length) pool = all; if(!pool.length) pool = FEUD.qs.map((q,i)=>i).filter(i=>!exclude.includes(i));
+  const qi = pool[(Math.random()*pool.length)|0]; state.feudUsed.push(qi); return qi; }
+function feudCats(i){ return new Promise(res=>{ const R = state.feudRun;
+  const avail = (FEUD.cats||[]).filter(c=>FEUD.qs.some(q=>q.c===c.id));
+  if(avail.length < 2){ res(avail.length ? [avail[0].id, avail[0].id] : [FEUD.qs[0].c, FEUD.qs[1].c]); return; }
+  let sel = [];
+  const draw = ()=>{ feudSheet(`<h2>كمّل القائمة</h2><p class="lead"><b style="color:${TEAM_STYLES[i].color}">${esc(teamName(i))}</b>: اختاروا فئتين، وتجيكم سؤال من كل فئة.</p>
+    <div class="ffcats">${avail.map(c=>`<button class="pickbtn" type="button" data-id="${esc(c.id)}" aria-pressed="${sel.includes(c.id)}">${esc(c.name)}</button>`).join('')}</div>
+    ${FEUD.sample ? '<p class="ffnote">هذي أسئلة تجريبية لين توصل الأسئلة الأصلية.</p>' : ''}
+    <div class="row"><button class="btn primary" id="ffCatGo" type="button" ${sel.length===2?'':'disabled'}>${sel.length===2?'يلا':'اختاروا '+(2-sel.length)+(2-sel.length===1?' فئة بعد':' فئات')}</button></div>`);
+    $('feudBody').querySelectorAll('.ffcats .pickbtn').forEach(b=>b.onclick=()=>{ const id = b.dataset.id; if(sel.includes(id)) sel = sel.filter(x=>x!==id); else if(sel.length<2) sel.push(id); thump(200); draw(); });
+    $('ffCatGo').onclick = ()=>{ if(sel.length===2){ feudSheetClose(); res(sel); } }; };
+  draw(); }); }
+function feudScan(R){ return new Promise(res=>{ const code = R.qi.map(encodeF).join('-') + (R.peerId ? '-'+R.peerId : '');
+  const others = state.teams.length > 2 ? `فريق ثاني يختاره ${esc(teamName(R.lander))}` : esc(teamName((R.lander+1)%2));
+  feudSheet(`<h2>كمّل القائمة</h2>
+    <div class="qrbox"><div class="qr" id="ffQR" role="img" aria-label="باركود جوال المقدّم"></div>
+      <p>المقدّم بس يمسح الباركود بجواله. يشوف أجوبة السؤالين، ولما الفريق يقول جواب صح يضغط عليه وينكشف على التلفزيون. لا تخلون أحد يشوف جواله!</p></div>
+    <ul class="ffrules">
+      <li>سؤالين، واحد من كل فئة. يبدأ <b>${esc(teamName(R.lander))}</b> في الاثنين.</li>
+      <li>كل جواب ينكشف = <b>خطوة لقدّام</b> للفريق اللي قاله.</li>
+      <li>ثلاث أخطاء وتنتقل الفرصة لـ ${others}. ياخذون خطوة عن كل جواب، ويكملون لين تنكشف اللوحة أو ياخذون ثلاث أخطاء.</li>
+    </ul>
+    <p class="fflink" id="ffLink"></p>
+    <div class="row"><button class="btn primary" id="ffGo" type="button">نبدأ</button></div>`);
+  if(window.QRCode) new QRCode($('ffQR'), {text: SHARE_URL + '#f-' + code, width: 300, height: 300, colorDark:'#141a15', colorLight:'#ffffff', correctLevel: QRCode.CorrectLevel.M});
+  else $('ffQR').textContent = 'الباركود ما اشتغل';
+  feudLinkUI(); $('ffGo').onclick = ()=>{ feudSheetClose(); res(); }; }); }
+async function runFeud(i){
+  const t = state.teams[i]; t.feudDone = true; stopTimer(); hideDie(); panel.hidden = true; busy = true;
+  const R = state.feudRun = {lander:i, k:0, qs:[], qi:[], rev:[[],[]], shown:[[],[]], claim:[{},{}], earned:state.teams.map(()=>0), strikes:0, playing:i, stealer:null, stage:'intro', link:'wait'};
+  state.phase = 'feud'; activeTeam = i; renderTeams();
+  // 1. the statue stops; the lights go out around it and one spotlight picks it out
+  following = !REDUCED; camGoal.radius = Math.min(overviewRadius, 0.8); camGoal.target.copy(worldPosOf(i));
+  teamsEl.hidden = true; toastEl.hidden = true; await wait(REDUCED?20:700);
+  const sp = worldPosOf(i); teamSpot.position.set(sp.x, 2.85, sp.z); teamSpot.target.position.copy(sp);
+  fxOverlay.className = 'fx-dark'; fxOverlay.style.opacity = '1';
+  drumroll(3.2); await Promise.all([feudDim(0, 2200), lightTween([teamSpot], 7, 2200)]);
+  // 2. the hidden square gives itself away
+  await feudSquareFx(i); fanfare(); await wait(REDUCED?20:900);
+  // 3. the TV switches on, stage lights sweep, the camera glides over to it
+  feudTV(true); fxOverlay.style.opacity = '0'; following = false;
+  lightTween([teamSpot], 0, 1500); lightTween(stageLights, 3, 1800);
+  await feudCamOn(3200); setAnim(totems[i], 'idle');
+  await wait(REDUCED?20:2200);
+  // 3. categories, questions, host phone
+  R.stage = 'cats'; R.cats = await feudCats(i);
+  R.qi[0] = feudPickQ(R.cats[0], []); R.qi[1] = feudPickQ(R.cats[1], [R.qi[0]]); R.qs = R.qi.map(n=>{ const q = FEUD.qs[n]; return {...q, a:q.a.slice(0,10)}; });
+  R.stage = 'scan'; feudPeerStart(R); await feudScan(R);
+  // 4. two questions
+  for(let k=0;k<2;k++) await feudPlay(k);
+  // 5. back to the board, then everyone moves
+  R.stage = 'end'; feudPeerStop(); $('feudBar').hidden = true;
+  lightTween(stageLights, 0, 1200); await feudCamOff(2600); await feudDim(1, 1600); feudTV(false); teamsEl.hidden = false; toastEl.hidden = false;
+  const order = state.teams.map((_,j)=>(i+j) % state.teams.length).filter(j=>R.earned[j]>0);
+  for(const j of order){ await moveTeam(j, R.earned[j]);
+    if(state.teams[j].pos >= GOAL){ state.feudRun = null; busy = false; win(j); return; } }
+
+  endFollow(); state.feudRun = null; busy = false;
+}
+function nextTurn(){ stopTimer(); phoneCleanup();
+  const due = feudDue(); if(due>=0){ runFeud(due).then(()=>{ if(state.phase!=='won') nextTurn(); }); return; }
+  state.turn = (state.turn+1) % state.teams.length; state.pit = null; state.trap = null; state.badges = []; refillIfEmpty(); state.phase = 'pick'; renderPanel(); }
 function win(i){ setMood(i, 'happy'); setAnim(totems[i], 'cheer');
   endFollow(); hideDie(); stopTimer(); state.phase = 'won'; activeTeam = i; renderTeams(); panel.hidden = true;
   const t = state.teams[i]; $('winName').textContent = t.name; $('winName').style.color = TEAM_STYLES[i].color;
@@ -1676,7 +2055,9 @@ function newBoard(cats){ return cats.map(cat=>({cat, tiles:['e','e','n','n','h',
 async function startGame(teams, cats){
   clearAllBlocks();
   state = {teams:teams.map(t=>({name:t.name, statue:{...t.statue}, pos:0, lifelines:[...t.lifelines], used:[]})), turn:0, phase:'setup',
-    cats:[...cats], board:newBoard(cats), round:1, usedQ:[], blocks:[], pit:null, trap:null, badges:[], current:null, rollFor:0};
+    cats:[...cats], board:newBoard(cats), round:1, usedQ:[], blocks:[], pit:null, trap:null, badges:[], current:null, rollFor:0,
+    feudSpot: FEUD_OK ? feudSpotPick() : -1, feudUsed:[], feudRun:null};
+  feudMarkerClear();
   buildTotems(); renderTeams(); ['setup','life','draft','win'].forEach(id=>$(id).hidden = true); audio();
   wideHold = false; await startTour();
   state.phase = 'pick'; renderPanel();
@@ -1709,13 +2090,13 @@ function mergedGeometry(root){ // first mesh geometry, baked into the root's fra
 // models ship as base64 text files (the artifact host serves text, not .glb/.hdr)
 async function fetchB64(url){ const r = await fetch(url); if(!r.ok) throw new Error(url); const bin = atob((await r.text()).trim()); const u = new Uint8Array(bin.length); for(let i=0;i<bin.length;i++) u[i] = bin.charCodeAt(i); return u.buffer; }
 async function loadAssets(){
-  const gl = new THREE.GLTFLoader(); const steps = 5; let done = 0;
+  const gl = new THREE.GLTFLoader(); const steps = 11; let done = 0;
   const tick = (msg)=>{ done++; loadBar.style.width = (done/steps*100)+'%'; if(msg) loadText.textContent = msg; };
   const glb = url=>fetchB64(url).then(buf=>new Promise(res=>gl.parse(buf, '', g=>res(g.scene), ()=>res(null)))).catch(()=>null);
   const pmrem = new THREE.PMREMGenerator(renderer);
   const hdr = await fetchB64('assets/room_1k.hdr.txt').then(buf=>{ const d = new THREE.RGBELoader().setDataType(THREE.UnsignedByteType).parse(buf);
       const t = new THREE.DataTexture(d.data, d.width, d.height, d.format, d.type); t.encoding = THREE.RGBEEncoding; t.minFilter = t.magFilter = THREE.NearestFilter; t.generateMipmaps = false; t.flipY = true; t.needsUpdate = true; return t; }).catch(()=>null);
-  if(hdr){ const dd = hdr.image.data; for(let i=3;i<dd.length;i+=4){ if(dd[i]>1) dd[i]-=1; } hdr.needsUpdate = true; // halve the bright daylight so colours stay rich
+  if(hdr){ const dd = hdr.image.data; for(let i=0;i<dd.length;i+=4){ dd[i+1] = dd[i+1]*0.84|0; dd[i+2] = dd[i+2]*0.6|0; if(dd[i+3]>1) dd[i+3]-=1; } hdr.needsUpdate = true; // halve the daylight and tint it amber so the room reads warm
     envTex = pmrem.fromEquirectangular(hdr).texture; scene.environment = envTex; hdr.dispose(); }
   tick('نصب القهوة…');
   const [dallah, cup, mab, sofa] = await Promise.all([
@@ -1724,6 +2105,15 @@ async function loadAssets(){
     glb('assets/mubkhara_arabic.glb.txt').then(r=>{ tick('نولع البخور…'); return r; }),
     glb('assets/sofa.glb.txt').then(r=>{ tick('نرتب المساند…'); return r; })
   ]);
+  const [tableM, carpet, cushions, aircon, candles, fondant] = await Promise.all([
+    glb('assets/table.glb.txt').then(r=>{ tick('نجيب الطاولة…'); return r; }),
+    glb('assets/carpet.glb.txt').then(r=>{ tick('نفرش الزولية…'); return r; }),
+    glb('assets/ottoman.glb.txt').then(r=>{ tick(); return r; }),
+    glb('assets/aircon.glb.txt').then(r=>{ tick(); return r; }),
+    glb('assets/candles.glb.txt').then(r=>{ tick('نولع الشموع…'); return r; }),
+    glb('assets/fondant.glb.txt').then(r=>{ tick(); return r; })
+  ]);
+  placeRoomModels({tableM, carpet, cushions, aircon, candles, fondant});
   // dallah on the far corner
   if(dallah){ const d = normalise(shadowAll(dallah), 0.27); MODELS.dallah = mergedGeometry(normalise(dallah.clone(), 1));
     d.position.set(-0.56, TABLE.h, -0.36); d.rotation.y = 0.9; scene.add(d); }
@@ -1731,7 +2121,7 @@ async function loadAssets(){
     [[-0.38,-0.47,0],[-0.66,-0.12,1.2],[-0.47,-0.2,2.4]].forEach(([x,z,r])=>{ const c = base.clone(); c.position.set(x, TABLE.h, z); c.rotation.y = r; scene.add(c); }); }
   if(mab){ const m = normalise(shadowAll(mab), 0.26); m.position.set(SMOKE_ORIGIN.x, 0, SMOKE_ORIGIN.z); scene.add(m);
     const bb = new THREE.Box3().setFromObject(m); SMOKE_ORIGIN.y = bb.max.y - 0.01; MODELS.mabkhara = mergedGeometry(normalise(mab.clone(), 1)); }
-  if(sofa){ const fabric = new THREE.MeshStandardMaterial({color:0x9c8466, roughness:0.95}), cush = new THREE.MeshStandardMaterial({color:0xb59c7a, roughness:0.95}), dark = new THREE.MeshStandardMaterial({color:0x3a2c20, roughness:0.4, metalness:0.2});
+  if(sofa){ const fabric = new THREE.MeshStandardMaterial({color:0x96683f, roughness:0.95}), cush = new THREE.MeshStandardMaterial({color:0xb07f52, roughness:0.95}), dark = new THREE.MeshStandardMaterial({color:0x3a2c20, roughness:0.4, metalness:0.2});
     let idx = 0; sofa.traverse(m=>{ if(m.isMesh){ const n = m.geometry.attributes.position.count; m.material = n<700 ? dark : (idx%2? cush : fabric); idx++; m.geometry.computeVertexNormals(); } });
     const s = normalise(shadowAll(sofa), 0.86); const bb = new THREE.Box3().setFromObject(s); const sz = bb.getSize(new THREE.Vector3());
     if(sz.x < sz.z){ s.rotation.y = Math.PI/2; }
@@ -1742,9 +2132,30 @@ async function loadAssets(){
   pmrem.dispose(); loadCharacters();
 }
 const SOFA_FLIP = 0;
+// fit a model into a w×h×d box (non-uniform), centred on x/z, standing on y=0
+function fitBox(obj, w, h, d){ obj.updateMatrixWorld(true); const sz = new THREE.Box3().setFromObject(obj).getSize(new THREE.Vector3());
+  obj.scale.multiply(new THREE.Vector3(w/sz.x, h/sz.y, d/sz.z)); return normalise(obj, h); }
+function normaliseW(obj, width){ obj.updateMatrixWorld(true); const sz = new THREE.Box3().setFromObject(obj).getSize(new THREE.Vector3()); return normalise(obj, sz.y*width/Math.max(sz.x, sz.z)); }
+function placeRoomModels(m){
+  if(m.tableM){ // wooden coffee table with an open shelf; the board sits on its top at TABLE.h
+    const t = fitBox(shadowAll(m.tableM), 1.6, TABLE.h, 1.1); scene.add(t); standInTable.forEach(x=>x.visible = false); }
+  if(m.carpet){ m.carpet.traverse(o=>{ if(o.isMesh){ o.receiveShadow = true; o.material.metalness = 0; o.material.roughness = 0.95; } });
+    const c = normalise(m.carpet, 0.012); c.rotation.y = Math.PI/2; c.position.set(0, 0.001, 0.1); scene.add(c); rug.visible = false; }
+  if(m.cushions){ m.cushions.updateMatrixWorld(true);
+    const spots = [['Coussin',-0.45,1.3,0.35],['Coussin001',-1.05,1.0,-0.25],['Coussin002',2.2,1.65,0.6]]; // two in front of the table, one by the majlis
+    spots.forEach(([name,x,z,ry])=>{ const n = m.cushions.getObjectByName(name); if(!n) return; const k = n.clone(); n.matrixWorld.decompose(k.position, k.quaternion, k.scale);
+      const g = new THREE.Group(); g.add(k); const c = normalise(shadowAll(g), 0.13); c.position.set(x, 0.008, z); c.rotation.y = ry; scene.add(c); });
+    floorCushions.forEach(x=>x.visible = false); }
+  if(m.aircon){ const a = normaliseW(shadowAll(m.aircon), 0.95); a.position.set(-2.2, 2.33, ROOM.z0+0.14); scene.add(a); if(COZY.ac) COZY.ac.visible = false; }
+  if(m.candles){ const c = normaliseW(shadowAll(m.candles), 0.36); c.position.set(-0.62, 0.42, ROOM.z1-0.27); c.rotation.y = Math.PI+0.3; scene.add(c); if(COZY.tvVase) COZY.tvVase.visible = false;
+    c.traverse(o=>{ if(o.isMesh && o.material.name==='material'){ o.material.emissive = new THREE.Color(0xffffff); o.material.emissiveIntensity = 1.6; o.castShadow = false; } }); // the four flames
+    candleLight.position.set(-0.62, 0.66, ROOM.z1-0.32); candleLight.visible = true; }
+  if(m.fondant){ const f = normaliseW(shadowAll(m.fondant), 0.19); f.position.set(-0.64, TABLE.h, 0.44); f.rotation.y = 0.6; scene.add(f); sweets.visible = false; }
+}
+const candleLight = new THREE.PointLight(0xff9440, 0.45, 2.2, 2); candleLight.visible = false; scene.add(candleLight);
 
 /* table dressing drawn in code */
-teaGlass(-0.66, 0.3); teaGlass(-0.52, 0.42); sweetsPlate(-0.6, 0.12+0.32);
+teaGlass(-0.66, 0.3); teaGlass(-0.52, 0.42); const sweets = sweetsPlate(-0.6, 0.12+0.32);
 dateBowl(0.57, -0.36); nutsPlate(0.66, -0.12);
 tissueBox(0.6, 0.4, -0.25); remote(0.5, 0.24, 0.9); phone(0.66, TABLE.h, 0.16, 0.3, false);
 cable([[0.66,TABLE.h+0.004,0.08],[0.7,TABLE.h+0.003,0.0],[0.73,TABLE.h,-0.02],[0.75,TABLE.h-0.15,0.0],[0.78,0.02,0.05],[1.0,0.004,0.1],[1.3,0.004,-0.3]]);

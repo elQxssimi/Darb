@@ -37,10 +37,10 @@ function sideTable(scene, x, z){ const g=new THREE.Group();
   g.position.set(x,0,z); scene.add(g); return g; }
 function tableLamp(scene, x, y, z, lights){ const g=new THREE.Group();
   g.add(lathe([[0,0],[0.07,0],[0.09,0.05],[0.1,0.14],[0.07,0.24],[0.03,0.27],[0.015,0.3],[0,0.3]], M({color:0x2e6b6a, roughness:0.2})));
-  const shade=new THREE.Mesh(new THREE.CylinderGeometry(0.12,0.18,0.2,32,1,true), M({color:0xf4e7cf, emissive:0xffc77a, emissiveIntensity:0.55, roughness:0.9, side:THREE.DoubleSide, transparent:true, opacity:0.95}));
+  const shade=new THREE.Mesh(new THREE.CylinderGeometry(0.12,0.18,0.2,32,1,true), M({color:0xf4e7cf, emissive:0xffa64d, emissiveIntensity:0.75, roughness:0.9, side:THREE.DoubleSide, transparent:true, opacity:0.95}));
   shade.position.y=0.38; g.add(shade);
   g.traverse(o=>{ if(o.isMesh){ o.castShadow=true; } }); shade.castShadow=false;
-  if(lights){ const L=new THREE.PointLight(0xffc27a, 0.55, 2.6, 2); L.position.set(0,0.36,0); g.add(L); }
+  if(lights){ const L=new THREE.PointLight(0xff9f4a, 0.85, 2.8, 2); L.position.set(0,0.36,0); g.add(L); }
   g.position.set(x,y,z); scene.add(g); return g; }
 function floorLamp(scene, x, z){ const g=new THREE.Group();
   mesh(new THREE.CylinderGeometry(0.17,0.19,0.03,32), M({color:0x222222, metalness:0.6, roughness:0.4}), 0,0.015,0,g);
@@ -94,13 +94,13 @@ function wallClock(scene, x, y, z, ry){ const g=new THREE.Group();
 function acUnit(scene, x, y, z, ry){ const g=new THREE.Group(); const b=new THREE.Mesh(new THREE.BoxGeometry(0.95,0.3,0.22), M({color:0xf7f7f5, roughness:0.35})); g.add(b);
   const grille=new THREE.Mesh(new THREE.BoxGeometry(0.85,0.04,0.02), M({color:0xd8d8d6})); grille.position.set(0,-0.11,0.1); g.add(grille);
   const led=new THREE.Mesh(new THREE.BoxGeometry(0.04,0.01,0.005), M({color:0x6fd1ff, emissive:0x6fd1ff, emissiveIntensity:1})); led.position.set(0.35,0.06,0.111); g.add(led);
-  g.position.set(x,y,z); g.rotation.y=ry; scene.add(g); }
+  g.position.set(x,y,z); g.rotation.y=ry; scene.add(g); return g; }
 function chandelier(scene, x, z, h, lights){ const g=new THREE.Group();
   mesh(new THREE.CylinderGeometry(0.008,0.008,0.6,6), brass, 0, 0.3, 0, g);
   const ring=new THREE.Mesh(new THREE.TorusGeometry(0.38,0.018,10,64), brass); ring.rotation.x=Math.PI/2; g.add(ring);
   for(let i=0;i<8;i++){ const a=i/8*Math.PI*2; const cup=lathe([[0,0],[0.03,0],[0.045,0.05],[0,0.05]], brass, 16); cup.position.set(Math.cos(a)*0.38,0.0,Math.sin(a)*0.38); g.add(cup);
     const b=new THREE.Mesh(new THREE.SphereGeometry(0.03,12,8), M({color:0xfff2d8, emissive:0xffd8a0, emissiveIntensity:1.2})); b.position.set(Math.cos(a)*0.38,0.08,Math.sin(a)*0.38); g.add(b); }
-  if(lights){ const L=new THREE.PointLight(0xffd2a0, 0.35, 4, 2); L.position.y=0; g.add(L); }
+  if(lights){ const L=new THREE.PointLight(0xffac5c, 0.5, 4.2, 2); L.position.y=0; g.add(L); }
   g.position.set(x,h-0.6,z); scene.add(g); }
 function drapes(scene, x, zA, zB, H, color){ const g=new THREE.PlaneGeometry(0.55, H, 30, 1); const p=g.attributes.position;
   for(let i=0;i<p.count;i++) p.setZ(i, Math.sin(p.getX(i)*34)*0.05+0.02); g.computeVertexNormals();
@@ -120,11 +120,12 @@ function toys(scene){ const ball=tex(256,(g,S)=>{ ['#e8473a','#f2c94c','#2f80ed'
 function tvDecor(scene, zWall){ const y=0.42; const z=zWall-0.25;
   mesh(new THREE.BoxGeometry(0.9,0.07,0.09), M({color:0x1a1a1c, roughness:0.4}), 0.2, y+0.035, z-0.05, scene); // soundbar
   const v=lathe([[0,0],[0.06,0],[0.09,0.1],[0.06,0.28],[0.05,0.34],[0,0.34]], M({color:0xc98b2a, roughness:0.25})); v.position.set(-0.6,y,z); v.castShadow=true; scene.add(v);
-  plant(scene, 0.95, z, 0.32, 8).position.y=y;
+  plant(scene, 0.95, z, 0.32, 8).position.y=y; const vase=v;
   books(scene, -0.42, y, z+0.02, 5, 9, Math.PI/2);
   const f1=photoFrame(0.16,0.2,0); f1.position.set(0.62,y+0.12,z); f1.rotation.y=Math.PI-0.2; f1.rotation.x=0.1; scene.add(f1);
   const ctrl=new THREE.Group(); mesh(new THREE.BoxGeometry(0.15,0.03,0.08), M({color:0x222326, roughness:0.4}),0,0.015,0,ctrl); [-0.06,0.06].forEach(dx=>mesh(new THREE.SphereGeometry(0.035,12,8), M({color:0x222326, roughness:0.4}),dx,0.015,0.03,ctrl));
   ctrl.position.set(-0.1,y,z+0.05); ctrl.rotation.y=Math.PI+0.3; scene.add(ctrl);
+  return {vase};
 }
 function thermosTray(scene, x, y, z){ const g=new THREE.Group();
   g.add(lathe([[0,0],[0.17,0],[0.19,0.025],[0.18,0.026],[0.16,0.008],[0,0.008]], brass));
@@ -151,15 +152,15 @@ window.DarbCozy = function(scene, o){
   bookcase(scene, 2.75, -2.28, 0);
   const clockHands = wallClock(scene, 3.44, 1.85, 0.25, -Math.PI/2);
   [[3.44,1.9,-0.55,1],[3.44,1.9,1.05,2],[3.44,1.45,-0.2,3],[3.44,1.45,0.7,4]].forEach(([x,y,z,i])=>{ const f=photoFrame(i%2?0.3:0.24, i%2?0.22:0.3, i); f.position.set(x,y,z); f.rotation.y=-Math.PI/2; scene.add(f); });
-  acUnit(scene, -2.2, 2.5, -2.38, 0);
+  const ac = acUnit(scene, -2.2, 2.5, -2.38, 0);
   chandelier(scene, 0, 0, 2.9, lights);
   drapes(scene, -3.36, -1.85, 2.15, 2.75, 0x5e1914);
   slippers(scene, 2.15, 1.55, 0.4, 0x7d1f1a); slippers(scene, 1.95, 1.75, -0.3, 0x1f3b5a); slippers(scene, -0.9, -1.25, 0.2, 0xc98b2a);
-  toys(scene); tvDecor(scene, 3.2);
+  toys(scene); const tv = tvDecor(scene, 3.2);
   throwBlanket(scene, 0.75, 0.47, -1.85, 0.1);
   // two sadu cushions on the sofa
   const sadu=tex(256,(g,S)=>{ ['#7d1f1a','#1c1a19','#efe6d2','#c98b2a','#7d1f1a'].forEach((c,i)=>{ g.fillStyle=c; g.fillRect(0,i*S/5,S,S/5); }); g.fillStyle='#efe6d2'; for(let x=0;x<S;x+=26){ g.beginPath(); g.moveTo(x,S*0.1-8); g.lineTo(x+8,S*0.1); g.lineTo(x,S*0.1+8); g.lineTo(x-8,S*0.1); g.fill(); } });
   [[-0.78,0.1],[0.78,-0.1]].forEach(([x,r])=>{ const c=puffBox(0.4,0.4,0.12, M({map:sadu, roughness:0.9}), 0.45); c.position.set(x,0.68,-1.98); c.rotation.set(-0.2,r,0); c.castShadow=c.receiveShadow=true; scene.add(c); });
-  return {clockHands};
+  return {clockHands, ac, tvVase: tv.vase};
 };
 })();
