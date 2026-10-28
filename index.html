@@ -515,6 +515,7 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--amber);outline-
 <script src="feud_data.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/peerjs@1.5.4/dist/peerjs.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/paho-mqtt@1.1.0/paho-mqtt-min.js"></script>
 <script>
 (function(){
 "use strict";
@@ -537,6 +538,24 @@ const PHONE_TIME = {charades:{e:70, n:50, h:30}, taboo:{e:70, n:50, h:30}, drawi
 const LVNAME = {e:'سهل', n:'متوسط', h:'صعب'};
 /* كلمة ورسمة: phone and screen talk over PeerJS (WebRTC). The public PeerJS server brokers the link; on localhost tests use a local one. */
 const peerOptions = ()=> /^(localhost|127\.0\.0\.1)$/.test(location.hostname) ? {host:location.hostname==='localhost'?'127.0.0.1':location.hostname, port:9000, path:'/darb', debug:0} : {debug:0};
+/* Message relay through a public MQTT broker (secure websockets). Both devices connect outward to the broker,
+   so it works when a direct phone-to-screen link (WebRTC) is blocked by the network. Tries several brokers. */
+const MQ_BROKERS = [{host:'broker.hivemq.com', port:8884, path:'/mqtt'}, {host:'broker.emqx.io', port:8084, path:'/mqtt'}, {host:'test.mosquitto.org', port:8081, path:'/mqtt'}];
+function relayOpen(room, inTopic, outTopic, onMsg, onState){
+  const P = window.Paho && (window.Paho.MQTT || window.Paho); let client = null, idx = 0, ok = false, dead = false, tries = 0;
+  const go = ()=>{ if(dead) return; if(!P || !P.Client){ onState('fail'); return; }
+    if(idx >= MQ_BROKERS.length){ idx = 0; onState('fail'); if(++tries < 6) setTimeout(go, 4000); return; }
+    const b = MQ_BROKERS[idx];
+    try{ client = new P.Client(b.host, b.port, b.path, 'darb' + Math.random().toString(36).slice(2, 12)); }catch(e){ idx++; go(); return; }
+    client.onMessageArrived = m=>{ try{ onMsg(JSON.parse(m.payloadString)); }catch(e){} };
+    client.onConnectionLost = ()=>{ if(!ok || dead) return; ok = false; onState('lost'); setTimeout(go, 1500); };
+    try{ client.connect({useSSL:true, timeout:7, keepAliveInterval:25, cleanSession:true,
+      onSuccess:()=>{ ok = true; try{ client.subscribe(`darb/${room}/${inTopic}`, {qos:1}); }catch(e){} onState('ok'); },
+      onFailure:()=>{ idx++; go(); }}); }catch(e){ idx++; go(); } };
+  go();
+  return { send(o){ if(!ok) return false; try{ const m = new P.Message(JSON.stringify(o)); m.destinationName = `darb/${room}/${outTopic}`; m.qos = 1; client.send(m); return true; }catch(e){ return false; } },
+    close(){ dead = true; try{ client && client.disconnect(); }catch(e){} }, get ok(){ return ok; } };
+}
 const escH = t=>String(t).replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 /* shared stroke renderer: points are 0..1000 across the canvas width (y uses the same scale) */
 function strokePaint(cv, ctx, st, from){
@@ -557,8 +576,15 @@ if(FEUD_RE.test(location.hash)){
   const m = FEUD_RE.exec(location.hash), F = window.DARB_FEUD || {qs:[], cats:[]}, hostId = m[3];
   const qs = [F.qs[decodeWord(m[1])], F.qs[decodeWord(m[2])]], catName = id=>((F.cats||[]).find(c=>c.id===id)||{}).name||'';
   const view = {cur:0, rev:[[],[]], strikes:0, team:'', color:'', stage:'wait'}; let local = [[],[]], open = false, conn = null, peer = null, tries = 0;
+  // "open" = the screen has answered us (a sync arrived), over either channel: direct (PeerJS) or the relay
+  let direct = false, relay = null, mid = 0, lastSync = 0, helloTimer = 0;
   const status = (t, cls)=>{ const el = $('ffStatus'); el.textContent = t; el.className = 'ff-status' + (cls ? ' '+cls : ''); };
-  const send = msg=>{ if(open && conn) try{ conn.send(msg); }catch(e){} };
+  const sendRaw = msg=>{ if(direct && conn) try{ conn.send(msg); }catch(e){} if(relay) relay.send(msg); };
+  const send = msg=>sendRaw(Object.assign({mid: Date.now().toString(36) + '-' + (++mid)}, msg));
+  const fromScreen = d=>{ if(!d) return; if(d.t==='sync'){ lastSync = Date.now(); if(!open){ open = true; status('متصل بالشاشة', 'ok'); } Object.assign(view, d); render(); }
+    else if(d.t==='end'){ status('خلصت الجولة', ''); view.stage = 'end'; render(); } };
+  const hello = ()=>{ clearInterval(helloTimer); helloTimer = setInterval(()=>{ if(open) { clearInterval(helloTimer); return; } sendRaw({t:'hello'}); }, 2000); sendRaw({t:'hello'}); };
+  setInterval(()=>{ if(open && Date.now()-lastSync > 20000){ sendRaw({t:'hello'}); } }, 10000);
   const render = ()=>{
     if(!qs[0] || !qs[1]){ $('ffQ').textContent = 'الباركود هذا مو صالح'; $('ffList').innerHTML = ''; $('ffX').hidden = true; $('ffNote').textContent = 'امسح الباركود اللي على الشاشة مرة ثانية.'; return; }
     $('ffTabs').innerHTML = [0,1].map(k=>`<button type="button" data-k="${k}" aria-pressed="${k===view.cur}">السؤال ${k+1}</button>`).join('');
@@ -568,18 +594,20 @@ if(FEUD_RE.test(location.hash)){
     $('ffQ').innerHTML = `<small>${escH(catName(q.c))}</small>${escH(q.q)}`;
     const live = !open || view.stage==='play';
     $('ffList').innerHTML = q.a.slice(0,10).map((a,i)=>`<button class="ff-a ${rev.includes(i)?'on':''}" type="button" data-i="${i}" ${rev.includes(i)||!live?'disabled':''}><b>${i+1}</b>${escH(a)}${q.n&&q.n[i]!=null?`<small>${escH(q.n[i])}</small>`:''}</button>`).join('');
-    $('ffList').querySelectorAll('.ff-a').forEach(b=>b.onclick=()=>{ const i = +b.dataset.i; if(open) send({t:'rev', k:view.cur, i}); else { local[view.cur].push(i); render(); } });
-    $('ffX').hidden = !open; $('ffX').disabled = !live;
-    $('ffNote').textContent = open ? 'لما يقول الفريق جواب صح اضغط عليه وينكشف على الشاشة. جواب غلط: اضغط ✗.'
-      : 'بدون اتصال: لما يقولون جواب صح، اضغط رقمه على الشاشة (وهنا عشان تتذكر). جواب غلط: اضغط ✗ على الشاشة.'; };
-  $('ffX').onclick = ()=>{ if(open) send({t:'x', k:view.cur}); };
-  const tryConn = ()=>{ if(open || tries++ > 15){ if(!open) status('بدون اتصال بالشاشة', 'bad'); return; }
-    conn = peer.connect(hostId, {reliable:true});
-    conn.on('open', ()=>{ open = true; status('متصل بالشاشة', 'ok'); send({t:'hello'}); render(); });
-    conn.on('data', d=>{ if(d && d.t==='sync'){ Object.assign(view, d); render(); } else if(d && d.t==='end'){ status('خلصت الجولة', ''); view.stage = 'end'; render(); } });
-    conn.on('close', ()=>{ open = false; status('انقطع الاتصال', 'bad'); render(); });
-    setTimeout(()=>{ if(!open) tryConn(); }, 2500); };
-  if(hostId && window.Peer){ try{ peer = new Peer(undefined, peerOptions()); peer.on('open', tryConn); peer.on('error', e=>{ if(!open && e && e.type!=='peer-unavailable') status('بدون اتصال بالشاشة', 'bad'); }); }catch(e){ status('بدون اتصال بالشاشة', 'bad'); } }
+    $('ffList').querySelectorAll('.ff-a').forEach(b=>b.onclick=()=>{ const i = +b.dataset.i; if(open){ send({t:'rev', k:view.cur, i}); b.disabled = true; } else { local[view.cur].push(i); render(); } });
+    $('ffX').hidden = false; $('ffX').disabled = !open || view.stage!=='play';
+    $('ffNote').textContent = open ? (view.stage==='play' ? 'لما يقول الفريق جواب صح اضغط عليه وينكشف على الشاشة. جواب غلط: اضغط ✗ غلط.' : 'ينتظر الشاشة… لما يبدأ السؤال تقدر تكشف الأجوبة من هنا.')
+      : 'يتصل بالشاشة… لين ما يتصل: لما يقولون جواب صح اضغط رقمه على الشاشة (وهنا عشان تتذكر)، والغلط اضغطه على الشاشة.'; };
+  $('ffX').onclick = ()=>{ if(open && view.stage==='play'){ send({t:'x', k:view.cur}); const b = $('ffX'); b.disabled = true; setTimeout(()=>{ b.disabled = !open || view.stage!=='play'; }, 900); } };
+  if(hostId){ status('يتصل بالشاشة…', '');
+    relay = relayOpen(hostId, 'tv', 'ph', fromScreen, st=>{ if(st==='ok') hello(); else if(!open && st==='fail' && !direct) status('ما قدر يتصل بالشاشة. تأكد من الإنترنت', 'bad'); });
+    const tryConn = ()=>{ if(direct || tries++ > 15) return;
+      conn = peer.connect(hostId, {reliable:true});
+      conn.on('open', ()=>{ direct = true; hello(); });
+      conn.on('data', fromScreen);
+      conn.on('close', ()=>{ direct = false; });
+      setTimeout(()=>{ if(!direct) tryConn(); }, 2500); };
+    if(window.Peer){ try{ peer = new Peer(undefined, peerOptions()); peer.on('open', tryConn); peer.on('error', ()=>{}); }catch(e){} } }
   else status('بدون اتصال بالشاشة', 'bad');
   render();
   window.addEventListener('hashchange', ()=>location.reload());
@@ -1842,8 +1870,8 @@ async function feudSquareFx(i){ const p = tilePos[state.feudSpot];
 /* panels */
 function feudSheet(html){ $('feudBody').innerHTML = html; $('feud').hidden = false; }
 function feudSheetClose(){ $('feud').hidden = true; }
-function feudLinkText(R){ return R.link==='ok' ? 'جوال المقدّم متصل: يكشف الأجوبة ويحط الأخطاء من جواله.' : R.link==='lost' ? 'انقطع اتصال جوال المقدّم. المقدّم يضغط رقم الجواب هنا.'
-  : R.link==='fail' ? 'الاتصال المباشر ما اشتغل هنا (يحتاج نسخة الموقع وإنترنت). المقدّم يشوف الأجوبة بجواله ويضغط رقم الجواب هنا.' : 'ينتظر جوال المقدّم… (أو المقدّم يضغط رقم الجواب هنا)'; }
+function feudLinkText(R){ return R.link==='ok' ? 'جوال المقدّم متصل: يكشف الأجوبة ويحط الأخطاء من جواله.'
+  : R.link==='fail' ? 'الاتصال بالجوال ما اشتغل هنا (يحتاج إنترنت). المقدّم يشوف الأجوبة بجواله ويضغط رقم الجواب هنا.' : 'ينتظر جوال المقدّم… (أو المقدّم يضغط رقم الجواب هنا)'; }
 function feudLinkUI(){ const R = state.feudRun; if(!R) return; const a = $('ffLink'); if(a){ a.textContent = feudLinkText(R); a.className = 'fflink' + (R.link==='ok'?' ok':R.link==='fail'||R.link==='lost'?' bad':''); }
   const b = $('ffbLink'); if(b){ b.textContent = feudLinkText(R); b.className = 'hint' + (R.link==='ok'?' ok':''); } }
 function renderFeudBar(){ const R = state.feudRun, bar = $('feudBar');
@@ -1858,21 +1886,28 @@ function renderFeudBar(){ const R = state.feudRun, bar = $('feudBar');
   $('ffbX').onclick = ()=>feudStrike(R.k); feudLinkUI(); }
 /* host phone link */
 let ffPeer = null, ffConn = null;
+let ffRelay = null;
+function feudIn(m, R){ // a message from the host's phone (it may arrive twice: direct and via the relay)
+  if(!m || state.feudRun!==R) return;
+  if(m.mid){ R.seen = R.seen || new Set(); if(R.seen.has(m.mid)) return; R.seen.add(m.mid); }
+  if(R.link!=='ok'){ R.link = 'ok'; feudLinkUI(); }
+  if(m.t==='hello') feudSync(); else if(m.t==='rev') feudReveal(+m.k, +m.i); else if(m.t==='x') feudStrike(+m.k); }
 function feudPeerStart(R){
-  if(!window.Peer){ R.link = 'fail'; return; }
   R.peerId = 'darb' + Math.random().toString(36).slice(2, 10) + Date.now().toString(36).slice(-4); R.link = 'wait';
-  let p; try{ p = ffPeer = new Peer(R.peerId, peerOptions()); }catch(e){ R.link = 'fail'; return; }
-  setTimeout(()=>{ if(state.feudRun===R && R.link==='wait' && !R.peerOpen){ R.link = 'fail'; feudLinkUI(); } }, 9000);
+  let fails = 0; const failed = ()=>{ if(++fails >= 2 && state.feudRun===R && R.link==='wait'){ R.link = 'fail'; feudLinkUI(); } };
+  ffRelay = relayOpen(R.peerId, 'ph', 'tv', m=>feudIn(m, R), st=>{ if(st==='fail') failed(); });
+  if(!window.Peer){ failed(); return; }
+  let p; try{ p = ffPeer = new Peer(R.peerId, peerOptions()); }catch(e){ failed(); return; }
+  p.on('error', ()=>{ if(!R.peerOpen) failed(); });
   p.on('open', ()=>{ R.peerOpen = true; });
-  p.on('error', ()=>{ if(!R.peerOpen && state.feudRun===R){ R.link = 'fail'; feudLinkUI(); } });
   p.on('connection', c=>{ if(state.feudRun!==R) return; ffConn = c;
-    c.on('open', ()=>{ R.link = 'ok'; feudLinkUI(); feudSync(); });
-    c.on('data', m=>{ if(!m || state.feudRun!==R) return; if(m.t==='hello') feudSync(); else if(m.t==='rev') feudReveal(+m.k, +m.i); else if(m.t==='x') feudStrike(+m.k); });
-    c.on('close', ()=>{ if(state.feudRun===R && ffConn===c){ R.link = 'lost'; feudLinkUI(); } }); });
+    c.on('data', m=>feudIn(m, R));
+    c.on('close', ()=>{ if(ffConn===c) ffConn = null; }); });
 }
-function feudPeerStop(){ if(ffConn) try{ ffConn.send({t:'end'}); }catch(e){} const p = ffPeer; ffPeer = null; ffConn = null; if(p) setTimeout(()=>{ try{ p.destroy(); }catch(e){} }, 400); }
-function feudSync(){ const R = state.feudRun; if(!R || !ffConn) return;
-  try{ ffConn.send({t:'sync', cur:R.k, rev:R.rev, strikes:R.strikes, team:R.playing!=null?teamName(R.playing):'', color:R.playing!=null?TEAM_STYLES[R.playing].color:'', stage:R.stage}); }catch(e){} }
+function feudPeerStop(){ feudSend({t:'end'}); const p = ffPeer, r = ffRelay; ffPeer = null; ffConn = null; ffRelay = null; setTimeout(()=>{ try{ p && p.destroy(); }catch(e){} r && r.close(); }, 600); }
+function feudSend(m){ if(ffConn) try{ ffConn.send(m); }catch(e){} if(ffRelay) ffRelay.send(m); }
+function feudSync(){ const R = state.feudRun; if(!R) return;
+  feudSend({t:'sync', cur:R.k, rev:R.rev, strikes:R.strikes, team:R.playing!=null?teamName(R.playing):'', color:R.playing!=null?TEAM_STYLES[R.playing].color:'', stage:R.stage}); }
 /* play */
 function feudReveal(k, n){ const R = state.feudRun; if(!R || R.stage!=='play' || R.k!==k) return; const q = R.qs[k];
   if(!(n>=0 && n<Math.min(10,q.a.length)) || R.rev[k].includes(n)) return;
