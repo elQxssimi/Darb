@@ -42,6 +42,34 @@ body{background:var(--night);color:var(--bone);font-family:var(--body);font-size
 #reveal .rv-note{margin:0;color:var(--bone);font-size:16px;line-height:1.6;text-align:center;text-wrap:balance}
 #reveal .rv-btn{font:inherit;font-weight:800;font-size:16px;border:1px solid var(--line);background:transparent;color:var(--bone);border-radius:12px;padding:14px}
 #reveal .rv-btn:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+#reveal .rv-main{display:flex;flex-direction:column;gap:18px}
+#reveal .rv-banned{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;max-width:100%}
+#reveal .rv-banned .bl{width:100%;text-align:center;font-size:13px;font-weight:800;color:#a8452f}
+#reveal .rv-banned span{background:#f8d3c6;color:#7a2a17;border-radius:999px;padding:4px 10px;font-weight:700;font-size:15px}
+#reveal .rv-btn.primary{background:var(--amber);color:#1b1408;border-color:transparent}
+.rv-draw{position:fixed;inset:0;display:flex;flex-direction:column;gap:10px;background:var(--night);padding-block:max(10px, env(safe-area-inset-top, 0px)) max(10px, env(safe-area-inset-bottom, 0px));padding-left:max(10px, env(safe-area-inset-left, 0px));padding-right:max(10px, env(safe-area-inset-right, 0px));direction:rtl}
+.rv-draw[hidden]{display:none!important}
+.dr-top{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.dr-word{font:inherit;font-weight:800;font-size:18px;color:var(--bone);background:transparent;border:1px solid var(--line);border-radius:10px;padding:6px 12px}
+.dr-word.hide{color:var(--bone-dim)}
+.dr-status{font-size:13px;font-weight:700;color:var(--bone-dim)}
+.dr-status.ok{color:var(--jade)}
+.dr-status.bad{color:var(--ember)}
+#drCanvas{flex:1;min-height:0;width:100%;background:#fff;border-radius:14px;touch-action:none;display:block}
+.dr-tools{display:flex;gap:8px;align-items:center;justify-content:center;flex-wrap:wrap}
+.dr-c{width:36px;height:36px;border-radius:50%;background:var(--c);border:3px solid transparent;box-shadow:0 0 0 1px var(--line)}
+.dr-c[aria-pressed="true"]{border-color:var(--bone)}
+.dr-b{font:inherit;font-weight:800;color:var(--bone);background:var(--moss-2);border:1px solid var(--line);border-radius:10px;padding:8px 14px}
+.dr-end{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(20,26,21,.82);color:var(--amber);font-size:34px;font-weight:800}
+.drawboard{position:fixed;z-index:6;top:50%;left:calc(400px + (100% - 400px)/2);transform:translate(-50%,-50%);display:flex;flex-direction:column;gap:6px;padding:10px;border-radius:16px;background:var(--glass);border:1px solid var(--line);box-shadow:var(--shadow);direction:rtl}
+.drawboard .db-head{display:flex;justify-content:space-between;align-items:baseline;font-size:14px;color:var(--bone)}
+.drawboard .db-head span{font-size:12px;color:var(--bone-dim)}
+#dbCanvas{background:#fff;border-radius:10px;display:block}
+@media (max-width:700px){.drawboard{left:50%;top:calc(10px + env(safe-area-inset-top,0px));transform:translateX(-50%)}}
+.qcard .banned{display:flex;flex-wrap:wrap;gap:4px;font-size:13px;color:#7a2a17}
+.qcard .banned span{background:#f8d3c6;border-radius:999px;padding:2px 8px;font-weight:700}
+.qcard .linknote{font-size:13px;font-weight:700;color:#7a5a2e}
+.btn.small{font-size:13px;padding:8px 12px}
 .qrbox{display:flex;gap:14px;align-items:center}
 .qrbox .qr{background:#fff;padding:8px;border-radius:10px;line-height:0;flex:none}
 .qrbox .qr img,.qrbox .qr canvas{width:176px;height:176px;display:block}
@@ -107,9 +135,14 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--amber);outline-
 .rollline{font-size:16px;font-weight:700;margin:0}
 .rollline em{font-style:normal;color:var(--amber)}
 
-#toast{position:absolute;left:50%;top:calc(22px + env(safe-area-inset-top,0px));transform:translate(-50%,-10px);opacity:0;pointer-events:none;
-  background:var(--bone);color:#24180a;border-radius:999px;padding:10px 20px;font-weight:800;box-shadow:var(--shadow);transition:opacity .3s, transform .3s;white-space:nowrap;max-width:calc(100% - 32px);overflow:hidden;text-overflow:ellipsis;z-index:5}
-#toast.show{opacity:1;transform:translate(-50%,0)}
+#toast{position:absolute;left:50%;top:calc(72px + env(safe-area-inset-top,0px));transform:translateX(-50%);display:flex;flex-direction:column;gap:8px;align-items:stretch;
+  width:min(460px, calc(100% - 32px));max-height:calc(100% - 120px);overflow-y:auto;pointer-events:none;z-index:5}
+#toast .tcard{pointer-events:auto;position:relative;background:var(--bone);color:#24180a;border-radius:16px;padding:12px 44px 12px 18px;font-weight:800;line-height:1.5;
+  box-shadow:var(--shadow);animation:toastIn .3s ease}
+#toast .tx{position:absolute;top:6px;left:6px;width:30px;height:30px;border:0;border-radius:50%;background:rgba(36,24,10,.1);color:#24180a;font-size:18px;line-height:30px;cursor:pointer;padding:0}
+#toast .tx:hover{background:rgba(36,24,10,.2)}
+#toast .tcard{padding:12px 18px 12px 44px}
+@keyframes toastIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
 #toast .tt{font-family:var(--display);font-weight:400;color:var(--amber-deep);margin-inline-end:6px}
 
 .modal{position:absolute;inset:0;display:grid;place-items:center;background:rgba(8,10,8,.35);
@@ -140,6 +173,7 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--amber);outline-
 #wsCanvas{width:100%;aspect-ratio:1;max-width:100%;border-radius:14px;background:radial-gradient(circle at 50% 35%, #3a4a3d, #18201a);display:block}
 .wsname{font-family:var(--display);font-size:24px;color:var(--amber);line-height:1.1}
 .wsctl{display:flex;flex-direction:column;gap:14px;min-width:0}
+.wsctl #wsDone{flex:0 0 auto;margin-top:auto}
 .tabs{display:flex;gap:8px}
 .tabs .chip{flex:1}
 .grp{display:flex;flex-direction:column;gap:8px}
@@ -234,11 +268,29 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--amber);outline-
 <body>
 <main id="reveal" hidden>
   <div class="rv-top"><span class="rv-brand">درب</span><span id="rvCat">ولا كلمة عامة</span></div>
-  <div class="rv-card"><div class="rv-meta" id="rvMeta"></div><div class="rv-word" id="rvWord"></div><div class="rv-cover" id="rvCover" hidden>الكلمة مخفية</div></div>
-  <p class="rv-note" id="rvNote">مثّلها بدون كلام ولا أصوات ولا إشارة لحروف. ارجع للشاشة واضغط «ابدأ الوقت».</p>
-  <button class="rv-btn" id="rvToggle" type="button">أخفِ الكلمة</button>
+  <div id="rvMain" class="rv-main">
+    <div class="rv-card"><div class="rv-meta" id="rvMeta"></div><div class="rv-word" id="rvWord"></div><div class="rv-banned" id="rvBanned" hidden></div><div class="rv-cover" id="rvCover" hidden>الكلمة مخفية</div></div>
+    <p class="rv-note" id="rvNote">مثّلها بدون كلام ولا أصوات ولا إشارة لحروف. ارجع للشاشة واضغط «ابدأ الوقت».</p>
+    <button class="rv-btn primary" id="rvReady" type="button" hidden>جاهز أرسم</button>
+    <button class="rv-btn" id="rvToggle" type="button">أخفِ الكلمة</button>
+  </div>
+  <section id="rvDraw" class="rv-draw" hidden aria-label="لوحة الرسم">
+    <div class="dr-top"><button class="dr-word" id="drWord" type="button" aria-label="أظهر أو أخفِ الكلمة"></button><span class="dr-status" id="drStatus">يتصل بالشاشة…</span></div>
+    <canvas id="drCanvas"></canvas>
+    <div class="dr-tools">
+      <button class="dr-c" type="button" data-c="#141a15" aria-label="أسود" aria-pressed="true" style="--c:#141a15"></button>
+      <button class="dr-c" type="button" data-c="#d4593f" aria-label="أحمر" aria-pressed="false" style="--c:#d4593f"></button>
+      <button class="dr-c" type="button" data-c="#3f6fd4" aria-label="أزرق" aria-pressed="false" style="--c:#3f6fd4"></button>
+      <button class="dr-c" type="button" data-c="#2e9b62" aria-label="أخضر" aria-pressed="false" style="--c:#2e9b62"></button>
+      <button class="dr-c" type="button" data-c="#e8a33a" aria-label="أصفر" aria-pressed="false" style="--c:#e8a33a"></button>
+      <button class="dr-b" id="drUndo" type="button">تراجع</button>
+      <button class="dr-b" id="drClear" type="button">مسح</button>
+    </div>
+    <div class="dr-end" id="drEnd" hidden>خلص الوقت</div>
+  </section>
 </main>
 <div id="app">
+<div id="drawBoard" class="drawboard" hidden><div class="db-head"><b>الرسمة</b><span id="dbStatus"></span></div><canvas id="dbCanvas"></canvas></div>
   <canvas id="scene" aria-label="غرفة جلوس ثلاثية الأبعاد ولوحة اللعب على الطاولة"></canvas>
 
   <div class="topbar">
@@ -253,7 +305,7 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--amber);outline-
 
   <section id="teams" aria-label="Teams"></section>
   <section id="panel" aria-live="polite" hidden></section>
-  <div id="toast" role="status"></div>
+  <div id="toast" role="status" aria-live="polite"></div>
   <div id="fxOverlay" aria-hidden="true"></div>
   <button class="iconbtn" id="skip" type="button" hidden>تخطي</button>
 
@@ -278,7 +330,9 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--amber);outline-
       <ol class="rules">
         <li>كل فريق يختار <b>3 وسائل مساعدة</b>، وبعدها الفرق تختار <b>6 فئات</b> للوحة.</li>
         <li>في دوركم اختاروا سؤال <b>سهل أو متوسط أو صعب</b>.</li>
-        <li>الجواب الصح يعطيكم <b>رمية نرد</b> ومكافأة: متوسط +1، صعب +2. الجواب الغلط يمرر الدور.</li>
+        <li>الجواب الصح يعطيكم <b>رمية نرد</b>: السهل من 1 لين 3 خطوات، والمتوسط النرد +1 (من 2 لين 7)، والصعب النرد +4 (من 5 لين 10).</li>
+        <li>الجواب الغلط يمرر الدور، والغلط في <b>الصعب</b> يرجّعكم خطوة وحدة.</li>
+        <li>ما تقدرون تختارون <b>سهل</b> مرتين ورا بعض.</li>
         <li>أول مجسم يوصل <b>برج الساعة</b> يفوز.</li>
       </ol>
       <div class="legend">
@@ -319,7 +373,6 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--amber);outline-
       <h2 style="font-size:32px">اختيار الفئات</h2>
       <div class="draftbar"><div class="draftwho" id="draftWho"></div><div class="eyebrow" id="draftCount"></div></div>
       <div class="catgrid" id="draftGrid"></div>
-      <p class="note">الفئات المكتوب عليها «قريباً» بتنزل في الدفعات الجاية.</p>
       <div class="row"><button class="btn ghost" id="btnDraftBack" type="button">رجوع</button><button class="btn ghost" id="btnDraftUndo" type="button">تراجع</button><button class="btn primary" id="btnBegin" type="button">يلا نبدأ</button></div>
     </div>
   </div>
@@ -342,11 +395,13 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--amber);outline-
         <div class="tabs">
           <button class="chip" type="button" id="tabGallery" aria-pressed="true">المعرض</button>
           <button class="chip" type="button" id="tabBuild" aria-pressed="false">صمّم مجسمك</button>
+          <button class="chip" type="button" id="tabChar" aria-pressed="false">شخصيات</button>
         </div>
         <div id="wsGallery" class="grp"></div>
         <div id="wsBuild" class="grp" hidden></div>
-        <div class="grp"><div class="eyebrow">الخامة</div><div class="chips" id="wsFinish"></div></div>
-        <p class="note">القاعدة دايماً بلون الفريق عشان الكل يميز المجسمات.</p>
+        <div id="wsChar" class="grp" hidden></div>
+        <div class="grp" id="wsFinishGrp"><div class="eyebrow">الخامة</div><div class="chips" id="wsFinish"></div></div>
+        <p class="note" id="wsNote">القاعدة دايماً بلون الفريق عشان الكل يميز المجسمات.</p>
         <button class="btn primary" id="wsDone" type="button">اعتمد هالمجسم</button>
       </div>
     </div>
@@ -373,6 +428,7 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--amber);outline-
         <span><b>Arabic coffee cup</b> by Fahd Alatwi, CC BY-NC 4.0 (non-commercial). <a href="https://sketchfab.com/3d-models/arabic-coffee-cup-47b8ad04eb4c4243aa9a8379e9719a99" target="_blank" rel="noopener">Source</a></span>
         <span><b>Lebombo</b> lighting environment from Poly Haven, CC0. <a href="https://polyhaven.com/a/lebombo" target="_blank" rel="noopener">Source</a></span>
         <span><b>Alnwyck Sofa</b>, source and licence to be confirmed.</span>
+        <span><b>Creative Character (free)</b> character and wardrobe pack, supplied by the game owner under a free licence for games. The walking, running and jumping are animated in code.</span>
         <span>The Riffa Clock Tower roundabout, the room furniture and the statues are drawn in code from reference photos for this prototype.</span>
       </div>
       <button class="btn ghost" id="creditsClose" type="button">إغلاق</button>
@@ -385,11 +441,13 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--amber);outline-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/RGBELoader.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/utils/SkeletonUtils.js"></script>
 <script src="cozy.js"></script>
 <script src="boards.js"></script>
 <script src="riffa.js"></script>
 <script src="questions.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/peerjs@1.5.4/dist/peerjs.min.js"></script>
 <script>
 (function(){
 "use strict";
@@ -404,19 +462,71 @@ const $ = id=>document.getElementById(id);
 const ARTIFACT_URL = 'https://claude.ai/artifact/Cpa3zeXdGRAYVKMBbMGR6x';
 /* On the public site (GitHub Pages) the QR points back to the site itself, so anyone can scan it without a Claude account. */
 const SHARE_URL = /\.github\.io$/.test(location.hostname) ? location.origin + location.pathname : ARTIFACT_URL;
-const REVEAL_RE = /^#w-([0-9a-z]+)$/;
+const REVEAL_RE = /^#w-([0-9a-z]+)(?:-(darb[0-9a-z]+))?$/;
 const encodeWord = idx=>'w-' + (idx*1296 + ((Math.random()*1296)|0)).toString(36);
 const decodeWord = code=>{ const n = parseInt(code, 36); return isFinite(n) ? Math.floor(n/1296) : -1; };
+/* modes that show the word on a phone, and their seconds per level */
+const PHONE_TIME = {charades:{e:70, n:50, h:30}, taboo:{e:70, n:50, h:30}, drawing:{e:90, n:70, h:50}};
+const LVNAME = {e:'سهل', n:'متوسط', h:'صعب'};
+/* كلمة ورسمة: phone and screen talk over PeerJS (WebRTC). The public PeerJS server brokers the link; on localhost tests use a local one. */
+const peerOptions = ()=> /^(localhost|127\.0\.0\.1)$/.test(location.hostname) ? {host:location.hostname==='localhost'?'127.0.0.1':location.hostname, port:9000, path:'/darb', debug:0} : {debug:0};
+const escH = t=>String(t).replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+/* shared stroke renderer: points are 0..1000 across the canvas width (y uses the same scale) */
+function strokePaint(cv, ctx, st, from){
+  const k = cv.width/1000, p = st.pts; if(!p.length) return;
+  ctx.strokeStyle = ctx.fillStyle = st.c; ctx.lineWidth = Math.max(1, st.w*k); ctx.lineCap = ctx.lineJoin = 'round';
+  if(p.length===1){ ctx.beginPath(); ctx.arc(p[0][0]*k, p[0][1]*k, ctx.lineWidth/2, 0, Math.PI*2); ctx.fill(); return; }
+  const i0 = Math.max(1, from||1); ctx.beginPath(); ctx.moveTo(p[i0-1][0]*k, p[i0-1][1]*k);
+  for(let i=i0;i<p.length;i++) ctx.lineTo(p[i][0]*k, p[i][1]*k); ctx.stroke();
+}
 if(REVEAL_RE.test(location.hash)){
   $('app').hidden = true; $('reveal').hidden = false; document.title = 'درب: الكلمة';
-  const LVN = {e:['سهل',70], n:['متوسط',50], h:['صعب',30]};
-  let covered = false;
+  let covered = false, drawing = null;
   const show = ()=>{ const m = REVEAL_RE.exec(location.hash); const q = m ? (window.DARB_QUESTIONS||[])[decodeWord(m[1])] : null;
-    const cat = q && (window.DARB_CATEGORIES||[]).find(c=>c.id===q.c);
-    if(!q || !cat || cat.mode!=='charades'){ $('rvWord').textContent = 'الباركود هذا مو صالح'; $('rvMeta').textContent = ''; $('rvNote').textContent = 'امسح الباركود اللي على الشاشة مرة ثانية.'; $('rvToggle').hidden = true; return; }
-    $('rvCat').textContent = cat.name; $('rvMeta').textContent = LVN[q.l][0] + ' · ' + LVN[q.l][1] + ' ثانية';
-    $('rvWord').textContent = q.q; covered = false; $('rvWord').hidden = false; $('rvCover').hidden = true; $('rvToggle').hidden = false; $('rvToggle').textContent = 'أخفِ الكلمة'; };
-  $('rvToggle').onclick = ()=>{ covered = !covered; $('rvWord').hidden = covered; $('rvCover').hidden = !covered; $('rvToggle').textContent = covered ? 'أظهر الكلمة' : 'أخفِ الكلمة'; };
+    const cat = q && (window.DARB_CATEGORIES||[]).find(c=>c.id===q.c), mode = cat && cat.mode;
+    if(drawing){ drawing.stop(); drawing = null; }
+    $('rvDraw').hidden = true; $('rvMain').hidden = false; $('rvBanned').hidden = true; $('rvReady').hidden = true;
+    if(!q || !PHONE_TIME[mode]){ $('rvWord').textContent = 'الباركود هذا مو صالح'; $('rvMeta').textContent = ''; $('rvNote').textContent = 'امسح الباركود اللي على الشاشة مرة ثانية.'; $('rvToggle').hidden = true; return; }
+    $('rvCat').textContent = cat.name; $('rvMeta').textContent = LVNAME[q.l] + ' · ' + PHONE_TIME[mode][q.l] + ' ثانية';
+    $('rvWord').textContent = q.q; covered = false; $('rvWord').hidden = false; $('rvCover').hidden = true; $('rvToggle').hidden = false; $('rvToggle').textContent = 'أخفِ الكلمة';
+    if(mode==='taboo'){ $('rvBanned').hidden = false; $('rvBanned').innerHTML = '<div class="bl">ممنوع تقول:</div>' + (q.x||[]).map(w=>`<span>${escH(w)}</span>`).join('');
+      $('rvNote').textContent = 'وصّف الكلمة لفريقك بدون ما تقولها، وبدون الكلمات الممنوعة. ارجع للشاشة واضغط «ابدأ الوقت».'; }
+    else if(mode==='drawing'){ $('rvReady').hidden = false; $('rvReady').onclick = ()=>{ drawing = startDraw(q, m[2]); };
+      $('rvNote').textContent = m[2] ? 'لما تكون جاهز اضغط «جاهز أرسم». الوقت يبدأ على الشاشة، والرسمة تطلع لهم وأنت ترسم.' : 'ارسم الكلمة على ورقة أو في جوالك، وفريقك يخمّن.'; }
+    else $('rvNote').textContent = 'مثّلها بدون كلام ولا أصوات ولا إشارة لحروف. ارجع للشاشة واضغط «ابدأ الوقت».'; };
+  $('rvToggle').onclick = ()=>{ covered = !covered; $('rvWord').hidden = covered; $('rvBanned').hidden = covered || !$('rvBanned').innerHTML; $('rvCover').hidden = !covered; $('rvToggle').textContent = covered ? 'أظهر الكلمة' : 'أخفِ الكلمة'; };
+  function startDraw(q, hostId){
+    $('rvMain').hidden = true; $('rvDraw').hidden = false; $('drEnd').hidden = true;
+    const cv = $('drCanvas'), ctx = cv.getContext('2d'), strokes = []; let cur = null, color = '#141a15', sid = 0, wordShown = true;
+    const status = (t, cls)=>{ const el = $('drStatus'); el.textContent = t; el.className = 'dr-status' + (cls ? ' '+cls : ''); };
+    $('drWord').textContent = q.q; $('drWord').classList.remove('hide');
+    $('drWord').onclick = ()=>{ wordShown = !wordShown; $('drWord').textContent = wordShown ? q.q : 'أظهر الكلمة'; $('drWord').classList.toggle('hide', !wordShown); };
+    const redraw = ()=>{ ctx.clearRect(0,0,cv.width,cv.height); strokes.forEach(st=>strokePaint(cv, ctx, st)); };
+    const fit = ()=>{ const r = cv.getBoundingClientRect(), dpr = Math.min(window.devicePixelRatio||1, 2); cv.width = Math.round(r.width*dpr); cv.height = Math.round(r.height*dpr); redraw(); };
+    fit(); window.addEventListener('resize', fit);
+    /* network */
+    let peer = null, conn = null, open = false, tries = 0, flushId = 0, dead = false;
+    const send = m=>{ if(open && conn) try{ conn.send(m); }catch(e){} };
+    const hello = ()=>{ send({t:'start', ar: cv.height/cv.width}); strokes.forEach(st=>send({t:'seg', id:st.id, c:st.c, w:st.w, p:st.pts})); };
+    const tryConn = ()=>{ if(dead || open || tries++ > 15) { if(!open && !dead) status('ما قدرنا نتصل بالشاشة. تأكد من الإنترنت', 'bad'); return; }
+      conn = peer.connect(hostId, {reliable:true});
+      conn.on('open', ()=>{ open = true; status('متصل بالشاشة', 'ok'); hello(); });
+      conn.on('data', m=>{ if(m && m.t==='end'){ $('drEnd').hidden = false; } });
+      conn.on('close', ()=>{ open = false; if(!dead) status('انقطع الاتصال', 'bad'); });
+      setTimeout(()=>{ if(!open) tryConn(); }, 2500); };
+    if(hostId && window.Peer){ try{ peer = new Peer(undefined, peerOptions()); peer.on('open', tryConn); peer.on('error', e=>{ if(!open && e && e.type!=='peer-unavailable') status('ما قدرنا نتصل بالشاشة. تأكد من الإنترنت', 'bad'); }); }catch(e){ status('ما قدرنا نتصل بالشاشة', 'bad'); } }
+    else status('بدون اتصال بالشاشة: ورّهم جوالك', 'bad');
+    flushId = setInterval(()=>{ if(cur && cur.buf.length){ send({t:'seg', id:cur.id, c:cur.c, w:cur.w, p:cur.buf}); cur.buf = []; } }, 40);
+    /* drawing input */
+    const pt = e=>{ const r = cv.getBoundingClientRect(); return [Math.round((e.clientX-r.left)/r.width*1000), Math.round((e.clientY-r.top)/r.width*1000)]; };
+    cv.onpointerdown = e=>{ e.preventDefault(); cv.setPointerCapture(e.pointerId); cur = {id: ++sid, c: color, w: 9, pts: [pt(e)], buf: []}; cur.buf.push(cur.pts[0]); strokes.push(cur); strokePaint(cv, ctx, cur); };
+    cv.onpointermove = e=>{ if(!cur) return; const p = pt(e), l = cur.pts[cur.pts.length-1]; if(Math.abs(p[0]-l[0]) + Math.abs(p[1]-l[1]) < 3) return; cur.pts.push(p); cur.buf.push(p); strokePaint(cv, ctx, cur, cur.pts.length-1); };
+    cv.onpointerup = cv.onpointercancel = ()=>{ if(cur && cur.buf.length){ send({t:'seg', id:cur.id, c:cur.c, w:cur.w, p:cur.buf}); cur.buf = []; } cur = null; };
+    $('rvDraw').querySelectorAll('.dr-c').forEach(b=>b.onclick=()=>{ color = b.dataset.c; $('rvDraw').querySelectorAll('.dr-c').forEach(x=>x.setAttribute('aria-pressed', String(x===b))); });
+    $('drUndo').onclick = ()=>{ const st = strokes.pop(); if(st){ redraw(); send({t:'undo', id:st.id}); } };
+    $('drClear').onclick = ()=>{ strokes.length = 0; redraw(); send({t:'clear'}); };
+    return {stop(){ dead = true; clearInterval(flushId); window.removeEventListener('resize', fit); try{ peer && peer.destroy(); }catch(e){} }};
+  }
   window.addEventListener('hashchange', show); show();
   return;
 }
@@ -432,7 +542,8 @@ const TEAM_STYLES = [
   {label:'الفريق السماوي', color:'#39b6d8'}
 ];
 const GOAL = 50;
-const LV = {e:{name:'سهل', bonus:0, back:1}, n:{name:'متوسط', bonus:1, back:2}, h:{name:'صعب', bonus:2, back:3}};
+/* movement after a right answer: easy = small die 1-3, normal = die + 1 (2-7), hard = die + 4 (5-10). A wrong hard answer costs 1 step. */
+const LV = {e:{name:'سهل', max:3, bonus:0, back:1, wrong:0, range:'1–3'}, n:{name:'متوسط', max:6, bonus:1, back:2, wrong:0, range:'2–7'}, h:{name:'صعب', max:6, bonus:4, back:3, wrong:1, range:'5–10'}};
 const LIFELINES = {
   call:{name:'اتصال بصديق', short:'اتصال'},
   pit:{name:'الحفرة', short:'حفرة'},
@@ -490,6 +601,18 @@ const BUILD_PARTS = {
   body:[['column','عمود'],['robe','ثوب'],['barrel','برميل'],['obelisk','مسلة']],
   head:[['sphere','كرة'],['cone','مخروط'],['gem','جوهرة'],['ring','حلقة'],['cube','مكعب'],['crown','تاج']]
 };
+/* characters: one rigged body + wardrobe parts from assets/creative_character.glb (node names) */
+const CHARACTERS = [
+  ['sport','الرياضي',['Hairstyle_male_012','T_Shirt_009','Shorts_003','Socks_008','Shoe_Sneakers_009','Headphones_002']],
+  ['pilot','الطيار',['Hat_057','Outerwear_029','Pants_014','Shoe_Slippers_005','Gloves_014','Moustache_002']],
+  ['clown','المهرج',['Costume_10_001','Clown_nose_001','Hairstyle_male_010','Gloves_006']],
+  ['mouse','الفار',['Costume_6_001','Glasses_004']],
+  ['bunny','الأرنب',['Hat_049','Outerwear_036','Pants_010','Shoe_Slippers_002']],
+  ['explorer','المغامر',['Hat_010','T_Shirt_009','Pants_010','Shoe_Sneakers_009','Glasses_006']],
+  ['teacher','الأستاذ',['Hairstyle_male_010','Glasses_004','Moustache_001','Outerwear_029','Pants_014','Shoe_Sneakers_009']],
+  ['baby','البيبي',['Pacifier_001','Hairstyle_male_012','T_Shirt_009','Shorts_003','Shoe_Slippers_002']]
+];
+const CHAR_NAME = Object.fromEntries(CHARACTERS.map(([id,n])=>[id,n]));
 const DEFAULT_STATUES = [
   {mode:'gallery', id:'falcon', finish:'bronze', base:'round', body:'robe', head:'sphere'},
   {mode:'gallery', id:'horse', finish:'stone', base:'round', body:'column', head:'gem'},
@@ -498,7 +621,7 @@ const DEFAULT_STATUES = [
   {mode:'gallery', id:'camel', finish:'gold', base:'round', body:'robe', head:'sphere'},
   {mode:'gallery', id:'palm', finish:'ebony', base:'hex', body:'column', head:'ring'}
 ];
-function statueLabel(s){ const f = FINISHES[s.finish].name;
+function statueLabel(s){ if(s.mode==='char') return `${CHAR_NAME[s.id]||'شخصية'} · شخصية`; const f = FINISHES[s.finish].name;
   if(s.mode==='gallery') return `${GALLERY_NAME[s.id]} · ${f}`;
   const n = k=>BUILD_PARTS[k].find(p=>p[0]===s[k])[1]; return `${n('head')} على ${n('body')} · ${f}`; }
 
@@ -819,16 +942,86 @@ function buildFigure(spec, mat){
   g.position.set(-c.x, -bb2.min.y, -c.z);
   const wrap = new THREE.Group(); wrap.add(g); return wrap;
 }
+let CHAR_SRC = null; const CHAR_H = 0.95; // same height as the tall gallery statues
+const FACES = {usual:'Male_emotion_usual_001', happy:'Male_emotion_happy_002', angry:'Male_emotion_angry_003'};
+function poseArms(root){ // T-pose -> arms down by the sides
+  root.updateMatrixWorld(true);
+  [['LeftArm','LeftForeArm',1],['RightArm','RightForeArm',-1]].forEach(([a,b,side])=>{
+    const arm = root.getObjectByName(a), fore = root.getObjectByName(b); if(!arm || !fore) return;
+    const p0 = arm.getWorldPosition(new THREE.Vector3()), p1 = fore.getWorldPosition(new THREE.Vector3());
+    const dir = p1.sub(p0).normalize(), want = new THREE.Vector3(0.2*Math.sign(dir.x||side), -1, 0.05).normalize();
+    const qd = new THREE.Quaternion().setFromUnitVectors(dir, want);
+    const qw = arm.getWorldQuaternion(new THREE.Quaternion()).premultiply(qd);
+    const qp = arm.parent.getWorldQuaternion(new THREE.Quaternion()).invert();
+    arm.quaternion.copy(qp.multiply(qw)); arm.updateMatrixWorld(true); });
+}
+function buildCharacter(id, teamColor){
+  if(!CHAR_SRC){ // file still loading: a simple stand-in, replaced once it arrives
+    const g = new THREE.Group(), m = new THREE.MeshStandardMaterial({color:new THREE.Color(teamColor), roughness:0.6, transparent:true, opacity:0.55});
+    const body = new THREE.Mesh(new THREE.CylinderGeometry(0.07,0.09,0.32,20), m); body.position.y = 0.16; g.add(body);
+    const head = new THREE.Mesh(new THREE.SphereGeometry(0.075,20,16), m); head.position.y = 0.4; g.add(head); g.userData.placeholder = true; return g; }
+  const c = THREE.SkeletonUtils.clone(CHAR_SRC), def = CHARACTERS.find(x=>x[0]===id) || CHARACTERS[0];
+  const keep = new Set(['Body_010', FACES.usual, FACES.happy, FACES.angry, ...def[2]]), faces = {};
+  c.traverse(o=>{ if(!o.isMesh) return; const part = keep.has(o.name) ? o.name : (o.parent && o.parent.name);
+    o.visible = keep.has(part); o.castShadow = true; o.receiveShadow = true; o.frustumCulled = false;
+    Object.entries(FACES).forEach(([k,n])=>{ if(part===n) (faces[k] = faces[k]||[]).push(o); }); });
+  poseArms(c); c.updateMatrixWorld(true); const rig = buildRig(c);
+  const vb = new THREE.Box3(); c.traverse(o=>{ if(o.isMesh && o.visible) vb.expandByObject(o); }); // size by the visible parts only
+  const sz = vb.getSize(new THREE.Vector3()); c.scale.multiplyScalar(CHAR_H/sz.y); c.updateMatrixWorld(true);
+  const vb2 = new THREE.Box3(); c.traverse(o=>{ if(o.isMesh && o.visible) vb2.expandByObject(o); }); const ctr = vb2.getCenter(new THREE.Vector3());
+  c.position.x -= ctr.x; c.position.z -= ctr.z; c.position.y -= vb2.min.y; const w = new THREE.Group(); w.add(c); /* the totem's local +Z points at the default camera, and so does the character's front */ w.userData.faces = faces; w.userData.rig = rig; rig.body = c; rig.baseY = c.position.y; w.userData.anim = {mode:'idle', k:0}; setFace(w, 'usual'); return w;
+}
+/* ---- procedural animation: the file has a skeleton but no clips, so the bones are posed in code ---- */
+const RIG_BONES = ['Hips','Spine','LeftUpLeg','LeftLeg','RightUpLeg','RightLeg','LeftArm','LeftForeArm','RightArm','RightForeArm'];
+function buildRig(c){ // rest pose + the character's sideways axis in each bone's parent frame (swings happen about it)
+  const rig = {b:{}}; const qc = c.getWorldQuaternion(new THREE.Quaternion()).invert(), side = new THREE.Vector3(1,0,0);
+  RIG_BONES.forEach(n=>{ const b = c.getObjectByName(n); if(!b) return;
+    const qp = b.parent.getWorldQuaternion(new THREE.Quaternion()).premultiply(qc); // parent orientation in the character's own frame
+    rig.b[n] = {bone:b, rest:b.quaternion.clone(), restPos:b.position.clone(), axis:side.clone().applyQuaternion(qp.invert()).normalize()}; });
+  return rig; }
+const _q = new THREE.Quaternion();
+function swing(rig, n, a){ const r = rig.b[n]; if(!r) return; r.bone.quaternion.copy(_q.setFromAxisAngle(r.axis, a)).multiply(r.rest); }
+function animateChar(fig, t, dt){ const rig = fig.userData.rig, an = fig.userData.anim; if(!rig || !an) return;
+  const k = an.k, L = (l,r)=>{ swing(rig,'LeftUpLeg',l); swing(rig,'RightUpLeg',r); }, K = (l,r)=>{ swing(rig,'LeftLeg',l); swing(rig,'RightLeg',r); },
+        A = (l,r)=>{ swing(rig,'LeftArm',l); swing(rig,'RightArm',r); }, F = (l,r)=>{ swing(rig,'LeftForeArm',l); swing(rig,'RightForeArm',r); };
+  let bob = 0, lean = 0;
+  if(an.mode==='walk' || an.mode==='run'){ const run = an.mode==='run', p = k*Math.PI*2, amp = run ? 0.75 : 0.45;
+    L(Math.sin(p)*amp, -Math.sin(p)*amp); K(Math.max(0,-Math.cos(p))*amp*1.2*-1, Math.max(0,Math.cos(p))*amp*1.2*-1);
+    A(-Math.sin(p)*amp*0.9, Math.sin(p)*amp*0.9); F(run?-0.9:-0.25, run?-0.9:-0.25);
+    bob = Math.abs(Math.sin(p))*(run?0.03:0.015); lean = run ? 0.18 : 0.05; }
+  else if(an.mode==='jump'){ // crouch, spring with arms up, tuck in the air, land
+    const c = k<0.18 ? k/0.18 : k>0.85 ? (1-k)/0.15 : 0, air = k>=0.18 && k<=0.85 ? Math.sin(Math.PI*(k-0.18)/0.67) : 0;
+    L(c*0.6 + air*0.7, c*0.6 + air*0.7); K(-(c*1.0 + air*1.1), -(c*1.0 + air*1.1)); A(-air*2.6 + c*0.4, -air*2.6 + c*0.4); F(-air*0.3, -air*0.3);
+    bob = -c*0.05; lean = c*0.25; }
+  else if(an.mode==='cheer'){ const p = t*6, up = Math.max(0, Math.sin(p));
+    L(0,0); K(-up*0.5, -up*0.5); A(-2.7 + Math.sin(t*12)*0.15, -2.7 - Math.sin(t*12)*0.15); F(-0.3,-0.3); bob = up*0.06; }
+  else { const br = Math.sin(t*2 + (fig.id%7)); // idle: breathing and a slight sway
+    L(0,0); K(0,0); A(br*0.04, -br*0.04); F(-0.12,-0.12); bob = (br+1)*0.002; }
+  swing(rig,'Spine', lean);
+  rig.body.position.y = rig.baseY + bob*CHAR_H/0.5;
+}
+function setAnim(m, mode, k){ const fig = m && m.userData.char; if(fig && fig.userData.anim){ fig.userData.anim.mode = mode; fig.userData.anim.k = k||0; } }
+function setFace(fig, mood){ const f = fig && fig.userData.faces; if(!f) return; Object.entries(f).forEach(([k,ms])=>ms.forEach(m=>{ m.visible = k===mood; })); }
+function setMood(i, mood, ms){ const t = totems[i]; if(!t || !t.userData.char) return; const fig = t.userData.char;
+  setFace(fig, mood); clearTimeout(fig.userData.moodT); if(ms) fig.userData.moodT = setTimeout(()=>setFace(fig, 'usual'), ms); }
+function loadCharacters(){ // not needed for the first screen, so it loads in the background
+  fetchB64('assets/creative_character.glb.txt').then(buf=>new Promise(res=>new THREE.GLTFLoader().parse(buf, '', g=>res(g.scene), ()=>res(null)))).then(sc=>{
+    if(!sc) return; CHAR_SRC = sc;
+    if(state.teams.some(t=>t.statue && t.statue.mode==='char')) buildTotems();
+    if(wsOpen && wsSpec && wsSpec.mode==='char') rebuildPreview(); }).catch(()=>{}); }
 function buildStatue(spec, teamColor){
   const root = new THREE.Group();
   const plinthMat = new THREE.MeshStandardMaterial({color:new THREE.Color(teamColor), roughness:0.3, metalness:0.1});
-  let plinth;
-  if(spec.mode==='build' && spec.base==='square') plinth = new THREE.Mesh(new THREE.BoxGeometry(0.4,0.08,0.4), plinthMat);
+  let plinth; const isChar = spec.mode==='char';
+  if(isChar){ plinth = new THREE.Mesh(new THREE.CircleGeometry(0.17, 40), new THREE.MeshBasicMaterial({color:new THREE.Color(teamColor), transparent:true, opacity:0.6, depthWrite:false}));
+    plinth.rotation.x = -Math.PI/2; plinth.position.y = 0.004; plinth.renderOrder = 1; root.add(plinth); }
+  else if(spec.mode==='build' && spec.base==='square') plinth = new THREE.Mesh(new THREE.BoxGeometry(0.4,0.08,0.4), plinthMat);
   else plinth = new THREE.Mesh(new THREE.CylinderGeometry(0.21,0.24,0.08,(spec.mode==='build'&&spec.base==='hex')?6:32), plinthMat);
-  plinth.position.y = 0.04; root.add(plinth);
-  const trim = new THREE.Mesh(new THREE.TorusGeometry(0.205,0.012,8,40), goldRim); trim.rotation.x=Math.PI/2; trim.position.y=0.082; if(!(spec.mode==='build'&&spec.base==='square')) root.add(trim);
-  const fig = buildFigure(spec, finishMat(spec.finish)); fig.position.y = 0.08; root.add(fig);
-  root.traverse(o=>{ if(o.isMesh){ o.castShadow = true; o.receiveShadow = true; } });
+  if(!isChar){ plinth.position.y = 0.04; root.add(plinth); }
+  const trim = new THREE.Mesh(new THREE.TorusGeometry(0.205,0.012,8,40), goldRim); trim.rotation.x=Math.PI/2; trim.position.y=0.082; if(!isChar && !(spec.mode==='build'&&spec.base==='square')) root.add(trim);
+  const fig = isChar ? buildCharacter(spec.id, teamColor) : buildFigure(spec, finishMat(spec.finish)); fig.position.y = isChar ? 0.005 : 0.08; root.add(fig);
+  if(spec.mode==='char') root.userData.char = fig;
+  root.traverse(o=>{ if(o.isMesh && !(isChar && o===plinth)){ o.castShadow = true; o.receiveShadow = true; } });
   const ring = new THREE.Mesh(new THREE.RingGeometry(0.3,0.38,40), new THREE.MeshBasicMaterial({color:new THREE.Color(teamColor), transparent:true, opacity:0, side:THREE.DoubleSide, depthWrite:false}));
   ring.rotation.x = -Math.PI/2; ring.position.y = 0.01; ring.castShadow=false; ring.receiveShadow=false; root.add(ring); root.userData.ring = ring;
   return root;
@@ -934,6 +1127,7 @@ function frame(){
       s.position.set(SMOKE_ORIGIN.x + Math.sin(a*6+i)*0.03*a + a*0.05, SMOKE_ORIGIN.y + a*0.9, SMOKE_ORIGIN.z + Math.cos(a*5+i*1.3)*0.03*a);
       const sc = 0.05 + a*0.35; s.scale.set(sc,sc,1); s.material.opacity = Math.sin(Math.PI*a)*0.35; s.material.rotation = a*2+i; });
   }
+  totems.forEach(m=>{ if(m.userData.char) animateChar(m.userData.char, t, dt); });
   totems.forEach((m,i)=>{ const ring = m.userData.ring; const target = i===activeTeam ? 0.6+Math.sin(t*4)*0.25 : 0; ring.material.opacity += (target-ring.material.opacity)*0.15; });
   for(let i=bursts.length-1;i>=0;i--){ const b=bursts[i]; b.life+=dt; const arr=b.p.geometry.attributes.position.array;
     b.vel.forEach((v,j)=>{ v.y -= 4*dt; arr[j*3]+=v.x*dt; arr[j*3+1]=Math.max(BOARD_TOP, arr[j*3+1]+v.y*dt); arr[j*3+2]+=v.z*dt; });
@@ -958,19 +1152,29 @@ function chime(up){ const a=audio(); if(!a) return; (up?[523,784]:[392,262]).for
 
 /* ================= motion ================= */
 function worldOf(local){ return boardRoot.localToWorld(local.clone()); }
-async function hopTo(i, toSpace){
-  const m = totems[i], from = m.position.clone(), to = spacePos(toSpace, i); const h = toSpace>=GOAL ? 1.4 : 0.7;
+async function hopTo(i, toSpace, kind){
+  const m = totems[i], from = m.position.clone(), to = spacePos(toSpace, i); let h = toSpace>=GOAL ? 1.4 : 0.7;
+  if(m.userData.char && !REDUCED){ kind = toSpace>=GOAL ? 'jump' : (kind||'walk'); const dur = (kind==='run' ? 300 : kind==='jump' ? 560 : 420) / 0.75; // 0.75x speed
+    h = kind==='jump' ? (toSpace>=GOAL ? 1.1 : 0.45) : kind==='run' ? 0.06 : 0.03;
+    const d = to.clone().sub(from), face = Math.atan2(d.x, d.z), r0 = m.rotation.y, dr = Math.atan2(Math.sin(face-r0), Math.cos(face-r0));
+    await tween(dur, k=>{ const e = kind==='jump' ? (k<0.18 ? 0 : k>0.85 ? 1 : ease((k-0.18)/0.67)) : k; m.position.lerpVectors(from,to,e);
+      const air = kind==='jump' ? (k<0.18||k>0.85 ? 0 : Math.sin(Math.PI*(k-0.18)/0.67)) : Math.abs(Math.sin(Math.PI*2*k));
+      m.position.y += air*h; m.rotation.y = r0 + dr*Math.min(1, k*4); setAnim(m, kind, k); });
+  } else
   await tween(REDUCED?60:300, k=>{ const e=ease(k); m.position.lerpVectors(from,to,e); m.position.y += Math.sin(Math.PI*k)*h; });
   m.position.copy(to); thump(120 + toSpace*1.5); if(!REDUCED) dust(to);
   if(following) camGoal.target.copy(worldOf(to));
 }
 async function moveTeam(i, steps){
-  const team = state.teams[i]; const dir = Math.sign(steps);
+  const team = state.teams[i]; const dir = Math.sign(steps); setMood(i, dir>0?'happy':'angry', 3000);
   if(!REDUCED){ following = true; camGoal.radius = Math.min(overviewRadius, 0.8); camGoal.target.copy(worldOf(totems[i].position)); await wait(350); }
   for(let s=0;s<Math.abs(steps);s++){ const next = THREE.MathUtils.clamp(team.pos + dir, 0, GOAL); if(next===team.pos) break;
-    team.pos = next; await hopTo(i, team.pos); renderTeams(); if(team.pos>=GOAL) break;
+    const n = Math.abs(steps), kind = s===n-1 ? 'jump' : n>3 ? 'run' : 'walk';
+    team.pos = next; await hopTo(i, team.pos, kind); renderTeams(); if(team.pos>=GOAL) break;
     if(dir>0 && state.blocks && state.blocks.includes(team.pos) && s<Math.abs(steps)-1){ clearBlock(team.pos); thump(60); toast('سد الطريق', `${team.name} وقف عند الحاجز`); break; }
     if(dir>0 && state.blocks && state.blocks.includes(team.pos)){ clearBlock(team.pos); } }
+  const m = totems[i]; setAnim(m, 'idle');
+  if(m && m.userData.char && !REDUCED){ const r0 = m.rotation.y, dr = Math.atan2(Math.sin(FACE_Y-r0), Math.cos(FACE_Y-r0)); await tween(300, k=>{ m.rotation.y = r0 + dr*ease(k); }); m.rotation.y = FACE_Y; }
   await wait(250);
 }
 function endFollow(){ following = false; camGoal.radius = overviewRadius; camGoal.target.copy(TABLE_TARGET); }
@@ -1005,17 +1209,26 @@ function renderTeams(){
       <span class="track"><i style="width:${Math.min(100,t.pos/GOAL*100)}%"></i></span>
     </div>`; }).join('');
 }
-let toastTimer = 0;
-function toast(title, text){ toastEl.innerHTML = `<span class="tt">${esc(title)}</span>${esc(text)}`; toastEl.classList.add('show'); clearTimeout(toastTimer); toastTimer = setTimeout(()=>toastEl.classList.remove('show'), 3000); }
+function toast(title, text){ /* stays until closed with the X; newest on top */
+  const c = document.createElement('div'); c.className = 'tcard';
+  c.innerHTML = `<button class="tx" type="button" aria-label="إغلاق">×</button><span class="tt">${esc(title)}</span>${esc(text)}`;
+  c.querySelector('.tx').onclick = ()=>c.remove(); toastEl.prepend(c); }
 let timerId = 0, timeLeft = 60, timeTotal = 60, callId = 0;
 const CAT_MODE = Object.fromEntries((window.DARB_CATEGORIES||[]).map(c=>[c.id, c.mode||'qa']));
-const CHARADE_TIME = {e:70, n:50, h:30};
-const isCharade = q=>!!q && CAT_MODE[q.c]==='charades';
+const modeOf = q=>q ? CAT_MODE[q.c] : 'qa';
+/* «phone» questions: the word is seen on a phone via QR (ولا كلمة، الشفرة، كلمة ورسمة) */
+const isCharade = q=>!!q && !!PHONE_TIME[modeOf(q)];
+const phoneSecs = q=>PHONE_TIME[modeOf(q)][q.l];
+const PHONE_TEXT = {
+  charades:{scan:'يمسح الباركود بكاميرا جواله ويشوف الكلمة بروحه. بعدها اضغطوا «ابدأ الوقت».', act:'مثّل الكلمة الحين! فريقك يخمّن.', go:'قريت الكلمة، ابدأ الوقت', who:'الفخ: يمثلها', ans:'الكلمة اللي انمثلت:', end:'وقفوا التمثيل'},
+  taboo:{scan:'يمسح الباركود ويشوف الكلمة والكلمات الممنوعة بروحه. بعدها اضغطوا «ابدأ الوقت».', act:'وصّف الكلمة بدون ما تقول الكلمات الممنوعة!', go:'قريت الكلمة، ابدأ الوقت', who:'الفخ: يوصفها', ans:'الكلمة:', end:'وقفوا الوصف'},
+  drawing:{scan:'يمسح الباركود ويضغط «جاهز أرسم» في جواله. الوقت يبدأ لحاله، والرسمة تطلع هنا وهو يرسم.', act:'ارسم! فريقك يخمّن.', go:'ابدأ الوقت بدون الجوال', who:'الفخ: يرسمها', ans:'الكلمة اللي انرسمت:', end:'وقفوا الرسم'},
+};
 function stopTimer(){ clearInterval(timerId); timerId = 0; clearInterval(callId); callId = 0; }
 function startTimer(sec){ stopTimer(); timeTotal = timeLeft = sec||60;
   timerId = setInterval(()=>{ timeLeft--; const el = $('timer'); if(el){ el.firstElementChild.style.width = Math.max(0,timeLeft/timeTotal*100)+'%'; if(timeLeft<=10) el.classList.add('out'); }
     const ts = $('tsec'); if(ts) ts.textContent = Math.max(0,timeLeft);
-    if(timeLeft<=0){ clearInterval(timerId); timerId = 0; chime(false); toast('خلص الوقت', isCharade(state.current) ? 'وقفوا التمثيل' : 'اكشفوا الجواب'); } }, 1000); }
+    if(timeLeft<=0){ clearInterval(timerId); timerId = 0; chime(false); toast('خلص الوقت', isCharade(state.current) ? PHONE_TEXT[modeOf(state.current)].end : 'اكشفوا الجواب'); if(hostConn) try{ hostConn.send({t:'end'}); }catch(e){} } }, 1000); }
 function turnHeader(idx, label){ const i = idx==null ? state.turn : idx; const t = state.teams[i];
   return `<div class="turnline"><span class="swatch" style="--tc:${TEAM_STYLES[i].color}"></span><div><div class="eyebrow">${label||'الدور على'}</div><b>${esc(t.name)}</b></div></div>`; }
 function badges(){ return state.badges.length ? `<div class="badges">${state.badges.map(b=>`<span class="badge">${esc(b)}</span>`).join('')}</div>` : ''; }
@@ -1026,10 +1239,11 @@ function renderPanel(extra){
   panel.classList.toggle('wide', state.phase==='pick');
   if(state.phase==='pick'){
     const canPit = t.lifelines.includes('pit') && !t.used.includes('pit') && !state.pit;
+    const noEasy = t.lastL==='e' && state.board.some(b=>b.tiles.some(x=>!x.used && x.l!=='e'));
     panel.innerHTML = turnHeader() + badges() + `
-      <div class="cboard">${state.board.map((b,ci)=>`<div class="ccol"><div class="cname">${esc(CAT_NAME[b.cat]||b.cat)}</div>${b.tiles.map((x,ti)=>`<button class="tile lv-${x.l}" type="button" data-c="${ci}" data-t="${ti}" ${x.used?'disabled':''}>${LV[x.l].name}</button>`).join('')}</div>`).join('')}</div>
+      <div class="cboard">${state.board.map((b,ci)=>`<div class="ccol"><div class="cname">${esc(CAT_NAME[b.cat]||b.cat)}</div>${b.tiles.map((x,ti)=>`<button class="tile lv-${x.l}" type="button" data-c="${ci}" data-t="${ti}" ${(x.used||(noEasy&&x.l==='e'))?'disabled':''}>${LV[x.l].name}</button>`).join('')}</div>`).join('')}</div>
       <div class="row">${canPit?`<button class="btn ghost" id="bPit" type="button">استخدم الحفرة قبل السؤال</button>`:''}</div>
-      <p class="note">اختاروا سؤال. الجواب الصح يعطيكم رمية نرد ومكافأة: سهل +0، متوسط +1، صعب +2.${state.round>1?` (اللوحة رقم ${state.round})`:''}</p>`;
+      <p class="note">${noEasy?'<b>اخترتوا سهل في دوركم اللي فات، الحين اختاروا متوسط أو صعب.</b> ':''}الجواب الصح: سهل 1–3 خطوات، متوسط 2–7، صعب 5–10. الغلط في الصعب يرجّعكم خطوة.${state.round>1?` (اللوحة رقم ${state.round})`:''}</p>`;
     panel.querySelectorAll('.tile').forEach(b=>b.onclick=()=>pickTile(+b.dataset.c, +b.dataset.t));
     if(canPit) $('bPit').onclick = usePit;
   } else if(state.phase==='question' && isCharade(state.current)){ renderCharade(t);
@@ -1037,7 +1251,7 @@ function renderPanel(extra){
     const q = state.current, shown = state.phase==='answer', who = state.trap ? state.trap.to : state.turn;
     const after = ['call','double','rest','trap'].filter(k=>t.lifelines.includes(k) && !t.used.includes(k) && !state.trap);
     panel.innerHTML = turnHeader(who, state.trap ? 'سؤال الفخ لـ' : 'الدور على') + badges() + `
-      <div class="qcard"><div class="cat"><span>${esc(CAT_NAME[q.c]||q.c)}</span><span>${LV[q.l].name} · <span dir="ltr">+${LV[q.l].bonus}</span></span></div><p>${isCharade(q)?'الكلمة اللي انمثلت:':esc(q.q)}</p>${shown?`<div class="ans">${esc(q.a)}</div>`:''}${shown&&q.r?`<div class="rnote">ملاحظة: ${esc(q.r)}</div>`:''}</div>
+      <div class="qcard"><div class="cat"><span>${esc(CAT_NAME[q.c]||q.c)}</span><span>${LV[q.l].name} · <span dir="ltr">${LV[q.l].range}</span> خطوات</span></div><p>${isCharade(q)?PHONE_TEXT[modeOf(q)].ans:esc(q.q)}</p>${shown?`<div class="ans">${esc(q.a)}</div>`:''}${shown&&q.x?`<div class="banned">${q.x.map(w=>`<span>${esc(w)}</span>`).join('')}</div>`:''}${shown&&q.r?`<div class="rnote">ملاحظة: ${esc(q.r)}</div>`:''}</div>
       ${shown?'':`<div class="timer" id="timer"><i style="width:${timeLeft/timeTotal*100}%"></i></div><div id="callBox"></div>`}
       ${!shown && after.length ? `<div class="lifes">${after.map(k=>`<button class="chip" type="button" data-l="${k}">${LIFELINES[k].name}</button>`).join('')}</div>` : ''}
       ${shown?`<div class="row"><button class="btn good" id="bRight" type="button">جواب صح</button><button class="btn bad" id="bWrong" type="button">جواب غلط</button></div>`
@@ -1047,7 +1261,7 @@ function renderPanel(extra){
       panel.querySelectorAll('.lifes .chip').forEach(b=>b.onclick=()=>useLifeline(b.dataset.l)); }
   } else if(state.phase==='roll'){
     const lv = LV[state.current.l];
-    panel.innerHTML = turnHeader(state.rollFor, 'جواب صح!') + badges() + `<p class="rollline">ارموا النرد وزيدوا <em>+${lv.bonus}</em>.</p><button class="btn primary" id="bRoll" type="button">ارمِ النرد</button>`;
+    panel.innerHTML = turnHeader(state.rollFor, 'جواب صح!') + badges() + `<p class="rollline">${lv.max<6?'ارموا النرد: السهل من <em>1</em> لين <em>3</em> خطوات.':lv.bonus?`ارموا النرد وزيدوا <em dir="ltr">+${lv.bonus}</em>.`:'ارموا النرد.'}</p><button class="btn primary" id="bRoll" type="button">ارمِ النرد</button>`;
     $('bRoll').onclick = doRoll;
   } else if(state.phase==='moving'){ panel.innerHTML = turnHeader(state.rollFor) + `<p class="rollline">${extra||'يتحرك…'}</p>`; }
   renderTeams();
@@ -1060,30 +1274,75 @@ function drawQuestion(cat, l){
   const q = pool[(Math.random()*pool.length)|0]; state.usedQ.push(QBANK.indexOf(q)); return q;
 }
 function pickTile(ci, ti){
-  const tile = state.board[ci].tiles[ti]; if(tile.used) return; tile.used = true;
+  const tile = state.board[ci].tiles[ti]; if(tile.used) return; tile.used = true; state.teams[state.turn].lastL = tile.l;
   state.current = drawQuestion(state.board[ci].cat, tile.l); state.phase = 'question'; hideDie();
-  if(isCharade(state.current)){ state.charade = {stage:'hidden'}; stopTimer(); renderPanel(); } else { renderPanel(); startTimer(); }
+  if(isCharade(state.current)){ newPhoneStage(); stopTimer(); renderPanel(); } else { renderPanel(); startTimer(); }
 }
-/* ولا كلمة on a shared screen: the actor scans a QR code to see the word on their phone */
+/* phone questions on a shared screen: the player scans a QR code to see the word on their phone */
 function charadeQR(el, code){ el.textContent = '';
   if(!window.QRCode){ el.textContent = 'الباركود ما اشتغل'; return; }
   new QRCode(el, {text: SHARE_URL + '#' + code, width: 300, height: 300, colorDark:'#141a15', colorLight:'#ffffff', correctLevel: QRCode.CorrectLevel.M}); }
+/* كلمة ورسمة: the screen hosts a PeerJS peer; the phone connects and streams strokes */
+let hostPeer = null, hostConn = null, boardStrokes = [];
+function phoneCleanup(){
+  if(hostConn) try{ hostConn.send({t:'end'}); }catch(e){}
+  const p = hostPeer; hostPeer = null; hostConn = null; if(p) setTimeout(()=>{ try{ p.destroy(); }catch(e){} }, 300);
+  $('drawBoard').hidden = true; boardStrokes = []; if(state) state.charade = null;
+}
+function newPhoneStage(){
+  phoneCleanup();
+  const q = state.current, st = state.charade = {stage:'hidden', code: encodeWord(QBANK.indexOf(q))};
+  if(modeOf(q)!=='drawing') return;
+  st.peerId = 'darb' + Math.random().toString(36).slice(2, 10) + Date.now().toString(36).slice(-4);
+  st.code += '-' + st.peerId; st.link = 'wait';
+  const relink = l=>{ if(state.charade===st && st.link!==l){ st.link = l; if(state.phase==='question') renderPanel(); } };
+  if(!window.Peer){ st.link = 'fail'; return; }
+  let p; try{ p = hostPeer = new Peer(st.peerId, peerOptions()); }catch(e){ st.link = 'fail'; return; }
+  setTimeout(()=>{ if(st.link==='wait' && !st.peerOpen) relink('fail'); }, 9000);
+  p.on('open', ()=>{ st.peerOpen = true; if(state.charade===st && state.phase==='question') renderPanel(); });
+  p.on('error', ()=>{ if(!st.peerOpen) relink('fail'); });
+  p.on('connection', c=>{ if(state.charade!==st) return; hostConn = c;
+    c.on('open', ()=>relink('ok'));
+    c.on('data', m=>boardMessage(m, st));
+    c.on('close', ()=>{ if(state.charade===st) relink('lost'); }); });
+}
+function boardFit(ar){
+  const cv = $('dbCanvas'), wide = window.innerWidth > 700, maxH = wide ? Math.min(window.innerHeight*0.8, 760) : window.innerHeight*0.42, maxW = wide ? Math.min(window.innerWidth - 460, 680) : window.innerWidth - 40;
+  let h = maxH, w = h/ar; if(w > maxW){ w = maxW; h = w*ar; }
+  cv.style.width = Math.round(w)+'px'; cv.style.height = Math.round(h)+'px';
+  const dpr = Math.min(window.devicePixelRatio||1, 2); cv.width = Math.round(w*dpr); cv.height = Math.round(h*dpr); boardRedraw();
+}
+function boardRedraw(){ const cv = $('dbCanvas'), ctx = cv.getContext('2d'); ctx.clearRect(0,0,cv.width,cv.height); boardStrokes.forEach(s=>strokePaint(cv, ctx, s)); }
+function boardMessage(m, st){
+  if(!m || state.charade!==st) return;
+  if(m.t==='start'){ st.ar = Math.min(2.2, Math.max(0.5, +m.ar || 1.4)); $('drawBoard').hidden = false; boardFit(st.ar);
+    if(st.stage==='hidden' && state.phase==='question'){ st.stage = 'acting'; const secs = phoneSecs(state.current); timeTotal = timeLeft = secs; renderPanel(); startTimer(secs); } }
+  else if(m.t==='seg' && Array.isArray(m.p)){ let s = boardStrokes.find(x=>x.id===m.id);
+    if(!s){ s = {id:m.id, c:String(m.c||'#141a15').slice(0,9), w:Math.min(40, +m.w||9), pts:[]}; boardStrokes.push(s); }
+    const from = s.pts.length; m.p.slice(0, 400).forEach(p=>{ if(Array.isArray(p)) s.pts.push([+p[0]||0, +p[1]||0]); });
+    const cv = $('dbCanvas'); strokePaint(cv, cv.getContext('2d'), s, Math.max(1, from)); }
+  else if(m.t==='undo'){ boardStrokes = boardStrokes.filter(x=>x.id!==m.id); boardRedraw(); }
+  else if(m.t==='clear'){ boardStrokes = []; boardRedraw(); }
+}
 function renderCharade(t){
-  const q = state.current, who = state.trap ? state.trap.to : state.turn, secs = CHARADE_TIME[q.l];
-  const st = state.charade || (state.charade = {stage:'hidden'}); if(!st.code) st.code = encodeWord(QBANK.indexOf(q));
+  const q = state.current, mode = modeOf(q), T = PHONE_TEXT[mode], who = state.trap ? state.trap.to : state.turn, secs = phoneSecs(q);
+  const st = state.charade || newPhoneStage() || state.charade;
   const after = ['call','double','rest','trap'].filter(k=>t.lifelines.includes(k) && !t.used.includes(k) && !state.trap);
-  const head = `<div class="cat"><span>${esc(CAT_NAME[q.c]||q.c)}</span><span>${LV[q.l].name} · <span dir="ltr">+${LV[q.l].bonus}</span> · ${secs} ثانية</span></div>`;
+  const head = `<div class="cat"><span>${esc(CAT_NAME[q.c]||q.c)}</span><span>${LV[q.l].name} · <span dir="ltr">${LV[q.l].range}</span> خطوات · ${secs} ثانية</span></div>`;
+  const linkNote = mode!=='drawing' ? '' : st.link==='ok' ? '<p class="linknote">الجوال متصل. ينتظر «جاهز أرسم».</p>'
+    : st.link==='fail' ? '<p class="linknote">الرسم المباشر ما اشتغل هنا (يحتاج نسخة الموقع وإنترنت). ارسموا على ورقة واضغطوا «ابدأ الوقت».</p>'
+    : st.link==='lost' ? '<p class="linknote">انقطع اتصال الجوال. امسحوا الباركود مرة ثانية.</p>' : '';
   let body;
   if(st.stage==='hidden') body = `<div class="qcard charade">${head}<div class="qrbox"><div class="qr" id="cQR" role="img" aria-label="باركود الكلمة"></div>
-      <p>واحد من ${esc(teamName(who))} يمسح الباركود بكاميرا جواله ويشوف الكلمة بروحه. بعدها اضغطوا «ابدأ الوقت».</p></div></div>
-      <button class="btn primary" id="cGo" type="button">قريت الكلمة، ابدأ الوقت</button>`;
-  else body = `<div class="qcard charade">${head}<p>مثّل الكلمة الحين! فريقك يخمّن.</p><div class="csec"><b id="tsec">${Math.max(0,timeLeft)}</b> ثانية</div></div>
+      <p>واحد من ${esc(teamName(who))} ${T.scan}</p></div>${linkNote}</div>
+      <button class="btn ${mode==='drawing'?'ghost small':'primary'}" id="cGo" type="button">${T.go}</button>`;
+  else body = `<div class="qcard charade">${head}<p>${T.act}</p><div class="csec"><b id="tsec">${Math.max(0,timeLeft)}</b> ثانية</div>${st.link==='lost'?'<p class="linknote">انقطع اتصال الجوال.</p>':''}</div>
       <div class="timer" id="timer"><i style="width:${timeLeft/timeTotal*100}%"></i></div><div id="callBox"></div>
       <button class="btn primary" id="bShow" type="button">اكشف الكلمة</button>`;
-  panel.innerHTML = turnHeader(who, state.trap ? 'الفخ: يمثلها' : 'الدور على') + badges() + body +
+  panel.innerHTML = turnHeader(who, state.trap ? T.who : 'الدور على') + badges() + body +
     (after.length ? `<div class="lifes">${after.map(k=>`<button class="chip" type="button" data-l="${k}">${LIFELINES[k].name}</button>`).join('')}</div>` : '');
   if(st.stage==='hidden'){ charadeQR($('cQR'), st.code); $('cGo').onclick = ()=>{ st.stage = 'acting'; timeTotal = timeLeft = secs; renderPanel(); startTimer(secs); }; }
-  else $('bShow').onclick = ()=>{ stopTimer(); state.phase = 'answer'; renderPanel(); };
+  else $('bShow').onclick = ()=>{ stopTimer(); state.phase = 'answer'; if(hostConn) try{ hostConn.send({t:'end'}); }catch(e){} renderPanel(); };
   panel.querySelectorAll('.lifes .chip').forEach(b=>b.onclick=()=>useLifeline(b.dataset.l));
 }
 function refillIfEmpty(){ if(state.board.every(b=>b.tiles.every(x=>x.used))){ state.board.forEach(b=>b.tiles.forEach(x=>{ x.used = false; })); state.round++; toast('لوحة جديدة', 'انتهت الأسئلة، وتعبّت اللوحة بأسئلة جديدة'); } }
@@ -1111,23 +1370,24 @@ async function useLifeline(k){
     clearInterval(callId); callId = setInterval(()=>{ left--; box(); if(left<=0){ clearInterval(callId); callId = 0; const el=$('callBox'); if(el) el.innerHTML = '<div class="callbox">خلصت المكالمة</div>'; } }, 1000); }
   else if(k==='double'){ t.used.push(k); state.badges.push('جاوب جوابين: لكم جوابين'); renderPanel(); toast('جاوب جوابين', `${t.name} يقدر يجاوب جوابين`); }
   else if(k==='rest'){ const j = await chooseTeam('استريح: أي فريق يطلع أقوى لاعب فيه؟', [state.turn]); t.used.push(k); state.badges.push(`استريح: أقوى لاعب في ${teamName(j)} يرتاح`); renderPanel(); toast('استريح', `أقوى لاعب في ${teamName(j)} ما يشارك في هالسؤال`); }
-  else if(k==='trap'){ const j = await chooseTeam('الفخ: لمين تحولون السؤال؟', [state.turn]); t.used.push(k); state.trap = {from:state.turn, to:j}; state.badges.push(`الفخ: السؤال عند ${teamName(j)}`); toast('الفخ', `السؤال انتقل لـ ${teamName(j)}. إذا غلطوا يرجعون`); if(isCharade(state.current)){ stopTimer(); state.charade = {stage:'hidden'}; } else startTimer(); renderPanel(); }
+  else if(k==='trap'){ const j = await chooseTeam('الفخ: لمين تحولون السؤال؟', [state.turn]); t.used.push(k); state.trap = {from:state.turn, to:j}; state.badges.push(`الفخ: السؤال عند ${teamName(j)}`); toast('الفخ', `السؤال انتقل لـ ${teamName(j)}. إذا غلطوا يرجعون`); if(isCharade(state.current)){ stopTimer(); newPhoneStage(); } else startTimer(); renderPanel(); }
 }
 
 /* answering */
 async function answered(ok){
-  const q = state.current, lv = LV[q.l];
+  const q = state.current, lv = LV[q.l]; phoneCleanup();
   if(state.trap){ const j = state.trap.to;
     if(ok){ chime(true); state.rollFor = j; state.phase = 'roll'; renderPanel(); }
     else { chime(false); state.phase = 'moving'; renderPanel(`${esc(teamName(j))} وقع في الفخ ويرجع ${lv.back}`); toast('الفخ', `${teamName(j)} يرجع ${lv.back}`); await fxQuicksand(j, lv.back, true); endFollow(); nextTurn(); }
     return; }
   if(ok){ chime(true); state.rollFor = state.turn; state.phase = 'roll'; renderPanel(); }
+  else if(lv.wrong && state.teams[state.turn].pos>0){ chime(false); const i = state.turn; state.phase = 'moving'; renderPanel(`غلط في الصعب: ${esc(teamName(i))} يرجع ${lv.wrong}`); toast('غلط في الصعب', `${state.teams[i].name} يرجع خطوة وحدة`); await fxQuicksand(i, lv.wrong, true); endFollow(); nextTurn(); }
   else { chime(false); toast('ما في حركة', `${state.teams[state.turn].name} يبقى مكانه`); nextTurn(); }
 }
 async function doRoll(){
   if(busy) return; busy = true;
   const i = state.rollFor, lv = LV[state.current.l];
-  const roll = 1 + ((Math.random()*6)|0), steps = roll + lv.bonus;
+  const roll = 1 + ((Math.random()*lv.max)|0), steps = roll + lv.bonus;
   state.phase = 'moving'; renderPanel('يرمي النرد…'); await rollDie(roll);
   renderPanel(`طلع <em>${roll}</em>${lv.bonus?` + <em>${lv.bonus}</em> مكافأة`:''} = <em>${steps}</em> خطوات`);
   await wait(REDUCED?100:500);
@@ -1174,7 +1434,7 @@ function boltMesh(from, to){
   g.add(new THREE.Mesh(new THREE.TubeGeometry(curve, pts.length*2, 0.22, 6), new THREE.MeshBasicMaterial({color:0x7fc8ff, transparent:true, opacity:0.45, blending:THREE.AdditiveBlending, depthWrite:false})));
   return g;
 }
-async function fxLightning(i){
+async function fxLightning(i){ setMood(i, 'angry', 3000);
   const t = state.teams[i], p = totems[i].position.clone();
   const sky = document.body; overlay('fx-dark', 900); await wait(350);
   for(let s=0;s<3;s++){
@@ -1327,8 +1587,8 @@ async function swapTeams(i, j){
   await tween(REDUCED?40:450, k=>{ mi.scale.set(si*(0.1+k*0.9), si*(3-k*2), si*(0.1+k*0.9)); mj.scale.set(sj*(0.1+k*0.9), sj*(3-k*2), sj*(0.1+k*0.9)); });
   mi.scale.setScalar(si); mj.scale.setScalar(sj); chime(true);
 }
-function nextTurn(){ stopTimer(); state.turn = (state.turn+1) % state.teams.length; state.pit = null; state.trap = null; state.badges = []; refillIfEmpty(); state.phase = 'pick'; renderPanel(); }
-function win(i){
+function nextTurn(){ stopTimer(); phoneCleanup(); state.turn = (state.turn+1) % state.teams.length; state.pit = null; state.trap = null; state.badges = []; refillIfEmpty(); state.phase = 'pick'; renderPanel(); }
+function win(i){ setMood(i, 'happy'); setAnim(totems[i], 'cheer');
   endFollow(); hideDie(); stopTimer(); state.phase = 'won'; activeTeam = i; renderTeams(); panel.hidden = true;
   const t = state.teams[i]; $('winName').textContent = t.name; $('winName').style.color = TEAM_STYLES[i].color;
   const others = state.teams.filter((_,j)=>j!==i).map(o=>`${o.name} على المربع ${o.pos}`).join('، ');
@@ -1363,8 +1623,8 @@ function renderDraft(){
   const who = picks.length % teamCount, done = picks.length>=6;
   $('draftWho').innerHTML = done ? 'اكتملت اللوحة' : `<span class="swatch" style="--tc:${TEAM_STYLES[who].color}"></span>دور ${esc(draft[who].name||TEAM_STYLES[who].label)} يختار فئة`;
   $('draftCount').textContent = `${picks.length} من 6`;
-  $('draftGrid').innerHTML = (window.DARB_CATEGORIES||[]).map(c=>{ const p = picks.find(x=>x.cat===c.id);
-    return `<button class="catcard ${p?'picked':''}" type="button" data-id="${c.id}" ${(!c.ready||p||done)?'disabled':''} ${p?`style="--tc:${TEAM_STYLES[p.by].color}"`:''}>${esc(c.name)}${c.ready?'':'<small>قريباً</small>'}${p?`<small>${esc(draft[p.by].name||TEAM_STYLES[p.by].label)}</small>`:''}</button>`; }).join('');
+  $('draftGrid').innerHTML = (window.DARB_CATEGORIES||[]).filter(c=>c.ready).map(c=>{ const p = picks.find(x=>x.cat===c.id);
+    return `<button class="catcard ${p?'picked':''}" type="button" data-id="${c.id}" ${(p||done)?'disabled':''} ${p?`style="--tc:${TEAM_STYLES[p.by].color}"`:''}>${esc(c.name)}${p?`<small>${esc(draft[p.by].name||TEAM_STYLES[p.by].label)}</small>`:''}</button>`; }).join('');
   $('draftGrid').querySelectorAll('.catcard:not([disabled])').forEach(b=>b.onclick=()=>{ picks.push({cat:b.dataset.id, by:picks.length % teamCount}); renderDraft(); });
   $('btnDraftUndo').disabled = !picks.length;
   $('btnBegin').disabled = !done;
@@ -1388,11 +1648,16 @@ function rebuildPreview(){ const p = ensurePreview(); p.holder.clear(); const s 
   $('wsName').textContent = statueLabel(wsSpec); }
 function renderPreview(dt){ const p = prev; if(!p) return; const c = $('wsCanvas'); const w = c.clientWidth|0;
   if(w && c.width !== w*p.r.getPixelRatio()) p.r.setSize(w, w, false);
-  p.spin += dt*0.6; p.holder.rotation.y = p.spin; p.r.render(p.sc, p.cm); }
+  p.spin += dt*0.6; p.holder.rotation.y = p.spin;
+  const st = p.holder.children[0], ch = st && st.userData.char; if(ch && ch.userData.anim){ const now = performance.now(); ch.userData.anim.mode = 'walk'; ch.userData.anim.k = (now/900)%1; animateChar(ch, now/1000, dt); } // show the walk in the workshop
+  p.r.render(p.sc, p.cm); }
 function renderWorkshop(){
-  const gal = wsSpec.mode==='gallery';
-  $('tabGallery').setAttribute('aria-pressed', String(gal)); $('tabBuild').setAttribute('aria-pressed', String(!gal));
-  $('wsGallery').hidden = !gal; $('wsBuild').hidden = gal;
+  const gal = wsSpec.mode==='gallery', chr = wsSpec.mode==='char', bld = !gal && !chr;
+  $('tabGallery').setAttribute('aria-pressed', String(gal)); $('tabBuild').setAttribute('aria-pressed', String(bld)); $('tabChar').setAttribute('aria-pressed', String(chr));
+  $('wsGallery').hidden = !gal; $('wsBuild').hidden = !bld; $('wsChar').hidden = !chr; $('wsFinishGrp').hidden = chr;
+  $('wsNote').textContent = chr ? 'وجه الشخصية يتغير في اللعب: يفرح لما يتقدم، ويعصب لما يرجع ورا. والقاعدة بلون الفريق.' : 'القاعدة دايماً بلون الفريق عشان الكل يميز المجسمات.';
+  $('wsChar').innerHTML = `<div class="eyebrow">اختاروا شخصية</div><div class="chips">${CHARACTERS.map(([id,n])=>`<button class="chip" type="button" data-id="${id}" aria-pressed="${chr && wsSpec.id===id}">${n}</button>`).join('')}</div>${CHAR_SRC?'':'<p class="note">الشخصيات تتحمّل…</p>'}`;
+  $('wsChar').querySelectorAll('.chip').forEach(b=>b.onclick=()=>{ wsSpec.id=b.dataset.id; renderWorkshop(); rebuildPreview(); });
   $('wsGallery').innerHTML = GALLERY.map(g=>`<div class="eyebrow">${g.group}</div><div class="chips">${g.items.map(([id,n])=>`<button class="chip" type="button" data-id="${id}" aria-pressed="${wsSpec.id===id}">${n}</button>`).join('')}</div>`).join('');
   $('wsBuild').innerHTML = [['base','القاعدة'],['body','الجسم'],['head','الرأس']].map(([k,label])=>`<div class="eyebrow">${label}</div><div class="chips">${BUILD_PARTS[k].map(([id,n])=>`<button class="chip" type="button" data-k="${k}" data-id="${id}" aria-pressed="${wsSpec[k]===id}">${n}</button>`).join('')}</div>`).join('');
   $('wsFinish').innerHTML = Object.entries(FINISHES).map(([id,f])=>`<button class="chip fin" type="button" data-f="${id}" aria-pressed="${wsSpec.finish===id}" style="--fc:${f.color}"><i></i>${f.name}</button>`).join('');
@@ -1402,8 +1667,9 @@ function renderWorkshop(){
 }
 function openWorkshop(i){ wsTeam = i; wsSpec = {...draft[i].statue}; $('wsTeam').textContent = 'مجسم ' + (draft[i].name||TEAM_STYLES[i].label);
   $('ws').hidden = false; wsOpen = true; renderWorkshop(); rebuildPreview(); }
-$('tabGallery').onclick = ()=>{ wsSpec.mode='gallery'; renderWorkshop(); rebuildPreview(); };
+$('tabGallery').onclick = ()=>{ if(wsSpec.mode==='char'){ wsSpec.id = wsSpec.lastId && GALLERY_NAME[wsSpec.lastId] ? wsSpec.lastId : 'falcon'; } wsSpec.mode='gallery'; renderWorkshop(); rebuildPreview(); };
 $('tabBuild').onclick = ()=>{ wsSpec.mode='build'; renderWorkshop(); rebuildPreview(); };
+$('tabChar').onclick = ()=>{ if(wsSpec.mode!=='char'){ wsSpec.lastId = wsSpec.mode==='gallery' ? wsSpec.id : wsSpec.lastId; wsSpec.mode='char'; if(!CHAR_NAME[wsSpec.id]) wsSpec.id = CHARACTERS[wsTeam % CHARACTERS.length][0]; } renderWorkshop(); rebuildPreview(); };
 $('wsDone').onclick = ()=>{ draft[wsTeam].statue = {...wsSpec}; $('ws').hidden = true; wsOpen = false; renderSetup(); };
 
 function newBoard(cats){ return cats.map(cat=>({cat, tiles:['e','e','n','n','h','h'].map(l=>({l, used:false}))})); }
@@ -1473,7 +1739,7 @@ async function loadAssets(){
   else { // simple stand-in sofa
     const f = new THREE.MeshStandardMaterial({color:0xb9ad98, roughness:0.95});
     cushion(2.2,0.42,0.9,f,0,0.21,ROOM.z0+0.6); cushion(2.2,0.45,0.22,f,0,0.6,ROOM.z0+0.18); }
-  pmrem.dispose();
+  pmrem.dispose(); loadCharacters();
 }
 const SOFA_FLIP = 0;
 
@@ -1496,7 +1762,7 @@ async function boot(){
   buildTotems(); state.teams = [];
   showSetupWhenReady();
 }
-window.addEventListener('resize', ()=>{ resize(); if(!following && !wideHold) camGoal.radius = overviewRadius; });
+window.addEventListener('resize', ()=>{ resize(); if(!$('drawBoard').hidden && state.charade && state.charade.ar) boardFit(state.charade.ar); if(!following && !wideHold) camGoal.radius = overviewRadius; });
 boot();
 })();
 </script>
