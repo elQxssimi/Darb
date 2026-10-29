@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
-<title>Darb Trivia Trail</title>
+<title>درب الساعة</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rakkas&family=Tajawal:wght@400;500;700;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rakkas&family=Tajawal:wght@400;500;700;800&family=Aref+Ruqaa:wght@400;700&family=Katibeh&family=Lemonada:wght@500;700&family=Jomhuria&family=Lalezar&display=swap">
 <style>
 /* Layout: full-bleed 3D living room; HUD floats over it (teams top-left, turn panel bottom-right, sheet on phones). Single dark-glass HUD look by design. */
 :root{
@@ -32,7 +32,7 @@ html,body{height:100%}
 [hidden]{display:none!important}
 body{background:var(--night);color:var(--bone);font-family:var(--body);font-size:15px;overflow:hidden}
 #app{position:fixed;inset:0}
-#reveal{position:fixed;inset:0;overflow:auto;display:flex;flex-direction:column;gap:18px;justify-content:center;align-items:stretch;padding-block:24px;padding-left:max(20px, env(safe-area-inset-left, 0px));padding-right:max(20px, env(safe-area-inset-right, 0px));direction:rtl;background:radial-gradient(120% 80% at 50% 0%, var(--moss-2), var(--night))}
+#reveal{position:fixed;inset:0;overflow:auto;display:flex;flex-direction:column;gap:18px;justify-content:safe center;align-items:stretch;padding-block:24px;padding-left:max(20px, env(safe-area-inset-left, 0px));padding-right:max(20px, env(safe-area-inset-right, 0px));direction:rtl;background:radial-gradient(120% 80% at 50% 0%, var(--moss-2), var(--night))}
 #reveal .rv-top{display:flex;justify-content:space-between;align-items:baseline;color:var(--bone-dim);font-weight:700;font-size:14px}
 #reveal .rv-brand{font-family:var(--display);color:var(--amber);font-size:28px}
 #reveal .rv-card{background:var(--bone);color:#2a2116;border-radius:18px;padding:22px 18px 30px;display:flex;flex-direction:column;align-items:center;gap:10px;box-shadow:var(--shadow);min-height:200px;justify-content:center}
@@ -115,6 +115,7 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--amber);outline-
 .qcard{background:var(--bone);color:#2a2116;border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:8px}
 .qcard .cat{display:flex;justify-content:space-between;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#7a5a2e}
 .qcard p{margin:0;font-size:18px;font-weight:700;line-height:1.35;text-wrap:balance}
+.qcard .qflag{display:block;width:min(260px,70%);max-height:160px;object-fit:contain;margin:2px auto;border-radius:6px;box-shadow:0 2px 10px rgba(0,0,0,.25),0 0 0 1px #b79c72}
 .qcard .cword{font-size:34px;font-weight:900;text-align:center;color:#2a2116;padding:10px 0 4px;letter-spacing:0}
 .qcard .csec{text-align:center;font-size:14px;font-weight:700;color:#7a5a2e}
 .qcard .csec b{font-size:30px;color:#2a2116;margin-inline-end:4px}
@@ -216,7 +217,6 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--amber);outline-
 #fxOverlay.fx-dark{background:radial-gradient(circle at 50% 45%, rgba(10,14,30,.15), rgba(5,8,20,.7))}
 #fxOverlay.fx-void{background:radial-gradient(circle at 50% 50%, rgba(60,10,90,0) 30%, rgba(40,0,70,.65))}
 #fxOverlay.fx-warp{background:radial-gradient(circle at 50% 50%, rgba(140,230,255,0) 35%, rgba(90,130,255,.28))}
-#fxOverlay.fx-ember{background:radial-gradient(circle at 70% 10%, rgba(255,140,40,.35), rgba(255,90,20,0) 60%)}
 #app{direction:rtl}
 #scene{direction:ltr}
 .seg.seg5{grid-template-columns:repeat(5,1fr)}
@@ -309,13 +309,62 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--amber);outline-
 .ffsum{display:flex;flex-direction:column;gap:8px}
 .ffsum div{display:flex;align-items:center;gap:10px;background:var(--moss);border:1px solid var(--line);border-radius:12px;padding:10px 14px;font-weight:800}
 .ffsum div em{margin-inline-start:auto;font-style:normal;color:var(--amber);font-size:18px}
+/* ================= سفر عبر الزمن: لوحة المحقق التفاعلية ================= */
+#tt{position:fixed;inset:0;z-index:7;display:flex;flex-direction:column;align-items:center;justify-content:space-between;
+  padding:92px 16px 34px;direction:rtl;pointer-events:none}
+#tt .tt-hint, #tt .tt-controls{pointer-events:auto}
+#tt .tt-hint{background:rgba(8,10,8,.55);border-radius:10px;padding:8px 14px;margin:0}
+.tt-hint{color:#e4d3ac;text-align:center;font-size:14px;max-width:640px;margin:0}
+.tt-stage{width:min(1180px,96vw,calc((100vh - 240px)*4/3));aspect-ratio:1280/960;position:relative;border-radius:14px;overflow:hidden;
+  box-shadow:0 0 0 9px #2a1d12,0 0 0 13px #1a1109,0 30px 60px rgba(0,0,0,.6)}
+.tt-cork{position:absolute;inset:0;background-color:#9c7447;background-image:
+  radial-gradient(circle at 12% 18%,rgba(255,255,255,.10) 0 2px,transparent 3px),
+  radial-gradient(circle at 34% 62%,rgba(0,0,0,.18) 0 2px,transparent 3px),
+  radial-gradient(circle at 58% 24%,rgba(255,255,255,.08) 0 2px,transparent 3px),
+  radial-gradient(circle at 73% 70%,rgba(0,0,0,.15) 0 2px,transparent 3px),
+  radial-gradient(circle at 88% 40%,rgba(255,255,255,.09) 0 2px,transparent 3px),
+  radial-gradient(circle at 20% 85%,rgba(0,0,0,.12) 0 2px,transparent 3px),
+  linear-gradient(135deg,#a9814f 0%,#8a6338 60%,#7a5530 100%);
+  background-size:7% 7%,8.5% 8.5%,5.5% 5.5%,7.8% 7.8%,6.6% 6.6%,7.4% 7.4%,cover;
+  box-shadow:inset 0 0 12vw rgba(0,0,0,.55)}
+.tt-tagwrap{position:absolute}
+.tt-tag{position:absolute;inset:0;background:#f3e6c4;color:#3c2a12;font-weight:800;font-size:1.5vw;
+  padding:.5vw;border-radius:3px;text-align:center;display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 8px rgba(0,0,0,.35),0 1px 0 rgba(255,255,255,.3) inset;
+  clip-path:polygon(2% 0,98% 3%,100% 94%,3% 100%)}
+.tt-pin{position:absolute;width:1vw;height:1vw;min-width:9px;min-height:9px;border-radius:50%;
+  background:radial-gradient(circle at 32% 28%,#ffb3a0 0%,#ff6b52 28%,#b3261e 62%,#7a160f 100%);
+  box-shadow:0 3px 5px rgba(0,0,0,.55),inset 0 -2px 3px rgba(0,0,0,.35),inset 0 1px 2px rgba(255,255,255,.5);
+  top:-.5vw;left:50%;transform:translateX(-50%);z-index:4}
+.tt-slot{position:absolute;border-radius:4px;border:2px dashed rgba(60,42,18,.45);background:rgba(0,0,0,.08)}
+.tt-slot.over{border-color:#f2c94c;background:rgba(242,201,76,.15)}
+.tt-slot.correct{border-style:solid;border-color:#5fae6c}
+.tt-slot.wrong{border-style:solid;border-color:#c0392b}
+.tt-card{position:absolute;cursor:grab;touch-action:none;z-index:5}
+.tt-card.dragging{cursor:grabbing;z-index:50;box-shadow:0 16px 28px rgba(0,0,0,.6)!important}
+.tt-card.placed.correct .tt-face{outline:3px solid #5fae6c;outline-offset:2px}
+.tt-card.placed.wrong .tt-face{outline:3px solid #c0392b;outline-offset:2px}
+.tt-face{width:100%;height:100%;position:relative;overflow:hidden}
+.tt-clip .tt-cap,.tt-note .tt-cap,.tt-index .tt-cap{overflow-wrap:break-word}
+.tt-photo .tt-face{background:#f6efe0;padding:6%;box-shadow:0 6px 14px rgba(0,0,0,.45),0 1px 0 rgba(255,255,255,.2) inset}
+.tt-photo .tt-inner{width:100%;height:72%;background:#5a4632;background-image:radial-gradient(circle at 50% 42%,#7a6248,#3c3024 75%)}
+.tt-photo .tt-cap{position:absolute;bottom:3%;left:0;right:0;text-align:center;font-size:1.9vw;color:#6b5a3e;font-weight:700;line-height:1.15}
+.tt-clip .tt-face{background:#e9e2d0;padding:8%;box-shadow:0 5px 12px rgba(0,0,0,.4);border:1px solid #cfc6ab;display:flex;align-items:center;justify-content:center}
+.tt-clip .tt-cap{font-family:'Rakkas',serif;font-size:2.7vw;color:#2a241a;line-height:1.25;text-align:center;width:100%}
+.tt-note .tt-face{background:#fdf6d8;padding:7%;box-shadow:0 5px 12px rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;
+  background-image:repeating-linear-gradient(transparent,transparent 16px,rgba(90,120,170,.25) 17px)}
+.tt-note .tt-cap{font-size:2.7vw;color:#2a2410;line-height:1.25;text-align:center;width:100%}
+.tt-index .tt-face{background:#f3ead2;padding:6%;box-shadow:0 5px 12px rgba(0,0,0,.4);border-right:4px solid #c0392b;display:flex;align-items:center;justify-content:center}
+.tt-index .tt-cap{font-size:2.1vw;font-weight:700;color:#3c2a12;text-align:center;width:100%}
+#ttStrings{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:6}
+.tt-controls{display:flex;gap:12px}
 @media (prefers-reduced-motion: reduce){ *{transition:none!important} }
 </style>
 
 </head>
 <body>
 <main id="reveal" hidden>
-  <div class="rv-top"><span class="rv-brand">درب</span><span id="rvCat">ولا كلمة عامة</span></div>
+  <div class="rv-top"><span class="rv-brand">درب الساعة</span><span id="rvCat">ولا كلمة عامة</span></div>
   <div id="rvMain" class="rv-main">
     <div class="rv-card"><div class="rv-meta" id="rvMeta"></div><div class="rv-word" id="rvWord"></div><div class="rv-banned" id="rvBanned" hidden></div><div class="rv-cover" id="rvCover" hidden>الكلمة مخفية</div></div>
     <p class="rv-note" id="rvNote">مثّلها بدون كلام ولا أصوات ولا إشارة لحروف. ارجع للشاشة واضغط «ابدأ الوقت».</p>
@@ -351,7 +400,7 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--amber);outline-
   <canvas id="scene" aria-label="غرفة جلوس ثلاثية الأبعاد ولوحة اللعب على الطاولة"></canvas>
 
   <div class="topbar">
-    <div class="brand"><h1>درب</h1><p>سباق الأسئلة</p></div>
+    <div class="brand"><h1>درب الساعة</h1><p>سباق الأسئلة</p></div>
     <div class="tools">
       <button class="iconbtn" id="btnView" type="button">رجّع المنظر</button>
       <button class="iconbtn hide-sm" id="btnRoom" type="button">جولة في الغرفة</button>
@@ -368,10 +417,11 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--amber);outline-
   <div id="feudBar" hidden></div>
   <div id="feudX" aria-hidden="true"><span></span></div>
   <div class="modal" id="feud" hidden><div class="sheet wide" id="feudBody"></div></div>
+  <div id="tt" hidden></div>
 
   <div class="modal" id="setup" hidden>
     <div class="sheet">
-      <h2>درب</h2>
+      <h2>درب الساعة</h2>
       <p class="lead">سباق أسئلة للعائلة على دوار ساعة الرفاع. جاوبوا صح، ارموا النرد، وأول فريق يوصل البرج يفوز.</p>
       <div>
         <div class="eyebrow" style="margin-bottom:8px">عدد الفرق</div>
@@ -396,11 +446,10 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--amber);outline-
         <li>أول مجسم يوصل <b>برج الساعة</b> يفوز.</li>
       </ol>
       <div class="legend">
-        <span><b>مطر نيازك</b> ترجع وسيلة مساعدة</span>
         <span><b>صاعقة</b> تخسرون وسيلة مساعدة</span>
         <span><b>إعصار</b> قدّام 3</span>
         <span><b>رمال متحركة</b> ورا 2</span>
-        <span><b>بوابة انتقال</b> للبوابة الجاية</span>
+        <span><b>بوابة انتقال</b> قدّام 5</span>
         <span><b>زلزال</b> ورا 3</span>
         <span><b>آلة الزمن</b> تلعبون مرة ثانية</span>
         <span><b>ثقب أسود</b> ورا 5</span>
@@ -449,13 +498,13 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--amber);outline-
       <div class="wsprev">
         <div class="eyebrow" id="wsTeam">الفريق</div>
         <canvas id="wsCanvas" width="560" height="560" aria-label="معاينة المجسم"></canvas>
-        <div class="wsname" id="wsName">المجسم</div>
+        <div class="wsname" id="wsName">الشخصية</div>
       </div>
       <div class="wsctl">
-        <div class="tabs">
-          <button class="chip" type="button" id="tabGallery" aria-pressed="true">المعرض</button>
-          <button class="chip" type="button" id="tabBuild" aria-pressed="false">صمّم مجسمك</button>
-          <button class="chip" type="button" id="tabChar" aria-pressed="false">شخصيات</button>
+        <div class="tabs" hidden>
+          <button class="chip" type="button" id="tabGallery" aria-pressed="false" hidden>المعرض</button>
+          <button class="chip" type="button" id="tabBuild" aria-pressed="false" hidden>صمّم مجسمك</button>
+          <button class="chip" type="button" id="tabChar" aria-pressed="true" hidden>شخصيات</button>
         </div>
         <div id="wsGallery" class="grp"></div>
         <div id="wsBuild" class="grp" hidden></div>
@@ -496,12 +545,25 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--amber);outline-
         <span><b>nen va hoa</b> by Furniture (hung.t33), CC BY 4.0. <a href="https://sketchfab.com/3d-models/nen-va-hoa-b10c761ae45f4140884cc7a8722b4f66" target="_blank" rel="noopener">Source</a></span>
         <span><b>Fondant</b> by Carl (carleid), CC BY 4.0. Changes: Simplified. <a href="https://sketchfab.com/3d-models/fondant-3f25a988b391481881a02733fd198414" target="_blank" rel="noopener">Source</a></span>
         <span>The Riffa Clock Tower roundabout, the TV picture, the remaining furniture and the statues are drawn in code for this prototype.</span>
+        <span><b>12 historical photos used on درب الساعة evidence cards</b>, all Public domain or CC BY-SA, via Wikimedia Commons:</span>
+        <span>"Gutenberg press", CC0. <a href="https://commons.wikimedia.org/wiki/File:Gutenberg_press.png" target="_blank" rel="noopener">Source</a></span>
+        <span>"First Landing of Christopher Columbus" (Kemmelmeyer), Public domain. <a href="https://commons.wikimedia.org/wiki/File:Frederick_Kemmelmeyer,_First_Landing_of_Christopher_Columbus,_1800-1805,_NGA_50689.jpg" target="_blank" rel="noopener">Source</a></span>
+        <span>"Prise de la Bastille", Public domain. <a href="https://commons.wikimedia.org/wiki/File:Prise_de_la_Bastille.jpg" target="_blank" rel="noopener">Source</a></span>
+        <span>"Opening of the Suez Canal, Port Said, 1869", Public domain. <a href="https://commons.wikimedia.org/wiki/File:Opening_of_the_Suez_Canal,_Port_Said,_1869.jpg" target="_blank" rel="noopener">Source</a></span>
+        <span>"Abraham Lincoln" by Alexander Gardner, 1865, Public domain. <a href="https://commons.wikimedia.org/wiki/File:Abraham_Lincoln_O-118_by_Gardner,_1865.jpg" target="_blank" rel="noopener">Source</a></span>
+        <span>"RMS Titanic", Public domain. <a href="https://commons.wikimedia.org/wiki/File:RMS_Titanic_3.jpg" target="_blank" rel="noopener">Source</a></span>
+        <span>"Wright Flyer", first powered flight 1903, Public domain. <a href="https://commons.wikimedia.org/wiki/File:Wrightflyer_highres.jpg" target="_blank" rel="noopener">Source</a></span>
+        <span>"USS Arizona burning after the attack on Pearl Harbor", Public domain. <a href="https://commons.wikimedia.org/wiki/File:The_USS_Arizona_(BB-39)_burning_after_the_Japanese_attack_on_Pearl_Harbor_-_NARA_195617_-_Edit.jpg" target="_blank" rel="noopener">Source</a></span>
+        <span>"John F. Kennedy, White House color photo portrait", Public domain. <a href="https://commons.wikimedia.org/wiki/File:John_F._Kennedy,_White_House_color_photo_portrait.jpg" target="_blank" rel="noopener">Source</a></span>
+        <span>"Fall of the Berlin Wall, 1989", CC BY-SA 2.0. <a href="https://commons.wikimedia.org/wiki/File:Fall_of_the_Berlin_Wall_1989,_people_walking.jpg" target="_blank" rel="noopener">Source</a></span>
+        <span>"King Fahd Causeway", CC BY-SA 2.0. <a href="https://commons.wikimedia.org/wiki/File:King_Fahd_Causeway_(5972741629).jpg" target="_blank" rel="noopener">Source</a></span>
+        <span>"Bahrain World Trade Center", CC BY-SA 4.0. <a href="https://commons.wikimedia.org/wiki/File:Bahrain_World_trade_Center_.jpg" target="_blank" rel="noopener">Source</a></span>
       </div>
       <button class="btn ghost" id="creditsClose" type="button">إغلاق</button>
     </div>
   </div>
 
-  <div id="loading"><div class="in"><b>درب</b><div class="bar"><i id="loadBar"></i></div><span id="loadText">نجهز الطاولة…</span></div></div>
+  <div id="loading"><div class="in"><b>درب الساعة</b><div class="bar"><i id="loadBar"></i></div><span id="loadText">نجهز الطاولة…</span></div></div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -513,6 +575,8 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--amber);outline-
 <script src="riffa.js"></script>
 <script src="questions.js"></script>
 <script src="feud_data.js"></script>
+<script src="timetravel_data.js"></script>
+<script src="tt_photos.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/peerjs@1.5.4/dist/peerjs.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/paho-mqtt@1.1.0/paho-mqtt-min.js"></script>
@@ -572,7 +636,7 @@ function strokePaint(cv, ctx, st, from){
 const FEUD_RE = /^#f-([0-9a-z]+)-([0-9a-z]+)(?:-(darb[0-9a-z]+))?$/;
 if(FEUD_RE.test(location.hash)){
   $('app').hidden = true; $('reveal').hidden = false; $('rvMain').hidden = true; $('rvFeud').hidden = false;
-  document.title = 'درب: كمّل القائمة'; $('rvCat').textContent = 'كمّل القائمة';
+  document.title = 'درب الساعة: كمّل القائمة'; $('rvCat').textContent = 'كمّل القائمة';
   const m = FEUD_RE.exec(location.hash), F = window.DARB_FEUD || {qs:[], cats:[]}, hostId = m[3];
   const qs = [F.qs[decodeWord(m[1])], F.qs[decodeWord(m[2])]], catName = id=>((F.cats||[]).find(c=>c.id===id)||{}).name||'';
   const view = {cur:0, rev:[[],[]], strikes:0, team:'', color:'', stage:'wait'}; let local = [[],[]], open = false, conn = null, peer = null, tries = 0;
@@ -614,7 +678,7 @@ if(FEUD_RE.test(location.hash)){
   return;
 }
 if(REVEAL_RE.test(location.hash)){
-  $('app').hidden = true; $('reveal').hidden = false; document.title = 'درب: الكلمة';
+  $('app').hidden = true; $('reveal').hidden = false; document.title = 'درب الساعة: الكلمة';
   let covered = false, drawing = null;
   const show = ()=>{ const m = REVEAL_RE.exec(location.hash); const q = m ? (window.DARB_QUESTIONS||[])[decodeWord(m[1])] : null;
     const cat = q && (window.DARB_CATEGORIES||[]).find(c=>c.id===q.c), mode = cat && cat.mode;
@@ -685,9 +749,8 @@ const LIFELINES = {
   rest:{name:'استريح', short:'استريح'},
   trap:{name:'الفخ', short:'فخ'}
 };
-const SPECIALS = {4:'meteor',7:'quicksand',9:'reroll',11:'tornado',14:'lightning',17:'portal',20:'earthquake',23:'timewarp',24:'block',26:'blackhole',29:'meteor',32:'quicksand',35:'tornado',36:'swap',38:'lightning',41:'portal',43:'earthquake',45:'timewarp',47:'blackhole'};
+const SPECIALS = {7:'quicksand',9:'reroll',11:'tornado',14:'lightning',17:'portal',20:'earthquake',23:'timewarp',24:'block',26:'blackhole',32:'quicksand',35:'tornado',36:'swap',38:'lightning',41:'portal',43:'earthquake',45:'timewarp',47:'blackhole'};
 const SPECIAL_INFO = {
-  meteor:{name:'مطر نيازك', color:'#f2a23a', good:true},
   tornado:{name:'إعصار', color:'#6fcf97', good:true},
   portal:{name:'بوابة انتقال', color:'#39c6e0', good:true},
   timewarp:{name:'آلة الزمن', color:'#8f9cff', good:true},
@@ -708,7 +771,6 @@ function drawIcon(g, type, cx, cy, s, ink){
   else if(type==='quicksand'){ for(let k=0;k<3;k++){ g.beginPath(); for(let x=-0.45;x<=0.45;x+=0.05){ g.lineTo(x*s, (k-1)*s*0.25 + Math.sin(x*14)*s*0.05); } g.stroke(); } }
   else if(type==='tornado'){ [[0.45,-0.4],[0.35,-0.2],[0.25,0],[0.15,0.2],[0.07,0.38]].forEach(([w,y],k)=>{ g.beginPath(); g.moveTo(-w*s+k*s*0.03,y*s); g.lineTo(w*s+k*s*0.03,y*s); g.stroke(); }); }
   else if(type==='portal'){ g.beginPath(); g.ellipse(0,0,s*0.42,s*0.3,0,0,7); g.stroke(); g.beginPath(); g.ellipse(0,0,s*0.22,s*0.14,0,0,7); g.stroke(); }
-  else if(type==='meteor'){ g.beginPath(); g.arc(s*0.15,s*0.15,s*0.18,0,7); g.fill(); [[-0.45,-0.45],[-0.3,-0.5],[-0.5,-0.25]].forEach(([x,y])=>{ g.beginPath(); g.moveTo(x*s,y*s); g.lineTo(0,0); g.stroke(); }); }
   else if(type==='timewarp'){ g.beginPath(); g.arc(0,0,s*0.38,0,7); g.stroke(); g.beginPath(); g.moveTo(0,0); g.lineTo(0,-s*0.24); g.moveTo(0,0); g.lineTo(s*0.17,s*0.06); g.stroke(); g.beginPath(); g.moveTo(s*0.38,-s*0.38); g.lineTo(s*0.5,-s*0.2); g.lineTo(s*0.28,-s*0.22); g.fill(); }
   else if(type==='reroll'){ g.lineWidth=s*0.07; g.strokeRect(-s*0.36,-s*0.36,s*0.72,s*0.72); [[-0.18,-0.18],[0.18,0.18],[0,0],[0.18,-0.18],[-0.18,0.18]].forEach(([x,y])=>{ g.beginPath(); g.arc(x*s,y*s,s*0.06,0,7); g.fill(); }); }
   else if(type==='block'){ g.lineWidth=s*0.07; g.strokeRect(-s*0.45,-s*0.2,s*0.9,s*0.28); for(let k=0;k<3;k++){ g.beginPath(); g.moveTo(-s*0.35+k*s*0.3,-s*0.2); g.lineTo(-s*0.2+k*s*0.3,s*0.08); g.stroke(); } g.beginPath(); g.moveTo(-s*0.35,s*0.08); g.lineTo(-s*0.35,s*0.42); g.moveTo(s*0.35,s*0.08); g.lineTo(s*0.35,s*0.42); g.stroke(); }
@@ -748,14 +810,14 @@ const CHARACTERS = [
 ];
 const CHAR_NAME = Object.fromEntries(CHARACTERS.map(([id,n])=>[id,n]));
 const DEFAULT_STATUES = [
-  {mode:'gallery', id:'falcon', finish:'bronze', base:'round', body:'robe', head:'sphere'},
-  {mode:'gallery', id:'horse', finish:'stone', base:'round', body:'column', head:'gem'},
-  {mode:'gallery', id:'dhow', finish:'wood', base:'hex', body:'barrel', head:'cone'},
-  {mode:'gallery', id:'grandfather', finish:'ceramic', base:'square', body:'obelisk', head:'crown'},
-  {mode:'gallery', id:'camel', finish:'gold', base:'round', body:'robe', head:'sphere'},
-  {mode:'gallery', id:'palm', finish:'ebony', base:'hex', body:'column', head:'ring'}
+  {mode:'char', id:'sport', finish:'bronze', base:'round', body:'robe', head:'sphere'},
+  {mode:'char', id:'pilot', finish:'stone', base:'round', body:'column', head:'gem'},
+  {mode:'char', id:'explorer', finish:'wood', base:'hex', body:'barrel', head:'cone'},
+  {mode:'char', id:'teacher', finish:'ceramic', base:'square', body:'obelisk', head:'crown'},
+  {mode:'char', id:'clown', finish:'gold', base:'round', body:'robe', head:'sphere'},
+  {mode:'char', id:'baby', finish:'ebony', base:'hex', body:'column', head:'ring'}
 ];
-function statueLabel(s){ if(s.mode==='char') return `${CHAR_NAME[s.id]||'شخصية'} · شخصية`; const f = FINISHES[s.finish].name;
+function statueLabel(s){ if(s && s.mode==='char') return CHAR_NAME[s.id]||'شخصية'; const f = FINISHES[s.finish].name;
   if(s.mode==='gallery') return `${GALLERY_NAME[s.id]} · ${f}`;
   const n = k=>BUILD_PARTS[k].find(p=>p[0]===s[k])[1]; return `${n('head')} على ${n('body')} · ${f}`; }
 
@@ -893,7 +955,7 @@ const drawTvScreen = (g,S,H)=>{ // an idle screen: dusk over the roundabout, wit
   const cx=S*0.5; g.fillRect(cx-14,H*0.38,28,H*0.5); g.fillRect(cx-26,H*0.36,52,18); g.beginPath(); g.moveTo(cx-18,H*0.36); g.lineTo(cx,H*0.24); g.lineTo(cx+18,H*0.36); g.fill(); // clock tower
   g.fillStyle='#f3c27a'; g.beginPath(); g.arc(cx,H*0.43,9,0,7); g.fill();
   g.strokeStyle='#1d0f12'; g.lineWidth=10; g.beginPath(); g.ellipse(cx,H*0.88,S*0.3,H*0.05,0,0,7); g.stroke();
-  g.fillStyle='#fbe3b5'; g.font='800 150px Tajawal, sans-serif'; g.textAlign='center'; g.textBaseline='middle'; g.fillText('درب', S*0.5, H*0.17);
+  g.fillStyle='#fbe3b5'; g.font='800 90px Tajawal, sans-serif'; g.textAlign='center'; g.textBaseline='middle'; g.fillText('درب الساعة', S*0.5, H*0.17);
 };
 const tvScreenTex = canvasTex(1024, drawTvScreen, null, 576); 
 const tvScreen = new THREE.Mesh(new THREE.PlaneGeometry(1.39,0.78), new THREE.MeshBasicMaterial({map:tvScreenTex, color:0xb8a090, toneMapped:false}));
@@ -1141,8 +1203,26 @@ function animateChar(fig, t, dt){ const rig = fig.userData.rig, an = fig.userDat
     bob = -c*0.05; lean = c*0.25; }
   else if(an.mode==='cheer'){ const p = t*6, up = Math.max(0, Math.sin(p));
     L(0,0); K(-up*0.5, -up*0.5); A(-2.7 + Math.sin(t*12)*0.15, -2.7 - Math.sin(t*12)*0.15); F(-0.3,-0.3); bob = up*0.06; }
-  else { const br = Math.sin(t*2 + (fig.id%7)); // idle: breathing and a slight sway
-    L(0,0); K(0,0); A(br*0.04, -br*0.04); F(-0.12,-0.12); bob = (br+1)*0.002; }
+  else if(an.mode==='flinch'){ // lightning: recoil and guard the face
+    const p = 0.55 + 0.45*Math.abs(Math.sin(t*18));
+    L(0.28*p, 0.28*p); K(-0.9*p, -0.9*p); A(-2.15*p, -2.15*p); F(-1.4*p, -1.4*p); bob = -0.05*p; lean = -0.42*p; }
+  else if(an.mode==='brace'){ // earthquake: low and wide, fighting for balance
+    const wob = Math.sin(t*16)*0.18;
+    L(0.45, 0.45); K(-0.75, -0.75); A(-0.55+wob, 0.55-wob); F(-0.25, -0.25); bob = -0.04; lean = wob*0.55; }
+  else if(an.mode==='lift'){ // tornado / portal: yanked off the ground, limbs loose
+    const p = Math.sin(t*7);
+    L(0.55+p*0.35, -0.15-p*0.25); K(-0.5, -0.75); A(-2.35+p*0.25, -1.65-p*0.35); F(-0.35, -0.75); bob = 0.02*p; lean = 0.12; }
+  else if(an.mode==='sink'){ // quicksand: reach up as the knees fold
+    const p = Math.sin(t*5);
+    L(0.6, 0.75); K(-1.15, -0.95); A(-2.55+p*0.12, -2.3-p*0.12); F(-0.15, -0.3); bob = -0.03; lean = -0.18; }
+  else if(an.mode==='suck'){ // black hole: pulled forward, arms reaching into it
+    const p = 0.72 + 0.28*Math.sin(t*6);
+    L(1.05*p, 0.85*p); K(-0.35, -0.55); A(-0.2, -0.4); F(-1.5*p, -1.25*p); bob = -0.02; lean = 0.62*p; }
+  else if(an.mode==='dizzy'){ // time warp: the clock spins and so does the balance
+    const p = Math.sin(t*8);
+    L(p*0.28, -p*0.28); K(-0.22, -0.22); A(-1.25+p*0.45, -1.25-p*0.45); F(-0.85, -0.85); bob = Math.abs(p)*0.02; lean = p*0.22; }
+  else { const br = Math.sin(t*1.6 + (fig.id%7)); // idle: a real breath, not a mannequin
+    L(br*0.035, -br*0.02); K(0,0); A(0.05+br*0.06, -0.05-br*0.06); F(-0.18,-0.18); bob = (br+1)*0.004; lean = br*0.035; }
   swing(rig,'Spine', lean);
   rig.body.position.y = rig.baseY + bob*CHAR_H/0.5;
 }
@@ -1276,6 +1356,7 @@ function frame(){
       const sc = 0.05 + a*0.35; s.scale.set(sc,sc,1); s.material.opacity = Math.sin(Math.PI*a)*0.35; s.material.rotation = a*2+i; });
   }
   if(state.feudRun) feudTick(now, t);
+  if(state.ttRun) ttTick(now, t);
   if(candleLight.visible) candleLight.intensity = 0.42 + Math.sin(t*9.3)*0.04 + Math.sin(t*23.1)*0.03;
   totems.forEach(m=>{ if(m.userData.char) animateChar(m.userData.char, t, dt); });
   totems.forEach((m,i)=>{ const ring = m.userData.ring; const target = i===activeTeam ? 0.6+Math.sin(t*4)*0.25 : 0; ring.material.opacity += (target-ring.material.opacity)*0.15; });
@@ -1322,6 +1403,7 @@ async function moveTeam(i, steps){
     const n = Math.abs(steps), kind = s===n-1 ? 'jump' : n>3 ? 'run' : 'walk';
     team.pos = next; await hopTo(i, team.pos, kind); renderTeams(); if(team.pos>=GOAL) break;
     if(dir>0 && team.pos===state.feudSpot && !team.feudDone && !state.feudRun) break; // كمّل القائمة: passing the hidden square stops you on it
+    if(dir>0 && team.pos===state.ttSpot && !team.ttDone && !state.ttRun) break; // سفر عبر الزمن: نفس الشي
     if(dir>0 && state.blocks && state.blocks.includes(team.pos) && s<Math.abs(steps)-1){ clearBlock(team.pos); thump(60); toast('سد الطريق', `${team.name} وقف عند الحاجز`); break; }
     if(dir>0 && state.blocks && state.blocks.includes(team.pos)){ clearBlock(team.pos); } }
   const m = totems[i]; setAnim(m, 'idle');
@@ -1360,10 +1442,11 @@ function renderTeams(){
       <span class="track"><i style="width:${Math.min(100,t.pos/GOAL*100)}%"></i></span>
     </div>`; }).join('');
 }
-function toast(title, text){ /* stays until closed with the X; newest on top */
+function toast(title, text){ /* stays until closed with the X; newest on top; capped at 3 so a long specials run can't stack toasts over the question tiles */
   const c = document.createElement('div'); c.className = 'tcard';
   c.innerHTML = `<button class="tx" type="button" aria-label="إغلاق">×</button><span class="tt">${esc(title)}</span>${esc(text)}`;
-  c.querySelector('.tx').onclick = ()=>c.remove(); toastEl.prepend(c); }
+  c.querySelector('.tx').onclick = ()=>c.remove(); toastEl.prepend(c);
+  while(toastEl.children.length > 3) toastEl.lastElementChild.remove(); }
 let timerId = 0, timeLeft = 60, timeTotal = 60, callId = 0;
 const CAT_MODE = Object.fromEntries((window.DARB_CATEGORIES||[]).map(c=>[c.id, c.mode||'qa']));
 const modeOf = q=>q ? CAT_MODE[q.c] : 'qa';
@@ -1402,7 +1485,7 @@ function renderPanel(extra){
     const q = state.current, shown = state.phase==='answer', who = state.trap ? state.trap.to : state.turn;
     const after = ['call','double','rest','trap'].filter(k=>t.lifelines.includes(k) && !t.used.includes(k) && !state.trap);
     panel.innerHTML = turnHeader(who, state.trap ? 'سؤال الفخ لـ' : 'الدور على') + badges() + `
-      <div class="qcard"><div class="cat"><span>${esc(CAT_NAME[q.c]||q.c)}</span><span>${LV[q.l].name} · <span dir="ltr">${LV[q.l].range}</span> خطوات</span></div><p>${isCharade(q)?PHONE_TEXT[modeOf(q)].ans:esc(q.q)}</p>${shown?`<div class="ans">${esc(q.a)}</div>`:''}${shown&&q.x?`<div class="banned">${q.x.map(w=>`<span>${esc(w)}</span>`).join('')}</div>`:''}${shown&&q.r?`<div class="rnote">ملاحظة: ${esc(q.r)}</div>`:''}</div>
+      <div class="qcard"><div class="cat"><span>${esc(CAT_NAME[q.c]||q.c)}</span><span>${LV[q.l].name} · <span dir="ltr">${LV[q.l].range}</span> خطوات</span></div>${q.flag?`<img class="qflag" src="https://flagcdn.com/w320/${q.flag}.png" alt="علم الدولة">`:''}<p>${isCharade(q)?PHONE_TEXT[modeOf(q)].ans:esc(q.q)}</p>${shown?`<div class="ans">${esc(q.a)}</div>`:''}${shown&&q.x?`<div class="banned">${q.x.map(w=>`<span>${esc(w)}</span>`).join('')}</div>`:''}${shown&&q.r?`<div class="rnote">ملاحظة: ${esc(q.r)}</div>`:''}</div>
       ${shown?'':`<div class="timer" id="timer"><i style="width:${timeLeft/timeTotal*100}%"></i></div><div id="callBox"></div>`}
       ${!shown && after.length ? `<div class="lifes">${after.map(k=>`<button class="chip" type="button" data-l="${k}">${LIFELINES[k].name}</button>`).join('')}</div>` : ''}
       ${shown?`<div class="row"><button class="btn good" id="bRight" type="button">جواب صح</button><button class="btn bad" id="bWrong" type="button">جواب غلط</button></div>`
@@ -1585,7 +1668,7 @@ function boltMesh(from, to){
   g.add(new THREE.Mesh(new THREE.TubeGeometry(curve, pts.length*2, 0.22, 6), new THREE.MeshBasicMaterial({color:0x7fc8ff, transparent:true, opacity:0.45, blending:THREE.AdditiveBlending, depthWrite:false})));
   return g;
 }
-async function fxLightning(i){ setMood(i, 'angry', 3000);
+async function fxLightning(i){ setMood(i, 'angry', 3000); setAnim(totems[i], 'flinch');
   const t = state.teams[i], p = totems[i].position.clone();
   const sky = document.body; overlay('fx-dark', 900); await wait(350);
   for(let s=0;s<3;s++){
@@ -1599,7 +1682,7 @@ async function fxLightning(i){ setMood(i, 'angry', 3000);
 }
 /* earthquake */
 async function fxEarthquake(i, back){
-  const p = totems[i].position.clone(); rumble(1.6); toast('زلزال', `${state.teams[i].name} يرجع ${back} ورا`);
+  const p = totems[i].position.clone(); rumble(1.6); setMood(i, 'angry', 3000); setAnim(totems[i], 'brace'); toast('زلزال', `${state.teams[i].name} يرجع ${back} ورا`);
   const base = boardRoot.position.clone(), crack = crackMesh(); crack.position.set(p.x, TILE_TOP+0.01, p.z); boardRoot.add(crack);
   await tween(REDUCED?60:1500, k=>{ const a=(1-k)*0.007; boardRoot.position.set(base.x+(Math.random()-.5)*a, base.y+Math.random()*a*0.4, base.z+(Math.random()-.5)*a); boardRoot.rotation.z=(Math.random()-.5)*0.012*(1-k); camShake = a*1.2; crack.scale.setScalar(Math.min(1,k*2.5));
     if(Math.random()<0.12) dust(tilePos[(Math.random()*GOAL)|0].clone().setY(TILE_TOP)); });
@@ -1615,7 +1698,7 @@ const vortexTex = canvasTex(256,(g,S)=>{ const c=S/2; g.clearRect(0,0,S,S);
   for(let arm=0; arm<4; arm++){ for(let k=0;k<160;k++){ const t=k/160, ang=arm*Math.PI/2 + t*Math.PI*3.2, r=t*c*0.95; g.fillStyle=`rgba(${170+80*t|0},${60+40*t|0},255,${0.75*(1-t*0.6)})`; g.beginPath(); g.arc(c+Math.cos(ang)*r, c+Math.sin(ang)*r, 2+t*9, 0, 7); g.fill(); } }
   const gr=g.createRadialGradient(c,c,0,c,c,c*0.32); gr.addColorStop(0,'rgba(0,0,0,1)'); gr.addColorStop(1,'rgba(0,0,0,0)'); g.fillStyle=gr; g.beginPath(); g.arc(c,c,c*0.32,0,7); g.fill(); });
 async function fxBlackHole(i, back){
-  const m = totems[i], p = m.position.clone(), s0 = m.scale.x; toast('ثقب أسود', `${state.teams[i].name} ينسحب ${back} ورا`);
+  const m = totems[i], p = m.position.clone(), s0 = m.scale.x; setMood(i, 'angry', 3000); setAnim(m, 'suck'); toast('ثقب أسود', `${state.teams[i].name} ينسحب ${back} ورا`);
   const hole = new THREE.Group(); const disk = new THREE.Mesh(new THREE.CircleGeometry(1.6,64), new THREE.MeshBasicMaterial({map:vortexTex, transparent:true, depthWrite:false, blending:THREE.AdditiveBlending}));
   disk.rotation.x = -Math.PI/2; hole.add(disk); const core = new THREE.Mesh(new THREE.CircleGeometry(0.42,40), new THREE.MeshBasicMaterial({color:0x000000})); core.rotation.x=-Math.PI/2; core.position.y=0.01; hole.add(core);
   hole.position.set(p.x, TILE_TOP+0.03, p.z); hole.scale.setScalar(0.01); boardRoot.add(hole); whoosh(1.8, false); overlay('fx-void', 1500);
@@ -1628,14 +1711,14 @@ async function fxBlackHole(i, back){
 }
 /* quicksand */
 async function fxQuicksand(i, back, silent){
-  const m = totems[i], y0 = m.position.y; if(!silent) toast('رمال متحركة', `${state.teams[i].name} يغوص ويرجع ${back}`); chime(false);
+  const m = totems[i], y0 = m.position.y; setMood(i, 'angry', 2500); setAnim(m, 'sink'); if(!silent) toast('رمال متحركة', `${state.teams[i].name} يغوص ويرجع ${back}`); chime(false);
   for(let k=0;k<4;k++) setTimeout(()=>dust(m.position.clone(), 0xc9a46a), k*150);
   await tween(REDUCED?50:700, k=>{ m.position.y = y0 - Math.sin(Math.PI*k)*0.45; m.rotation.z = Math.sin(k*Math.PI*6)*0.1*(1-k); }); m.rotation.z = 0; m.position.y = y0;
   await moveTeam(i, -back);
 }
 /* tornado */
 async function fxTornado(i, fwd){
-  const m = totems[i], team = state.teams[i], start = m.position.clone(); toast('إعصار', `الإعصار شال ${team.name} ${fwd} قدام`);
+  const m = totems[i], team = state.teams[i], start = m.position.clone(); setMood(i, 'happy', 3000); setAnim(m, 'lift'); toast('إعصار', `الإعصار شال ${team.name} ${fwd} قدام`);
   const N=260, geo=new THREE.BufferGeometry(), arr=new Float32Array(N*3), seeds=[]; for(let k=0;k<N;k++){ seeds.push({h:Math.random(), a:Math.random()*Math.PI*2, s:2+Math.random()*3}); }
   geo.setAttribute('position', new THREE.BufferAttribute(arr,3));
   const funnel = new THREE.Points(geo, new THREE.PointsMaterial({color:0xd9d2c2, map:dotTex, size:0.02, transparent:true, opacity:0.75, depthWrite:false})); boardRoot.add(funnel);
@@ -1654,7 +1737,7 @@ function portalRing(color){ const g=new THREE.Group(); const ring=new THREE.Mesh
   const disc=new THREE.Mesh(new THREE.CircleGeometry(0.72,40), new THREE.MeshBasicMaterial({color, transparent:true, opacity:0.35, blending:THREE.AdditiveBlending, depthWrite:false})); disc.rotation.x=-Math.PI/2; g.add(disc);
   const beam=new THREE.Mesh(new THREE.CylinderGeometry(0.55,0.75,4,32,1,true), new THREE.MeshBasicMaterial({color, transparent:true, opacity:0.22, blending:THREE.AdditiveBlending, depthWrite:false, side:THREE.DoubleSide})); beam.position.y=2; g.add(beam); g.userData={ring, beam}; return g; }
 async function fxPortal(i, target){
-  const m = totems[i], team = state.teams[i], s0 = m.scale.x, from = m.position.clone(); toast('بوابة انتقال', `${team.name} انتقل للمربع ${target}`);
+  const m = totems[i], team = state.teams[i], s0 = m.scale.x, from = m.position.clone(); setMood(i, 'happy', 2500); setAnim(m, 'lift'); toast('بوابة انتقال', `${team.name} انتقل للمربع ${target}`);
   const A = portalRing(0x39f0ff), B = portalRing(0x39f0ff); A.position.set(from.x, TILE_TOP+0.02, from.z); const to = spacePos(target, i); B.position.set(to.x, TILE_TOP+0.02, to.z); [A,B].forEach(r=>{ r.scale.setScalar(0.01); boardRoot.add(r); });
   sweep(200, 1600, 0.9);
   await tween(REDUCED?50:400, k=>{ A.scale.setScalar(0.01+k); B.scale.setScalar(0.01+k*0.8); A.rotation.y+=0.1; });
@@ -1666,29 +1749,9 @@ async function fxPortal(i, target){
   m.scale.setScalar(s0); sparks(to.clone().add(V3(0,0.5,0)), 0x39f0ff, 30, 1.5);
   await tween(REDUCED?40:350, k=>{ A.scale.setScalar(1-k); B.scale.setScalar(0.8*(1-k)); }); boardRoot.remove(A); boardRoot.remove(B);
 }
-/* meteor shower */
-async function fxMeteor(i){
-  const m = totems[i], team = state.teams[i], p = m.position.clone(); toast('مطر نيازك', `بلورة طاحت عند ${team.name}`);
-  overlay('fx-ember', 1400);
-  const drops = [];
-  for(let k=0;k<6;k++){ const last = k===5; const land = last ? p.clone().add(V3(0.6,0,0.2)) : tilePos[Math.min(GOAL-1, Math.max(0, team.pos + ((Math.random()*14)|0) - 7))].clone().add(V3((Math.random()-.5)*1.2, 0, (Math.random()-.5)*1.2));
-    land.y = TILE_TOP; drops.push((async()=>{ await wait(k*180);
-      const rock = new THREE.Group(); const core = new THREE.Mesh(new THREE.IcosahedronGeometry(0.22,0), new THREE.MeshBasicMaterial({color:0xffb347})); rock.add(core); const gl = glowSprite(0xff7a2a, 2.2); rock.add(gl);
-      const tail = glowSprite(0xff5a1a, 1.2); boardRoot.add(rock); boardRoot.add(tail);
-      const from = land.clone().add(V3(9, 15, -7)); sweep(1400, 200, 0.6);
-      await tween(REDUCED?40:650, t=>{ rock.position.lerpVectors(from, land, t*t); tail.position.lerpVectors(from, rock.position, 0.85); core.rotation.x += 0.3; });
-      boardRoot.remove(rock); boardRoot.remove(tail); thump(70); sparks(land.clone().add(V3(0,0.1,0)), 0xffa040, 26, 2.2); dust(land, 0x6a5a48); camShake = 0.002; setTimeout(()=>{ camShake = 0; }, 150);
-      if(last){ const crystal = new THREE.Mesh(new THREE.OctahedronGeometry(0.28,0), new THREE.MeshStandardMaterial({color:0x7ff7ff, emissive:0x39f0ff, emissiveIntensity:1.2, metalness:0.2, roughness:0.1}));
-        crystal.add(glowSprite(0x39f0ff, 1.6)); crystal.position.copy(land).add(V3(0,0.4,0)); boardRoot.add(crystal); chime(true);
-        await tween(REDUCED?50:1200, t=>{ crystal.rotation.y += 0.12; crystal.position.y = land.y + 0.4 + t*2.2; crystal.position.x = land.x + (p.x - land.x)*t; crystal.position.z = land.z + (p.z - land.z)*t; crystal.scale.setScalar(1-t*0.6); });
-        sparks(crystal.position.clone(), 0x7ff7ff, 30, 1.8); boardRoot.remove(crystal);
-        if(team.used.length){ const k = team.used.pop(); renderTeams(); toast('مطر نيازك', `${team.name} رجعت له وسيلة: ${LIFELINES[k].name}`); } else toast('مطر نيازك', `${team.name} وسائله كاملة، ما يحتاج`); }
-    })()); }
-  await Promise.all(drops);
-}
 /* time warp */
 async function fxTimeWarp(i){
-  const m = totems[i], p = m.position.clone(); toast('آلة الزمن', `${state.teams[i].name} يلعب مرة ثانية`); overlay('fx-warp', 1600);
+  const m = totems[i], p = m.position.clone(); setMood(i, 'happy', 2500); setAnim(m, 'dizzy'); toast('آلة الزمن', `${state.teams[i].name} يلعب مرة ثانية`); overlay('fx-warp', 1600);
   sweep(120, 900, 1.2); setTimeout(()=>sweep(900, 120, 0.9), 900);
   const rings = []; for(let k=0;k<4;k++){ const r = new THREE.Mesh(new THREE.RingGeometry(0.9,1.05,64), new THREE.MeshBasicMaterial({color:0x8fe9ff, transparent:true, opacity:0.8, blending:THREE.AdditiveBlending, depthWrite:false, side:THREE.DoubleSide})); r.rotation.x=-Math.PI/2; r.position.set(p.x, TILE_TOP+0.05, p.z); boardRoot.add(r); rings.push(r); }
   const hands = COZY.clockHands || []; const h0 = hands.map(h=>h.rotation.z);
@@ -1705,8 +1768,7 @@ async function resolveSpecial(i, sp, depth){
     case 'blackhole': await fxBlackHole(i, 5); break;
     case 'quicksand': await fxQuicksand(i, 2); break;
     case 'tornado': await fxTornado(i, 3); break;
-    case 'portal': { const here = state.teams[i].pos; const next = Object.keys(SPECIALS).map(Number).filter(k=>k>here && SPECIALS[k]==='portal')[0]; await fxPortal(i, next || Math.min(GOAL-1, here+7)); break; }
-    case 'meteor': await fxMeteor(i); break;
+    case 'portal': { const here = state.teams[i].pos; await fxPortal(i, Math.min(GOAL - 1, here + 5)); break; }
     case 'timewarp': await fxTimeWarp(i); await wait(400); return true;
     case 'reroll': { toast('إعادة رمي', `${teamName(i)} يرمي النرد مرة ثانية`); chime(true); await wait(500); const v = 1 + ((Math.random()*6)|0); await rollDie(v); await moveTeam(i, v);
       if(state.teams[i].pos < GOAL && depth<2){ const sp2 = SPECIALS[state.teams[i].pos]; if(sp2) return resolveSpecial(i, sp2, depth+1); } break; }
@@ -1750,6 +1812,15 @@ function feudSpotPick(){ if(FEUD_TEST) return 2; const c = []; for(let k=6;k<=34
 function feudDue(){ if(!FEUD_OK || !state || state.feudRun || state.phase==='won') return -1;
   return state.teams.findIndex(t=>!t.feudDone && t.pos>=state.feudSpot && t.pos<GOAL); }
 const encodeF = idx=>(idx*1296 + ((Math.random()*1296)|0)).toString(36);
+/* ================= سفر عبر الزمن: مربع خفي، نفس قوانين كمّل القائمة بالضبط =================
+   مربع ثاني مخفي (عشوائي، مو مربع خاص، ومختلف عن مربع كمّل القائمة). كل فريق يلعبه مرة وحدة: الوقوف عليه
+   أو المرور منه يوقّف الفريق ويبدأ الجولة. فيها 6 أحداث تاريخية لازم يحطّونها تحت سنينها الصحيحة على لوحة
+   محقق ثلاثية الأبعاد على الجدار، وكل حدث صحيح = خطوة وحدة قدام، بدون نرد وبدون ليفلاين. */
+const TTDATA = window.DARB_TIMETRAVEL || {cases:[]};
+const TT_OK = (TTDATA.cases||[]).length >= 1;
+function ttSpotPick(excludeSpot){ const c = []; for(let k=6;k<=34;k++) if(!SPECIALS[k] && k!==excludeSpot) c.push(k); return c.length ? c[(Math.random()*c.length)|0] : -1; }
+function ttDue(){ if(!TT_OK || !state || state.feudRun || state.ttRun || state.phase==='won') return -1;
+  return state.teams.findIndex(t=>!t.ttDone && t.pos>=state.ttSpot && t.pos<GOAL); }
 let feudCam = null; const feudLook = new THREE.Vector3();
 /* the TV board: drawn on a canvas that replaces the TV picture while the round is on */
 const FFW = 1600, FFH = 900, ffCanvas = document.createElement('canvas'); ffCanvas.width = FFW; ffCanvas.height = FFH;
@@ -1851,6 +1922,183 @@ function feudFly(to, dur){ // glide the camera from where it is now
 async function feudCamOn(dur){ await feudFly(feudFrame(), dur); }
 async function feudCamOff(dur){ const to = {pos:camOrbitPos(cam.theta, cam.phi, cam.radius, cam.target, new THREE.Vector3()), look:cam.target.clone()};
   feudCam = Object.assign(to, {from:{pos:camera.position.clone(), look:feudLook.clone()}, t0:performance.now(), dur:REDUCED?1:dur}); await wait(REDUCED?20:dur); feudCam = null; }
+/* ================= سفر عبر الزمن: التنفيذ (لوحة مسطّحة على تلفزيون الغرفة، مثل كمّل القائمة بالضبط) ================= */
+const TT_FONTS = ['Rakkas','Aref Ruqaa','Katibeh','Lemonada','Jomhuria','Lalezar']; // one distinct handwriting-style font per card
+const TT_VARIANTS = ['tt-clip','tt-note','tt-index']; // non-photo paper styles, cycled for visual variety
+const TTW = 1600, TTH = 900, ttCanvas = document.createElement('canvas'); ttCanvas.width = TTW; ttCanvas.height = TTH;
+const ttCtx = ttCanvas.getContext('2d'), ttTex = new THREE.CanvasTexture(ttCanvas); ttTex.encoding = THREE.sRGBEncoding; ttTex.anisotropy = 8;
+let ttLast = 0;
+function ttTV(on){ const m = tvScreen.material; m.map = on ? ttTex : tvScreenTex; m.color.set(on ? 0xffffff : 0xb8a090); m.needsUpdate = true; }
+function ttTick(now, t){ if(now - ttLast > 40){ ttLast = now; ttDraw(t); } }
+function ttDraw(t){ const g = ttCtx, R = state.ttRun;
+  ffStage(g, t); g.direction = 'rtl'; g.textAlign = 'center'; g.textBaseline = 'middle';
+  const pulse = 1 + Math.sin(t*3)*0.03; g.save(); g.translate(TTW/2, TTH*0.4); g.scale(pulse, pulse);
+  ffFit(g, 'سفر عبر الزمن', TTW-240, 170, 400, 'Rakkas, serif'); g.fillStyle = '#5a3b0c'; g.fillText('سفر عبر الزمن', 0, 10); g.fillStyle = '#f6c65a'; g.fillText('سفر عبر الزمن', 0, 0); g.restore();
+  g.font = '800 46px Tajawal, sans-serif'; g.fillStyle = '#f3ecdc'; g.fillText(R && R.case ? R.case.title : '', TTW/2, TTH*0.62);
+  g.font = '700 34px Tajawal, sans-serif'; g.fillStyle = '#f6d47a'; g.fillText('اسحبوا الأدلة إلى سنواتها الصحيحة', TTW/2, TTH*0.74);
+  ttTex.needsUpdate = true;
+}
+function pct(v, total){ return (v/total*100).toFixed(2)+'%'; }
+function ttOpenBoard(R, landerIdx){
+  return new Promise(res=>{
+    const events = R.case.events;
+    const tt = $('tt'); tt.innerHTML = '';
+    const hintEl = document.createElement('p'); hintEl.className = 'tt-hint';
+    hintEl.textContent = 'اسحب كل دليل وحطّه تحت السنة اللي تناسبه. تقدر تغيّر مكانه قد ما تبي، وآخر شي اضغط «تم الإجابة».';
+    const stage = document.createElement('div'); stage.className = 'tt-stage';
+    const cork = document.createElement('div'); cork.className = 'tt-cork'; stage.appendChild(cork);
+    const svg = document.createElementNS('http://www.w3.org/2000/svg','svg'); svg.setAttribute('id','ttStrings'); svg.setAttribute('viewBox','0 0 1280 960'); stage.appendChild(svg);
+    const controls = document.createElement('div'); controls.className = 'tt-controls';
+    const btnDone = document.createElement('button'); btnDone.className = 'btn primary'; btnDone.textContent = 'تم الإجابة';
+    controls.appendChild(btnDone);
+    tt.appendChild(hintEl); tt.appendChild(stage); tt.appendChild(controls); tt.hidden = false;
+
+    const rand = (a,b)=>a+Math.random()*(b-a);
+    const TTVH = 960; // the virtual canvas is 1280 wide x 960 tall (taller than the stage's old 760, to give the now much-bigger cards room)
+    const colXs = [55, 260, 465, 670, 875, 1080], slotW = 150, slotH = 112;
+    const slotYs = colXs.map(()=>100+rand(-15,110)), slotRs = colXs.map(()=>rand(-4,4)), slotXj = colXs.map(()=>rand(-15,15));
+    const tagYs = slotYs.map(sy=>Math.max(14, sy-56-rand(0,22)));
+
+    // 6 year slots, in a loose scattered row -- fixed 1280x960 "virtual canvas", scaled to the stage via CSS percentages
+    const slots = events.map((e,i)=>{
+      const x = colXs[i]+slotXj[i], y = slotYs[i];
+      const tagWrap = document.createElement('div'); tagWrap.className = 'tt-tagwrap';
+      tagWrap.style.cssText = `left:${pct(x+8,1280)};top:${pct(tagYs[i],TTVH)};width:${pct(slotW*0.62,1280)};height:${pct(50,TTVH)};transform:rotate(${rand(-5,5)}deg)`;
+      const tag = document.createElement('div'); tag.className = 'tt-tag'; tag.textContent = e.y; tagWrap.appendChild(tag); stage.appendChild(tagWrap);
+      const slotEl = document.createElement('div'); slotEl.className = 'tt-slot';
+      slotEl.style.cssText = `left:${pct(x,1280)};top:${pct(y,TTVH)};width:${pct(slotW,1280)};height:${pct(slotH,TTVH)};transform:rotate(${slotRs[i]}deg)`;
+      stage.appendChild(slotEl);
+      return { el: slotEl, year: e.y, occupant: null, cx: x+slotW/2, cy: y+slotH/2 };
+    });
+
+    // the pile: 6 draggable evidence cards (now much bigger, per the owner's request), scattered below the
+    // slots in a roomier zone (the taller virtual canvas exists specifically to fit these comfortably)
+    const pileZone = {x0:60,y0:300,x1:1190,y1:895}; // inset from the 1280x960 canvas edges to absorb the extra bounding-box growth from each card's random rotation
+    const placedRects = []; const overlaps = (x,y,w,h)=>placedRects.some(p=>x<p.x+p.w+10 && x+w+10>p.x && y<p.y+p.h+10 && y+h+10>p.y);
+    const shuffled = events.map((e,i)=>({e,i})).sort(()=>Math.random()-0.5);
+    const cards = shuffled.map(({e,i})=>{
+      const hasPhoto = !!(window.DARB_TT_PHOTOS && window.DARB_TT_PHOTOS[e.cap]);
+      const variant = hasPhoto ? 'tt-photo' : TT_VARIANTS[i % TT_VARIANTS.length];
+      const sizes = {'tt-photo':[250,280], 'tt-clip':[235,175], 'tt-note':[225,205], 'tt-index':[250,150]};
+      const [w,h] = sizes[variant];
+      let x,y,tries=0; do{ x=rand(pileZone.x0,pileZone.x1-w); y=rand(pileZone.y0,pileZone.y1-h); tries++; }while(overlaps(x,y,w,h)&&tries<50);
+      placedRects.push({x,y,w,h});
+      const rot = rand(-9,9).toFixed(1);
+      const card = document.createElement('div'); card.className = `tt-card ${variant}`;
+      card.dataset.year = e.y; card.dataset.cap = e.cap; card.dataset.rot = rot; card.dataset.slot = '';
+      card.dataset.home = `left:${pct(x,1280)};top:${pct(y,TTVH)};width:${pct(w,1280)};height:${pct(h,TTVH)}`;
+      card.style.cssText = card.dataset.home + `;transform:rotate(${rot}deg)`;
+      const face = document.createElement('div'); face.className = 'tt-face';
+      face.appendChild(Object.assign(document.createElement('div'), {className:'tt-pin'}));
+      if(hasPhoto){ const inner = document.createElement('div'); inner.className = 'tt-inner';
+        inner.style.cssText = `background-image:url(${window.DARB_TT_PHOTOS[e.cap].data});background-size:cover;background-position:center`;
+        face.appendChild(inner); }
+      const cap = document.createElement('div'); cap.className = 'tt-cap'; cap.textContent = e.cap;
+      cap.style.fontFamily = `'${TT_FONTS[i % TT_FONTS.length]}', cursive`;
+      face.appendChild(cap); card.appendChild(face); stage.appendChild(card);
+      return card;
+    });
+
+    if(window.__ttDebug){ window.__ttCards = cards; window.__ttSlots = slots; window.__ttEvents = events; window.__ttStage = stage; }
+
+    function updateStrings(){ svg.innerHTML = '';
+      for(let i=0;i<slots.length-1;i++){ const a = slots[i], b = slots[i+1]; if(!a.occupant || !b.occupant) continue;
+        const mx = (a.cx+b.cx)/2, my = Math.max(a.cy,b.cy) + 46;
+        const path = document.createElementNS('http://www.w3.org/2000/svg','path');
+        path.setAttribute('d', `M${a.cx},${a.cy} Q${mx},${my} ${b.cx},${b.cy}`);
+        path.setAttribute('stroke', '#b3261e'); path.setAttribute('stroke-width', '3.5'); path.setAttribute('fill', 'none'); path.setAttribute('opacity', '0.85');
+        svg.appendChild(path);
+      } }
+
+    // pointer-based drag and drop, delegated on the stage -- plain 2D math, no 3D projection involved
+    let dragCard = null, offX = 0, offY = 0, stageRect = null;
+    const toLocal = (clientX, clientY)=>({ x:(clientX-stageRect.left)/stageRect.width*1280, y:(clientY-stageRect.top)/stageRect.height*TTVH });
+    function onDown(e){ const card = e.target.closest('.tt-card'); if(!card) return;
+      stageRect = stage.getBoundingClientRect(); dragCard = card; card.classList.add('dragging');
+      if(card.dataset.slot !== ''){ const si = +card.dataset.slot; if(slots[si].occupant === card) slots[si].occupant = null; card.dataset.slot = ''; updateStrings(); }
+      const p = toLocal(e.clientX, e.clientY);
+      const left = parseFloat(card.style.left)/100*1280, top = parseFloat(card.style.top)/100*TTVH;
+      offX = p.x - left; offY = p.y - top;
+      card.setPointerCapture(e.pointerId);
+    }
+    function onMove(e){ if(!dragCard) return; const p = toLocal(e.clientX, e.clientY);
+      const x = p.x - offX, y = p.y - offY;
+      dragCard.style.left = pct(x,1280); dragCard.style.top = pct(y,TTVH); dragCard.style.transform = 'rotate(0deg)';
+      const w = parseFloat(dragCard.style.width)/100*1280, h = parseFloat(dragCard.style.height)/100*TTVH;
+      const ccx = x+w/2, ccy = y+h/2;
+      slots.forEach(s=>s.el.classList.toggle('over', !s.occupant && Math.hypot(s.cx-ccx, s.cy-ccy) < 95));
+    }
+    function onUp(e){ if(!dragCard) return; dragCard.classList.remove('dragging');
+      const w = parseFloat(dragCard.style.width)/100*1280, h = parseFloat(dragCard.style.height)/100*TTVH;
+      const x = parseFloat(dragCard.style.left)/100*1280, y = parseFloat(dragCard.style.top)/100*TTVH;
+      const ccx = x+w/2, ccy = y+h/2;
+      let target = -1, best = 95;
+      slots.forEach((s,i)=>{ s.el.classList.remove('over'); if(s.occupant) return; const d = Math.hypot(s.cx-ccx, s.cy-ccy); if(d<best){ best=d; target=i; } });
+      if(target>=0){
+        if(slots[target].occupant){ const old = slots[target].occupant; old.style.cssText = old.dataset.home+`;transform:rotate(${old.dataset.rot}deg)`; old.dataset.slot = ''; }
+        const s = slots[target];
+        // a card can be wider/taller than the slot it snaps into (slots are a fixed size, cards vary a lot now
+        // that they're much bigger), so centering on the slot could push a card's edge past the board --
+        // clamp so the snapped card always stays fully inside the 1280xTTVH canvas, no matter the slot position
+        const nx = Math.min(Math.max(s.cx-w/2, 6), 1280-w-6), ny = Math.min(Math.max(s.cy-h/2, 6), TTVH-h-6);
+        dragCard.style.left = pct(nx,1280); dragCard.style.top = pct(ny,TTVH); dragCard.style.transform = 'rotate(0deg)';
+        dragCard.dataset.slot = String(target); slots[target].occupant = dragCard;
+      } else { dragCard.style.cssText = dragCard.dataset.home+`;transform:rotate(${dragCard.dataset.rot}deg)`; }
+      dragCard = null; updateStrings();
+    }
+    stage.addEventListener('pointerdown', onDown);
+    stage.addEventListener('pointermove', onMove);
+    stage.addEventListener('pointerup', onUp);
+    stage.addEventListener('pointercancel', onUp);
+
+    btnDone.onclick = ()=>{
+      stage.removeEventListener('pointerdown', onDown);
+      let steps = 0;
+      slots.forEach(s=>{ const c = s.occupant; if(!c) return; const ok = c.dataset.year === s.year;
+        c.classList.add('placed', ok?'correct':'wrong'); if(ok) steps++; });
+      toast('سفر عبر الزمن', `${teamName(landerIdx)} ربط ${steps} من ${events.length} صح`);
+      setTimeout(()=>{ tt.hidden = true; tt.innerHTML = ''; res(steps); }, 2200);
+    };
+  });
+}
+const TT_CAT_LABELS = {islamic_history:'تاريخ إسلامي', bahrain_history_1:'تأسيس البحرين', bahrain_history_2:'مؤسسات البحرين',
+  arab_plays:'مسرحيات عربية', general_history:'تاريخ عالمي', famous_world_events:'أحداث عالمية مشهورة', sports:'رياضة', tech:'تقنية',
+  brands:'ماركات عالمية', arabic_series:'مسلسلات عربية', foreign_series:'مسلسلات أجنبية', arabic_movies:'أفلام عربية',
+  foreign_movies:'أفلام أجنبية', arabic_songs:'أغاني عربية', english_songs:'أغاني إنجليزية', memes:'ميمز وثقافة الإنترنت'};
+function ttCats(i){ return new Promise(res=>{
+  const topics = [...new Set(TTDATA.cases.map(c=>c.topic))];
+  if(topics.length < 1){ res(TTDATA.cases[(Math.random()*TTDATA.cases.length)|0]); return; }
+  let sel = null;
+  const draw = ()=>{ feudSheet(`<h2>سفر عبر الزمن</h2><p class="lead"><b style="color:${TEAM_STYLES[i].color}">${esc(teamName(i))}</b>: اختاروا فئة الأحداث اللي بتربطونها بسنينها.</p>
+    <div class="ffcats">${topics.map(top=>`<button class="pickbtn" type="button" data-t="${esc(top)}" aria-pressed="${sel===top}">${esc(TT_CAT_LABELS[top]||top)}</button>`).join('')}</div>
+    <div class="row"><button class="btn primary" id="ttCatGo" type="button" ${sel?'':'disabled'}>${sel?'يلا':'اختاروا فئة'}</button></div>`);
+    $('feudBody').querySelectorAll('.ffcats .pickbtn').forEach(b=>b.onclick=()=>{ sel = b.dataset.t; thump(200); draw(); });
+    $('ttCatGo').onclick = ()=>{ if(!sel) return; feudSheetClose();
+      const pool = TTDATA.cases.filter(c=>c.topic===sel); res(pool[(Math.random()*pool.length)|0]); }; };
+  draw(); }); }
+async function runTimeTravel(i){
+  const t = state.teams[i]; t.ttDone = true; stopTimer(); hideDie(); panel.hidden = true; busy = true;
+  const R = state.ttRun = {lander:i, case:null};
+  state.phase = 'timetravel'; activeTeam = i; renderTeams();
+  following = !REDUCED; camGoal.radius = Math.min(overviewRadius, 0.8); camGoal.target.copy(worldPosOf(i));
+  teamsEl.hidden = true; toastEl.hidden = true; await wait(REDUCED?20:700);
+  const sp = worldPosOf(i); teamSpot.position.set(sp.x, 2.85, sp.z); teamSpot.target.position.copy(sp);
+  fxOverlay.className = 'fx-dark'; fxOverlay.style.opacity = '1';
+  drumroll(3.2); await Promise.all([feudDim(0, 2200), lightTween([teamSpot], 7, 2200)]);
+  fanfare(); sparks(totems[i].position.clone().add(V3(0,0.5,0)), 0xffc24a, 50, 2.2); setAnim(totems[i], 'cheer'); setMood(i, 'happy', 4000);
+  await wait(REDUCED?20:900);
+  ttTV(true); fxOverlay.style.opacity = '0'; following = false;
+  lightTween([teamSpot], 0, 1500); lightTween(stageLights, 3, 1800);
+  await feudCamOn(3200); setAnim(totems[i], 'idle');
+  await wait(REDUCED?20:800);
+  R.case = await ttCats(i);
+  await wait(REDUCED?20:600);
+  const earned = await ttOpenBoard(R, i);
+  lightTween(stageLights, 0, 1200); await feudCamOff(2600); await feudDim(1, 1600); ttTV(false); teamsEl.hidden = false; toastEl.hidden = false;
+  if(earned>0){ await moveTeam(i, earned);
+    if(state.teams[i].pos >= GOAL){ state.ttRun = null; busy = false; win(i); return; } }
+  endFollow(); state.ttRun = null; busy = false;
+}
 /* sounds */
 function tone(f, at, dur, type, vol){ const a=audio(); if(!a) return; const o=a.createOscillator(), g=a.createGain(); o.type = type||'triangle'; o.frequency.value = f; const t0 = a.currentTime+at;
   g.gain.setValueAtTime(0.0001,t0); g.gain.exponentialRampToValueAtTime(vol||0.18,t0+0.02); g.gain.exponentialRampToValueAtTime(0.0001,t0+dur); o.connect(g).connect(a.destination); o.start(t0); o.stop(t0+dur+0.05); }
@@ -2001,6 +2249,7 @@ async function runFeud(i){
 }
 function nextTurn(){ stopTimer(); phoneCleanup();
   const due = feudDue(); if(due>=0){ runFeud(due).then(()=>{ if(state.phase!=='won') nextTurn(); }); return; }
+  const ttDueI = ttDue(); if(ttDueI>=0){ runTimeTravel(ttDueI).then(()=>{ if(state.phase!=='won') nextTurn(); }); return; }
   state.turn = (state.turn+1) % state.teams.length; state.pit = null; state.trap = null; state.badges = []; refillIfEmpty(); state.phase = 'pick'; renderPanel(); }
 function win(i){ setMood(i, 'happy'); setAnim(totems[i], 'cheer');
   endFollow(); hideDie(); stopTimer(); state.phase = 'won'; activeTeam = i; renderTeams(); panel.hidden = true;
@@ -2016,7 +2265,7 @@ function renderSetup(){
   $('seg').querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed', String(+b.dataset.n===teamCount)));
   $('names').innerHTML = draft.slice(0,teamCount).map((d,i)=>`<div class="trow"><span class="swatch" style="--tc:${TEAM_STYLES[i].color}"></span>
      <input id="tn${i}" maxlength="22" value="${esc(d.name)}" aria-label="اسم الفريق ${i+1}">
-     <button class="statbtn" type="button" data-i="${i}"><small>المجسم</small>${esc(statueLabel(d.statue))}</button></div>`).join('');
+     <button class="statbtn" type="button" data-i="${i}"><small>الشخصية</small>${esc(statueLabel(d.statue))}</button></div>`).join('');
   draft.slice(0,teamCount).forEach((_,i)=>{ $('tn'+i).oninput = e=>{ draft[i].name = e.target.value; }; });
   $('names').querySelectorAll('.statbtn').forEach(b=>b.onclick=()=>openWorkshop(+b.dataset.i));
 }
@@ -2066,24 +2315,18 @@ function renderPreview(dt){ const p = prev; if(!p) return; const c = $('wsCanvas
   const st = p.holder.children[0], ch = st && st.userData.char; if(ch && ch.userData.anim){ const now = performance.now(); ch.userData.anim.mode = 'walk'; ch.userData.anim.k = (now/900)%1; animateChar(ch, now/1000, dt); } // show the walk in the workshop
   p.r.render(p.sc, p.cm); }
 function renderWorkshop(){
-  const gal = wsSpec.mode==='gallery', chr = wsSpec.mode==='char', bld = !gal && !chr;
-  $('tabGallery').setAttribute('aria-pressed', String(gal)); $('tabBuild').setAttribute('aria-pressed', String(bld)); $('tabChar').setAttribute('aria-pressed', String(chr));
-  $('wsGallery').hidden = !gal; $('wsBuild').hidden = !bld; $('wsChar').hidden = !chr; $('wsFinishGrp').hidden = chr;
-  $('wsNote').textContent = chr ? 'وجه الشخصية يتغير في اللعب: يفرح لما يتقدم، ويعصب لما يرجع ورا. والقاعدة بلون الفريق.' : 'القاعدة دايماً بلون الفريق عشان الكل يميز المجسمات.';
-  $('wsChar').innerHTML = `<div class="eyebrow">اختاروا شخصية</div><div class="chips">${CHARACTERS.map(([id,n])=>`<button class="chip" type="button" data-id="${id}" aria-pressed="${chr && wsSpec.id===id}">${n}</button>`).join('')}</div>${CHAR_SRC?'':'<p class="note">الشخصيات تتحمّل…</p>'}`;
+  wsSpec.mode = 'char';
+  if(!CHAR_NAME[wsSpec.id]) wsSpec.id = CHARACTERS[wsTeam % CHARACTERS.length][0];
+  $('wsGallery').hidden = true; $('wsBuild').hidden = true; $('wsChar').hidden = false; $('wsFinishGrp').hidden = true;
+  $('wsNote').textContent = 'وجه الشخصية يتغير في اللعب: يفرح لما يتقدم، ويعصب لما يرجع ورا. والقاعدة بلون الفريق.';
+  $('wsChar').innerHTML = `<div class="eyebrow">اختاروا شخصية</div><div class="chips">${CHARACTERS.map(([id,n])=>`<button class="chip" type="button" data-id="${id}" aria-pressed="${wsSpec.id===id}">${n}</button>`).join('')}</div>${CHAR_SRC?'':'<p class="note">الشخصيات تتحمّل…</p>'}`;
   $('wsChar').querySelectorAll('.chip').forEach(b=>b.onclick=()=>{ wsSpec.id=b.dataset.id; renderWorkshop(); rebuildPreview(); });
-  $('wsGallery').innerHTML = GALLERY.map(g=>`<div class="eyebrow">${g.group}</div><div class="chips">${g.items.map(([id,n])=>`<button class="chip" type="button" data-id="${id}" aria-pressed="${wsSpec.id===id}">${n}</button>`).join('')}</div>`).join('');
-  $('wsBuild').innerHTML = [['base','القاعدة'],['body','الجسم'],['head','الرأس']].map(([k,label])=>`<div class="eyebrow">${label}</div><div class="chips">${BUILD_PARTS[k].map(([id,n])=>`<button class="chip" type="button" data-k="${k}" data-id="${id}" aria-pressed="${wsSpec[k]===id}">${n}</button>`).join('')}</div>`).join('');
-  $('wsFinish').innerHTML = Object.entries(FINISHES).map(([id,f])=>`<button class="chip fin" type="button" data-f="${id}" aria-pressed="${wsSpec.finish===id}" style="--fc:${f.color}"><i></i>${f.name}</button>`).join('');
-  $('wsGallery').querySelectorAll('.chip').forEach(b=>b.onclick=()=>{ wsSpec.id=b.dataset.id; renderWorkshop(); rebuildPreview(); });
-  $('wsBuild').querySelectorAll('.chip').forEach(b=>b.onclick=()=>{ wsSpec[b.dataset.k]=b.dataset.id; renderWorkshop(); rebuildPreview(); });
-  $('wsFinish').querySelectorAll('.chip').forEach(b=>b.onclick=()=>{ wsSpec.finish=b.dataset.f; renderWorkshop(); rebuildPreview(); });
 }
-function openWorkshop(i){ wsTeam = i; wsSpec = {...draft[i].statue}; $('wsTeam').textContent = 'مجسم ' + (draft[i].name||TEAM_STYLES[i].label);
+function openWorkshop(i){ wsTeam = i;
+  const cur = draft[i].statue;
+  wsSpec = (cur && cur.mode==='char' && CHAR_NAME[cur.id]) ? {...cur} : {mode:'char', id:CHARACTERS[i % CHARACTERS.length][0], finish:'bronze', base:'round', body:'robe', head:'sphere'};
+  $('wsTeam').textContent = 'شخصية ' + (draft[i].name||TEAM_STYLES[i].label);
   $('ws').hidden = false; wsOpen = true; renderWorkshop(); rebuildPreview(); }
-$('tabGallery').onclick = ()=>{ if(wsSpec.mode==='char'){ wsSpec.id = wsSpec.lastId && GALLERY_NAME[wsSpec.lastId] ? wsSpec.lastId : 'falcon'; } wsSpec.mode='gallery'; renderWorkshop(); rebuildPreview(); };
-$('tabBuild').onclick = ()=>{ wsSpec.mode='build'; renderWorkshop(); rebuildPreview(); };
-$('tabChar').onclick = ()=>{ if(wsSpec.mode!=='char'){ wsSpec.lastId = wsSpec.mode==='gallery' ? wsSpec.id : wsSpec.lastId; wsSpec.mode='char'; if(!CHAR_NAME[wsSpec.id]) wsSpec.id = CHARACTERS[wsTeam % CHARACTERS.length][0]; } renderWorkshop(); rebuildPreview(); };
 $('wsDone').onclick = ()=>{ draft[wsTeam].statue = {...wsSpec}; $('ws').hidden = true; wsOpen = false; renderSetup(); };
 
 function newBoard(cats){ return cats.map(cat=>({cat, tiles:['e','e','n','n','h','h'].map(l=>({l, used:false}))})); }
@@ -2092,6 +2335,7 @@ async function startGame(teams, cats){
   state = {teams:teams.map(t=>({name:t.name, statue:{...t.statue}, pos:0, lifelines:[...t.lifelines], used:[]})), turn:0, phase:'setup',
     cats:[...cats], board:newBoard(cats), round:1, usedQ:[], blocks:[], pit:null, trap:null, badges:[], current:null, rollFor:0,
     feudSpot: FEUD_OK ? feudSpotPick() : -1, feudUsed:[], feudRun:null};
+  state.ttSpot = TT_OK ? ttSpotPick(state.feudSpot) : -1; state.ttRun = null;
   feudMarkerClear();
   buildTotems(); renderTeams(); ['setup','life','draft','win'].forEach(id=>$(id).hidden = true); audio();
   wideHold = false; await startTour();
