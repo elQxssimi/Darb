@@ -8,7 +8,7 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rakkas&family=Tajawal:wght@400;500;700;800&family=Aref+Ruqaa:wght@400;700&family=Katibeh&family=Lemonada:wght@500;700&family=Jomhuria&family=Lalezar&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rakkas&family=Tajawal:wght@400;500;700;800&display=swap">
 <style>
 /* Layout: full-bleed 3D living room; HUD floats over it (teams top-left, turn panel bottom-right, sheet on phones). Single dark-glass HUD look by design. */
 :root{
@@ -103,6 +103,7 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--amber);outline-
 .track i{display:block;height:100%;background:var(--tc);transition:width .4s}
 
 #panel{position:absolute;left:max(16px, env(safe-area-inset-left,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));width:370px;max-width:calc(100% - 32px);
+  max-height:min(72vh, 640px);overflow:auto;-webkit-overflow-scrolling:touch;
   background:linear-gradient(180deg, rgba(37,51,40,.95), rgba(27,36,29,.96));border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:18px;display:flex;flex-direction:column;gap:14px;backdrop-filter:blur(8px)}
 .turnline{display:flex;align-items:center;gap:10px}
 .turnline b{font-family:var(--display);font-weight:400;font-size:22px;line-height:1.1}
@@ -146,9 +147,9 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--amber);outline-
 @keyframes toastIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
 #toast .tt{font-family:var(--display);font-weight:400;color:var(--amber-deep);margin-inline-end:6px}
 
-.modal{position:absolute;inset:0;display:grid;place-items:center;background:rgba(8,10,8,.35);
+.modal{position:absolute;inset:0;display:grid;place-items:safe center;background:rgba(8,10,8,.35);
   padding-left:max(16px, env(safe-area-inset-left,0px));padding-right:max(16px, env(safe-area-inset-right,0px));padding-block:16px;overflow:auto;z-index:4}
-.sheet{width:min(500px,100%);background:linear-gradient(180deg,rgba(37,51,40,.96),rgba(27,36,29,.97));border:1px solid var(--line);border-radius:18px;padding:24px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:16px;backdrop-filter:blur(10px)}
+.sheet{width:min(500px,100%);background:linear-gradient(180deg,rgba(37,51,40,.96),rgba(27,36,29,.97));border:1px solid var(--line);border-radius:18px;padding:24px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:16px;backdrop-filter:blur(10px);max-height:min(92dvh, 920px);overflow:auto}
 .sheet h2{font-family:var(--display);font-weight:400;font-size:40px;line-height:1;margin:0;color:var(--amber)}
 .sheet .lead{margin:0;font-size:15px;line-height:1.5;color:var(--bone)}
 .seg{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
@@ -205,7 +206,7 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--amber);outline-
   #teams{top:calc(62px + env(safe-area-inset-top,0px));left:0;right:0;width:auto;flex-direction:row;overflow-x:auto;padding-left:max(16px, env(safe-area-inset-left,0px));padding-right:max(16px, env(safe-area-inset-right,0px));scrollbar-width:none}
   .team{min-width:160px;padding:8px 10px}
   .team.active{transform:translateY(2px)}
-  #panel{left:max(12px, env(safe-area-inset-left,0px));right:max(12px, env(safe-area-inset-right,0px));width:auto;max-width:none;bottom:calc(12px + env(safe-area-inset-bottom,0px));padding:14px;gap:10px}
+  #panel{left:max(12px, env(safe-area-inset-left,0px));right:max(12px, env(safe-area-inset-right,0px));width:auto;max-width:none;bottom:calc(12px + env(safe-area-inset-bottom,0px));padding:14px;gap:10px;max-height:min(52vh, 480px);overflow:auto;-webkit-overflow-scrolling:touch}
   .qcard p{font-size:16px}
   .trow{flex-wrap:wrap}
   .trow input{flex-basis:calc(100% - 30px)}
@@ -243,7 +244,8 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--amber);outline-
 .lrows{display:flex;flex-direction:column;gap:12px}
 .lrow{display:flex;flex-direction:column;gap:8px;padding-bottom:10px;border-bottom:1px solid var(--line)}
 .lname{display:flex;align-items:center;gap:8px;font-weight:800}
-.lname small{color:var(--bone-dim);font-weight:700}
+.restgate{display:flex;gap:8px;align-items:flex-start;font-size:14px;font-weight:700;line-height:1.45}
+.restgate input{margin-top:3px;width:18px;height:18px;flex:none;accent-color:var(--amber)}
 .draftbar{display:flex;justify-content:space-between;align-items:center;gap:10px}
 .draftwho{display:flex;align-items:center;gap:8px;font-weight:800;font-size:16px}
 .catgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:8px;max-height:46vh;overflow:auto}
@@ -309,55 +311,13 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--amber);outline-
 .ffsum{display:flex;flex-direction:column;gap:8px}
 .ffsum div{display:flex;align-items:center;gap:10px;background:var(--moss);border:1px solid var(--line);border-radius:12px;padding:10px 14px;font-weight:800}
 .ffsum div em{margin-inline-start:auto;font-style:normal;color:var(--amber);font-size:18px}
-/* ================= سفر عبر الزمن: لوحة المحقق التفاعلية ================= */
-#tt{position:fixed;inset:0;z-index:7;display:flex;flex-direction:column;align-items:center;justify-content:space-between;
-  padding:92px 16px 34px;direction:rtl;pointer-events:none}
-#tt .tt-hint, #tt .tt-controls{pointer-events:auto}
-#tt .tt-hint{background:rgba(8,10,8,.55);border-radius:10px;padding:8px 14px;margin:0}
-.tt-hint{color:#e4d3ac;text-align:center;font-size:14px;max-width:640px;margin:0}
-.tt-stage{width:min(1180px,96vw,calc((100vh - 240px)*4/3));aspect-ratio:1280/960;position:relative;border-radius:14px;overflow:hidden;
-  box-shadow:0 0 0 9px #2a1d12,0 0 0 13px #1a1109,0 30px 60px rgba(0,0,0,.6)}
-.tt-cork{position:absolute;inset:0;background-color:#9c7447;background-image:
-  radial-gradient(circle at 12% 18%,rgba(255,255,255,.10) 0 2px,transparent 3px),
-  radial-gradient(circle at 34% 62%,rgba(0,0,0,.18) 0 2px,transparent 3px),
-  radial-gradient(circle at 58% 24%,rgba(255,255,255,.08) 0 2px,transparent 3px),
-  radial-gradient(circle at 73% 70%,rgba(0,0,0,.15) 0 2px,transparent 3px),
-  radial-gradient(circle at 88% 40%,rgba(255,255,255,.09) 0 2px,transparent 3px),
-  radial-gradient(circle at 20% 85%,rgba(0,0,0,.12) 0 2px,transparent 3px),
-  linear-gradient(135deg,#a9814f 0%,#8a6338 60%,#7a5530 100%);
-  background-size:7% 7%,8.5% 8.5%,5.5% 5.5%,7.8% 7.8%,6.6% 6.6%,7.4% 7.4%,cover;
-  box-shadow:inset 0 0 12vw rgba(0,0,0,.55)}
-.tt-tagwrap{position:absolute}
-.tt-tag{position:absolute;inset:0;background:#f3e6c4;color:#3c2a12;font-weight:800;font-size:1.5vw;
-  padding:.5vw;border-radius:3px;text-align:center;display:flex;align-items:center;justify-content:center;
-  box-shadow:0 4px 8px rgba(0,0,0,.35),0 1px 0 rgba(255,255,255,.3) inset;
-  clip-path:polygon(2% 0,98% 3%,100% 94%,3% 100%)}
-.tt-pin{position:absolute;width:1vw;height:1vw;min-width:9px;min-height:9px;border-radius:50%;
-  background:radial-gradient(circle at 32% 28%,#ffb3a0 0%,#ff6b52 28%,#b3261e 62%,#7a160f 100%);
-  box-shadow:0 3px 5px rgba(0,0,0,.55),inset 0 -2px 3px rgba(0,0,0,.35),inset 0 1px 2px rgba(255,255,255,.5);
-  top:-.5vw;left:50%;transform:translateX(-50%);z-index:4}
-.tt-slot{position:absolute;border-radius:4px;border:2px dashed rgba(60,42,18,.45);background:rgba(0,0,0,.08)}
-.tt-slot.over{border-color:#f2c94c;background:rgba(242,201,76,.15)}
-.tt-slot.correct{border-style:solid;border-color:#5fae6c}
-.tt-slot.wrong{border-style:solid;border-color:#c0392b}
-.tt-card{position:absolute;cursor:grab;touch-action:none;z-index:5}
-.tt-card.dragging{cursor:grabbing;z-index:50;box-shadow:0 16px 28px rgba(0,0,0,.6)!important}
-.tt-card.placed.correct .tt-face{outline:3px solid #5fae6c;outline-offset:2px}
-.tt-card.placed.wrong .tt-face{outline:3px solid #c0392b;outline-offset:2px}
-.tt-face{width:100%;height:100%;position:relative;overflow:hidden}
-.tt-clip .tt-cap,.tt-note .tt-cap,.tt-index .tt-cap{overflow-wrap:break-word}
-.tt-photo .tt-face{background:#f6efe0;padding:6%;box-shadow:0 6px 14px rgba(0,0,0,.45),0 1px 0 rgba(255,255,255,.2) inset}
-.tt-photo .tt-inner{width:100%;height:72%;background:#5a4632;background-image:radial-gradient(circle at 50% 42%,#7a6248,#3c3024 75%)}
-.tt-photo .tt-cap{position:absolute;bottom:3%;left:0;right:0;text-align:center;font-size:1.9vw;color:#6b5a3e;font-weight:700;line-height:1.15}
-.tt-clip .tt-face{background:#e9e2d0;padding:8%;box-shadow:0 5px 12px rgba(0,0,0,.4);border:1px solid #cfc6ab;display:flex;align-items:center;justify-content:center}
-.tt-clip .tt-cap{font-family:'Rakkas',serif;font-size:2.7vw;color:#2a241a;line-height:1.25;text-align:center;width:100%}
-.tt-note .tt-face{background:#fdf6d8;padding:7%;box-shadow:0 5px 12px rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;
-  background-image:repeating-linear-gradient(transparent,transparent 16px,rgba(90,120,170,.25) 17px)}
-.tt-note .tt-cap{font-size:2.7vw;color:#2a2410;line-height:1.25;text-align:center;width:100%}
-.tt-index .tt-face{background:#f3ead2;padding:6%;box-shadow:0 5px 12px rgba(0,0,0,.4);border-right:4px solid #c0392b;display:flex;align-items:center;justify-content:center}
-.tt-index .tt-cap{font-size:2.1vw;font-weight:700;color:#3c2a12;text-align:center;width:100%}
-#ttStrings{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:6}
-.tt-controls{display:flex;gap:12px}
+/* ================= سفر عبر الزمن: خط زمني على التلفزيون ================= */
+#ttBar{position:absolute;left:50%;transform:translateX(-50%);bottom:calc(14px + env(safe-area-inset-bottom,0px));width:min(1000px, calc(100% - 24px));background:var(--glass);border:1px solid var(--line);border-radius:16px;padding:12px 14px;display:flex;flex-wrap:wrap;align-items:center;gap:10px 12px;box-shadow:var(--shadow);backdrop-filter:blur(8px);z-index:5}
+#ttBar .who{display:flex;align-items:center;gap:10px;flex:0 0 auto}
+#ttBar .who b{font-size:17px}
+#ttBar .sel{flex:1 1 180px;min-width:0;font-weight:800;font-size:15px;color:var(--bone-dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#ttBar .sel.on{color:var(--amber)}
+#ttBar .xbtn{flex:0 0 auto;margin-inline-start:auto}
 @media (prefers-reduced-motion: reduce){ *{transition:none!important} }
 </style>
 
@@ -417,12 +377,12 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--amber);outline-
   <div id="feudBar" hidden></div>
   <div id="feudX" aria-hidden="true"><span></span></div>
   <div class="modal" id="feud" hidden><div class="sheet wide" id="feudBody"></div></div>
-  <div id="tt" hidden></div>
+  <div id="ttBar" hidden></div>
 
   <div class="modal" id="setup" hidden>
     <div class="sheet">
       <h2>درب الساعة</h2>
-      <p class="lead">سباق أسئلة للعائلة على دوار ساعة الرفاع. جاوبوا صح، ارموا النرد، وأول فريق يوصل البرج يفوز.</p>
+      <p class="lead">سباق أسئلة للعائلة على دوار ساعة الرفاع. جاوبوا صح، ارموا النرد، وأول فريق يوصل خط الفوز يفوز.</p>
       <div>
         <div class="eyebrow" style="margin-bottom:8px">عدد الفرق</div>
         <div class="seg seg5" id="seg">
@@ -434,16 +394,21 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--amber);outline-
         </div>
       </div>
       <div>
-        <div class="eyebrow" style="margin-bottom:8px">أسماء الفرق والمجسمات</div>
-        <div class="names" id="names"></div>
+        <div class="eyebrow" style="margin-bottom:8px">طول السباق</div>
+        <div class="seg" id="segGoal">
+          <button type="button" data-g="30" aria-pressed="false">خط 30</button>
+          <button type="button" data-g="50" aria-pressed="true">البرج 50</button>
+        </div>
       </div>
+        <div class="names" id="names"></div>
       <ol class="rules">
         <li>كل فريق يختار <b>3 وسائل مساعدة</b>، وبعدها الفرق تختار <b>6 فئات</b> للوحة.</li>
         <li>في دوركم اختاروا سؤال <b>سهل أو متوسط أو صعب</b>.</li>
         <li>الجواب الصح يعطيكم <b>رمية نرد</b>: السهل من 1 لين 3 خطوات، والمتوسط النرد +1 (من 2 لين 7)، والصعب النرد +4 (من 5 لين 10).</li>
         <li>الجواب الغلط يمرر الدور، والغلط في <b>الصعب</b> يرجّعكم خطوة وحدة.</li>
         <li>ما تقدرون تختارون <b>سهل</b> مرتين ورا بعض.</li>
-        <li>أول مجسم يوصل <b>برج الساعة</b> يفوز.</li>
+        <li>أول مجسم يوصل <b>خط الفوز</b> يفوز: يا خط 30 يا برج الساعة.</li>
+        <li>في الطريق مربعين مخفيين، كل فريق يلعبهم مرة: <b>كمّل القائمة</b> و<b>سفر عبر الزمن</b> (رتّبوا الأحداث على خط السنين). كل إجابة صح = خطوة، بدون نرد.</li>
       </ol>
       <div class="legend">
         <span><b>صاعقة</b> تخسرون وسيلة مساعدة</span>
@@ -458,6 +423,7 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--amber);outline-
         <span><b>تبديل المواقع</b> مع فريق تختارونه</span>
       </div>
       <button class="btn primary" id="btnStart" type="button">التالي: وسائل المساعدة</button>
+      <button class="btn ghost" id="btnResume" type="button" hidden>كمّل آخر لعبة</button>
     </div>
   </div>
 
@@ -518,7 +484,7 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--amber);outline-
 
   <div class="modal win" id="win" hidden>
     <div class="sheet">
-      <div class="eyebrow">أول واحد وصل برج الساعة</div>
+      <div class="eyebrow" id="winEyebrow">أول واحد وصل برج الساعة</div>
       <h2 id="winName">الفريق</h2>
       <p class="lead" id="winLine"></p>
       <div class="row">
@@ -566,20 +532,31 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--amber);outline-
   <div id="loading"><div class="in"><b>درب الساعة</b><div class="bar"><i id="loadBar"></i></div><span id="loadText">نجهز الطاولة…</span></div></div>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/RGBELoader.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/utils/SkeletonUtils.js"></script>
-<script src="cozy.js"></script>
-<script src="boards.js"></script>
-<script src="riffa.js"></script>
-<script src="questions.js"></script>
-<script src="feud_data.js"></script>
-<script src="timetravel_data.js"></script>
-<script src="tt_photos.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/peerjs@1.5.4/dist/peerjs.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/paho-mqtt@1.1.0/paho-mqtt-min.js"></script>
+<script>
+/* Phone pages only need the word bank or the feud lists — not the 3D room, photos, or models. */
+(function(){
+  var h = location.hash;
+  window.DARB_PHONE = /^#f-/.test(h) ? 'feud' : /^#w-/.test(h) ? 'word' : '';
+  var tags = [];
+  if(!window.DARB_PHONE){
+    tags = [
+      'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js',
+      'https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js',
+      'https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/RGBELoader.js',
+      'https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/utils/SkeletonUtils.js',
+      'cozy.js','boards.js','riffa.js','questions.js','feud_data.js','timetravel_data.js',
+      'https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js',
+      'https://cdn.jsdelivr.net/npm/peerjs@1.5.4/dist/peerjs.min.js',
+      'https://cdn.jsdelivr.net/npm/paho-mqtt@1.1.0/paho-mqtt-min.js'
+    ];
+  } else if(window.DARB_PHONE==='word'){
+    tags = ['questions.js','https://cdn.jsdelivr.net/npm/peerjs@1.5.4/dist/peerjs.min.js','https://cdn.jsdelivr.net/npm/paho-mqtt@1.1.0/paho-mqtt-min.js'];
+  } else {
+    tags = ['feud_data.js','https://cdn.jsdelivr.net/npm/peerjs@1.5.4/dist/peerjs.min.js','https://cdn.jsdelivr.net/npm/paho-mqtt@1.1.0/paho-mqtt-min.js'];
+  }
+  tags.forEach(function(s){ document.write('<script src="'+s+'"><\/script>'); });
+})();
+</script>
 <script>
 (function(){
 "use strict";
@@ -592,8 +569,8 @@ const $ = id=>document.getElementById(id);
    3D room entirely and show only the word. Only a plain #name survives the artifact link,
    so the code is letters and digits: base36 of (question index * 1296 + random). */
 const ARTIFACT_URL = 'https://claude.ai/artifact/Cpa3zeXdGRAYVKMBbMGR6x';
-/* On the public site (GitHub Pages) the QR points back to the site itself, so anyone can scan it without a Claude account. */
-const SHARE_URL = /\.github\.io$/.test(location.hostname) ? location.origin + location.pathname : ARTIFACT_URL;
+/* QR must open THIS page. The old Claude artifact link only made sense inside that host. */
+const SHARE_URL = /(^|\.)claude\.ai$/.test(location.hostname) ? ARTIFACT_URL : (location.origin + location.pathname);
 const REVEAL_RE = /^#w-([0-9a-z]+)(?:-(darb[0-9a-z]+))?$/;
 const encodeWord = idx=>'w-' + (idx*1296 + ((Math.random()*1296)|0)).toString(36);
 const decodeWord = code=>{ const n = parseInt(code, 36); return isFinite(n) ? Math.floor(n/1296) : -1; };
@@ -702,18 +679,20 @@ if(REVEAL_RE.test(location.hash)){
     const redraw = ()=>{ ctx.clearRect(0,0,cv.width,cv.height); strokes.forEach(st=>strokePaint(cv, ctx, st)); };
     const fit = ()=>{ const r = cv.getBoundingClientRect(), dpr = Math.min(window.devicePixelRatio||1, 2); cv.width = Math.round(r.width*dpr); cv.height = Math.round(r.height*dpr); redraw(); };
     fit(); window.addEventListener('resize', fit);
-    /* network */
-    let peer = null, conn = null, open = false, tries = 0, flushId = 0, dead = false;
-    const send = m=>{ if(open && conn) try{ conn.send(m); }catch(e){} };
-    const hello = ()=>{ send({t:'start', ar: cv.height/cv.width}); strokes.forEach(st=>send({t:'seg', id:st.id, c:st.c, w:st.w, p:st.pts})); };
-    const tryConn = ()=>{ if(dead || open || tries++ > 15) { if(!open && !dead) status('ما قدرنا نتصل بالشاشة. تأكد من الإنترنت', 'bad'); return; }
+    /* network: direct WebRTC, plus the same public-broker relay كمّل القائمة uses when the phone can't punch through */
+    let peer = null, conn = null, open = false, tries = 0, flushId = 0, dead = false, relay = null, mid = 0;
+    const send = m=>{ const msg = Object.assign({mid: Date.now().toString(36)+'-'+(++mid)}, m); if(open && conn) try{ conn.send(msg); }catch(e){} if(relay) relay.send(msg); };
+    const hello = ()=>{ send({t:'start', ar: cv.height/cv.width}); strokes.forEach(st=>send({t:'seg', id:st.id, c:st.c, w:st.w, p:st.pts, full:1})); };
+    const markOk = ()=>{ if(!open){ open = true; status('متصل بالشاشة', 'ok'); hello(); } };
+    const tryConn = ()=>{ if(dead || open || tries++ > 15) return;
       conn = peer.connect(hostId, {reliable:true});
-      conn.on('open', ()=>{ open = true; status('متصل بالشاشة', 'ok'); hello(); });
+      conn.on('open', markOk);
       conn.on('data', m=>{ if(m && m.t==='end'){ $('drEnd').hidden = false; } });
-      conn.on('close', ()=>{ open = false; if(!dead) status('انقطع الاتصال', 'bad'); });
+      conn.on('close', ()=>{ if(relay && relay.ok) return; open = false; if(!dead) status('انقطع الاتصال', 'bad'); });
       setTimeout(()=>{ if(!open) tryConn(); }, 2500); };
-    if(hostId && window.Peer){ try{ peer = new Peer(undefined, peerOptions()); peer.on('open', tryConn); peer.on('error', e=>{ if(!open && e && e.type!=='peer-unavailable') status('ما قدرنا نتصل بالشاشة. تأكد من الإنترنت', 'bad'); }); }catch(e){ status('ما قدرنا نتصل بالشاشة', 'bad'); } }
-    else status('بدون اتصال بالشاشة: ورّهم جوالك', 'bad');
+    if(hostId && window.Paho){ relay = relayOpen(hostId, 'tv', 'ph', m=>{ if(!m) return; if(m.t==='end') $('drEnd').hidden = false; else if(m.t==='ping') hello(); }, st=>{ if(st==='ok') markOk(); else if(st==='lost'){ if(!(conn && conn.open)){ open = false; status('انقطع الاتصال، نعيد المحاولة…', ''); } } else if(!open && st==='fail' && !peer) status('ما قدرنا نتصل بالشاشة. تأكد من الإنترنت', 'bad'); }); }
+    if(hostId && window.Peer){ try{ peer = new Peer(undefined, peerOptions()); peer.on('open', tryConn); peer.on('error', e=>{ if(!open && !(relay && relay.ok) && e && e.type!=='peer-unavailable') status('ما قدرنا نتصل بالشاشة. تأكد من الإنترنت', 'bad'); }); }catch(e){ if(!(relay&&relay.ok)) status('ما قدرنا نتصل بالشاشة', 'bad'); } }
+    else if(!relay) status('بدون اتصال بالشاشة: ورّهم جوالك', 'bad');
     flushId = setInterval(()=>{ if(cur && cur.buf.length){ send({t:'seg', id:cur.id, c:cur.c, w:cur.w, p:cur.buf}); cur.buf = []; } }, 40);
     /* drawing input */
     const pt = e=>{ const r = cv.getBoundingClientRect(); return [Math.round((e.clientX-r.left)/r.width*1000), Math.round((e.clientY-r.top)/r.width*1000)]; };
@@ -723,9 +702,9 @@ if(REVEAL_RE.test(location.hash)){
     $('rvDraw').querySelectorAll('.dr-c').forEach(b=>b.onclick=()=>{ color = b.dataset.c; $('rvDraw').querySelectorAll('.dr-c').forEach(x=>x.setAttribute('aria-pressed', String(x===b))); });
     $('drUndo').onclick = ()=>{ const st = strokes.pop(); if(st){ redraw(); send({t:'undo', id:st.id}); } };
     $('drClear').onclick = ()=>{ strokes.length = 0; redraw(); send({t:'clear'}); };
-    return {stop(){ dead = true; clearInterval(flushId); window.removeEventListener('resize', fit); try{ peer && peer.destroy(); }catch(e){} }};
+    return {stop(){ dead = true; clearInterval(flushId); window.removeEventListener('resize', fit); try{ peer && peer.destroy(); }catch(e){} try{ relay && relay.close(); }catch(e){} }};
   }
-  window.addEventListener('hashchange', show); show();
+  window.addEventListener('hashchange', ()=>{ if(!REVEAL_RE.test(location.hash)) location.reload(); else show(); }); show();
   return;
 }
 window.addEventListener('hashchange', ()=>{ if(REVEAL_RE.test(location.hash) || FEUD_RE.test(location.hash)) location.reload(); });
@@ -740,6 +719,17 @@ const TEAM_STYLES = [
   {label:'الفريق السماوي', color:'#39b6d8'}
 ];
 const GOAL = 50;
+function endAt(){ return (state && state.goal) || GOAL; }
+/* first square strictly after `from`, up to `to`, that should stop a jump (hidden round or barrier) */
+function firstHidden(team, from, to){
+  if(!team || to<=from) return null;
+  const hits = [];
+  if(state.feudSpot>from && state.feudSpot<=to && !team.feudDone && !state.feudRun) hits.push({reason:'feud', at:state.feudSpot});
+  if(state.ttSpot>from && state.ttSpot<=to && !team.ttDone && !state.ttRun) hits.push({reason:'tt', at:state.ttSpot});
+  (state.blocks||[]).forEach(b=>{ if(b>from && b<=to) hits.push({reason:'block', at:b}); });
+  hits.sort((a,b)=>a.at-b.at);
+  return hits[0]||null;
+}
 /* movement after a right answer: easy = small die 1-3, normal = die + 1 (2-7), hard = die + 4 (5-10). A wrong hard answer costs 1 step. */
 const LV = {e:{name:'سهل', max:3, bonus:0, back:1, wrong:0, range:'1–3'}, n:{name:'متوسط', max:6, bonus:1, back:2, wrong:0, range:'2–7'}, h:{name:'صعب', max:6, bonus:4, back:3, wrong:1, range:'5–10'}};
 const LIFELINES = {
@@ -823,6 +813,7 @@ function statueLabel(s){ if(s && s.mode==='char') return CHAR_NAME[s.id]||'شخ�
 
 let state = {teams:[], turn:0, phase:'setup', board:[], usedQ:[], blocks:[], badges:[], current:null};
 let teamCount = 2;
+let raceGoal = 50;
 let draft = TEAM_STYLES.map((s,i)=>({name:s.label, statue:{...DEFAULT_STATUES[i]}, lifelines:['call','pit','trap']}));
 let soundOn = true, busy = false;
 
@@ -1302,16 +1293,25 @@ function fitOverview(){
 function resetView(){ camGoal.theta = START_ANGLE; camGoal.phi = 0.86; camGoal.radius = overviewRadius; camGoal.target.copy(TABLE_TARGET); }
 function resize(){ const w = canvas.clientWidth||innerWidth, h = canvas.clientHeight||innerHeight;
   renderer.setSize(w,h,false); camera.aspect = w/h; fitOverview(); camera.updateProjectionMatrix(); if(feudCam && feudCam.tv && !feudCam.from) feudCam = feudFrame(); }
-const pointers = new Map(); let pinchStart = 0, radiusStart = 0;
-canvas.addEventListener('pointerdown', e=>{ if(touring){ endTour(); return; } canvas.setPointerCapture(e.pointerId); pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});
+const pointers = new Map(); let pinchStart = 0, radiusStart = 0, ttPtr = null;
+canvas.addEventListener('pointerdown', e=>{ if(touring){ endTour(); return; }
+  if(feudCam){ ttPtr = {id:e.pointerId, x:e.clientX, y:e.clientY, moved:false}; return; }
+  canvas.setPointerCapture(e.pointerId); pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});
   if(pointers.size===2){ const [a,b]=[...pointers.values()]; pinchStart=Math.hypot(a.x-b.x,a.y-b.y); radiusStart=camGoal.radius; } });
-canvas.addEventListener('pointermove', e=>{ const p = pointers.get(e.pointerId); if(!p) return;
+canvas.addEventListener('pointermove', e=>{
+  if(ttPtr && e.pointerId===ttPtr.id){ if(Math.hypot(e.clientX-ttPtr.x, e.clientY-ttPtr.y)>8) ttPtr.moved = true; return; }
+  if(state && state.ttRun && state.ttRun.play && !state.ttRun.play.lock) canvas.style.cursor = ttRay(e) ? 'pointer' : 'default';
+  else if(canvas.style.cursor) canvas.style.cursor = '';
+  const p = pointers.get(e.pointerId); if(!p) return;
   if(pointers.size===1){ const dx=e.clientX-p.x, dy=e.clientY-p.y; camGoal.theta += dx*0.006; camGoal.phi = THREE.MathUtils.clamp(camGoal.phi - dy*0.005, 0.18, 1.3); cam.theta=camGoal.theta; cam.phi=camGoal.phi; }
   p.x=e.clientX; p.y=e.clientY;
   if(pointers.size===2){ const [a,b]=[...pointers.values()]; const d=Math.hypot(a.x-b.x,a.y-b.y); if(pinchStart) camGoal.radius = THREE.MathUtils.clamp(radiusStart*pinchStart/d, 0.35, 3.2); } });
 const endPtr = e=>{ pointers.delete(e.pointerId); if(pointers.size<2) pinchStart=0; };
-canvas.addEventListener('pointerup', endPtr); canvas.addEventListener('pointercancel', endPtr);
-canvas.addEventListener('wheel', e=>{ e.preventDefault(); camGoal.radius = THREE.MathUtils.clamp(camGoal.radius*(1+Math.sign(e.deltaY)*0.08), 0.35, 3.2); }, {passive:false});
+canvas.addEventListener('pointerup', e=>{
+  if(ttPtr && e.pointerId===ttPtr.id){ const p = ttPtr; ttPtr = null; if(!p.moved && state && state.ttRun && state.ttRun.play) ttClickAt(p.x, p.y); return; }
+  endPtr(e); });
+canvas.addEventListener('pointercancel', e=>{ if(ttPtr && e.pointerId===ttPtr.id){ ttPtr = null; return; } endPtr(e); });
+canvas.addEventListener('wheel', e=>{ e.preventDefault(); if(feudCam) return; camGoal.radius = THREE.MathUtils.clamp(camGoal.radius*(1+Math.sign(e.deltaY)*0.08), 0.35, 3.2); }, {passive:false});
 
 /* opening sweep: from the room corner, gliding down onto the board */
 const TOUR_FROM = {pos:new THREE.Vector3(-2.6, 1.6, 2.6), look:new THREE.Vector3(0.5, 0.4, -0.6)};
@@ -1397,18 +1397,19 @@ async function hopTo(i, toSpace, kind){
   if(following) camGoal.target.copy(worldOf(to));
 }
 async function moveTeam(i, steps){
-  const team = state.teams[i]; const dir = Math.sign(steps); setMood(i, dir>0?'happy':'angry', 3000);
+  const team = state.teams[i]; const dir = Math.sign(steps); const cap = endAt(); setMood(i, dir>0?'happy':'angry', 3000);
   if(!REDUCED){ following = true; camGoal.radius = Math.min(overviewRadius, 0.8); camGoal.target.copy(worldOf(totems[i].position)); await wait(350); }
-  for(let s=0;s<Math.abs(steps);s++){ const next = THREE.MathUtils.clamp(team.pos + dir, 0, GOAL); if(next===team.pos) break;
-    const n = Math.abs(steps), kind = s===n-1 ? 'jump' : n>3 ? 'run' : 'walk';
-    team.pos = next; await hopTo(i, team.pos, kind); renderTeams(); if(team.pos>=GOAL) break;
-    if(dir>0 && team.pos===state.feudSpot && !team.feudDone && !state.feudRun) break; // كمّل القائمة: passing the hidden square stops you on it
-    if(dir>0 && team.pos===state.ttSpot && !team.ttDone && !state.ttRun) break; // سفر عبر الزمن: نفس الشي
-    if(dir>0 && state.blocks && state.blocks.includes(team.pos) && s<Math.abs(steps)-1){ clearBlock(team.pos); thump(60); toast('سد الطريق', `${team.name} وقف عند الحاجز`); break; }
-    if(dir>0 && state.blocks && state.blocks.includes(team.pos)){ clearBlock(team.pos); } }
+  let reason = null, left = 0; const total = Math.abs(steps);
+  for(let s=0;s<total;s++){ const next = THREE.MathUtils.clamp(team.pos + dir, 0, cap); if(next===team.pos) break;
+    const kind = s===total-1 ? 'jump' : total>3 ? 'run' : 'walk';
+    team.pos = next; await hopTo(i, team.pos, kind); renderTeams(); if(team.pos>=cap) break;
+    if(dir>0 && team.pos===state.feudSpot && !team.feudDone && !state.feudRun){ reason='feud'; left=total-s-1; break; }
+    if(dir>0 && team.pos===state.ttSpot && !team.ttDone && !state.ttRun){ reason='tt'; left=total-s-1; break; }
+    if(dir>0 && state.blocks && state.blocks.includes(team.pos)){ clearBlock(team.pos); thump(60); toast('سد الطريق', `${team.name} وقف عند الحاجز`); reason = s<total-1 ? 'block' : null; left = 0; break; } }
   const m = totems[i]; setAnim(m, 'idle');
   if(m && m.userData.char && !REDUCED){ const r0 = m.rotation.y, dr = Math.atan2(Math.sin(FACE_Y-r0), Math.cos(FACE_Y-r0)); await tween(300, k=>{ m.rotation.y = r0 + dr*ease(k); }); m.rotation.y = FACE_Y; }
   await wait(250);
+  return {reason, left, dir};
 }
 function endFollow(){ following = false; camGoal.radius = overviewRadius; camGoal.target.copy(TABLE_TARGET); }
 async function rollDie(value){
@@ -1416,8 +1417,8 @@ async function rollDie(value){
   const to = wide ? new THREE.Vector3(0.27, 0.155, -0.8) : new THREE.Vector3(0, 0.19, -0.8);
   const from = to.clone().add(new THREE.Vector3(wide?0.25:0.15, 0.25, -0.3));
   const spinAxis = new THREE.Vector3(Math.random()-.5, Math.random()-.5, Math.random()-.5).normalize();
-  const finalQ = faceQuat(value).premultiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0,0,1), (Math.random()-.5)*0.6));
-  finalQ.premultiply(new THREE.Quaternion().setFromEuler(new THREE.Euler(0.32,-0.38,0)));
+  const finalQ = faceQuat(value).premultiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0,0,1), (Math.random()-.5)*0.25));
+  finalQ.premultiply(new THREE.Quaternion().setFromEuler(new THREE.Euler(0.16,-0.2,0)));
   const spinQ = new THREE.Quaternion(); noise(0.5, 0.22); let lastRattle = 0;
   await tween(REDUCED?80:1100, k=>{ const e = 1-Math.pow(1-k,3);
     die.position.lerpVectors(from, to, e); die.position.y += Math.sin(Math.PI*Math.min(1,k*1.2))*0.12*(1-k);
@@ -1437,9 +1438,9 @@ function teamName(i){ return state.teams[i].name; }
 function renderTeams(){
   teamsEl.innerHTML = state.teams.map((t,i)=>{ const left = lifeLeft(t);
     return `<div class="team ${i===state.turn&&state.phase!=='setup'?'active':''}" style="--tc:${TEAM_STYLES[i].color}">
-      <span class="swatch"></span><span class="nm">${esc(t.name)}</span><span class="sp">${t.pos>=GOAL?'البرج':'المربع '+t.pos}</span>
+      <span class="swatch"></span><span class="nm">${esc(t.name)}</span><span class="sp">${t.pos>=endAt()?(endAt()>=GOAL?'البرج':'خط الفوز'):'المربع '+t.pos}</span>
       <span class="meta"><span class="st">${t.lifelines.map(k=>`<i class="lchip ${t.used.includes(k)?'off':''}" title="${LIFELINES[k].name}">${LIFELINES[k].short}</i>`).join('')}</span></span>
-      <span class="track"><i style="width:${Math.min(100,t.pos/GOAL*100)}%"></i></span>
+      <span class="track"><i style="width:${Math.min(100,t.pos/endAt()*100)}%"></i></span>
     </div>`; }).join('');
 }
 function toast(title, text){ /* stays until closed with the X; newest on top; capped at 3 so a long specials run can't stack toasts over the question tiles */
@@ -1462,7 +1463,9 @@ function stopTimer(){ clearInterval(timerId); timerId = 0; clearInterval(callId)
 function startTimer(sec){ stopTimer(); timeTotal = timeLeft = sec||60;
   timerId = setInterval(()=>{ timeLeft--; const el = $('timer'); if(el){ el.firstElementChild.style.width = Math.max(0,timeLeft/timeTotal*100)+'%'; if(timeLeft<=10) el.classList.add('out'); }
     const ts = $('tsec'); if(ts) ts.textContent = Math.max(0,timeLeft);
-    if(timeLeft<=0){ clearInterval(timerId); timerId = 0; chime(false); toast('خلص الوقت', isCharade(state.current) ? PHONE_TEXT[modeOf(state.current)].end : 'اكشفوا الجواب'); if(hostConn) try{ hostConn.send({t:'end'}); }catch(e){} } }, 1000); }
+    if(timeLeft<=0){ clearInterval(timerId); timerId = 0; chime(false); phoneSend({t:'end'});
+      if(state && state.phase==='question' && state.current){ state.phase = 'answer'; renderPanel(); toast('خلص الوقت', 'احكموا على الجواب'); }
+      else toast('خلص الوقت', isCharade(state.current) ? PHONE_TEXT[modeOf(state.current)].end : 'اكشفوا الجواب'); } }, 1000); }
 function turnHeader(idx, label){ const i = idx==null ? state.turn : idx; const t = state.teams[i];
   return `<div class="turnline"><span class="swatch" style="--tc:${TEAM_STYLES[i].color}"></span><div><div class="eyebrow">${label||'الدور على'}</div><b>${esc(t.name)}</b></div></div>`; }
 function badges(){ return state.badges.length ? `<div class="badges">${state.badges.map(b=>`<span class="badge">${esc(b)}</span>`).join('')}</div>` : ''; }
@@ -1477,21 +1480,30 @@ function renderPanel(extra){
     panel.innerHTML = turnHeader() + badges() + `
       <div class="cboard">${state.board.map((b,ci)=>`<div class="ccol"><div class="cname">${esc(CAT_NAME[b.cat]||b.cat)}</div>${b.tiles.map((x,ti)=>`<button class="tile lv-${x.l}" type="button" data-c="${ci}" data-t="${ti}" ${(x.used||(noEasy&&x.l==='e'))?'disabled':''}>${LV[x.l].name}</button>`).join('')}</div>`).join('')}</div>
       <div class="row">${canPit?`<button class="btn ghost" id="bPit" type="button">استخدم الحفرة قبل السؤال</button>`:''}</div>
-      <p class="note">${noEasy?'<b>اخترتوا سهل في دوركم اللي فات، الحين اختاروا متوسط أو صعب.</b> ':''}الجواب الصح: سهل 1–3 خطوات، متوسط 2–7، صعب 5–10. الغلط في الصعب يرجّعكم خطوة.${state.round>1?` (اللوحة رقم ${state.round})`:''}</p>`;
+      <p class="note">${noEasy?'<b>اخترتوا سهل في دوركم اللي فات، الحين اختاروا متوسط أو صعب.</b> ':''}الجواب الصح: سهل 1–3 خطوات، متوسط 2–7، صعب 5–10. الغلط في الصعب يرجّعكم خطوة. الفوز عند ${endAt()===GOAL?'البرج':('المربع '+endAt())}.${state.round>1?` (اللوحة رقم ${state.round})`:''}</p>`;
     panel.querySelectorAll('.tile').forEach(b=>b.onclick=()=>pickTile(+b.dataset.c, +b.dataset.t));
     if(canPit) $('bPit').onclick = usePit;
   } else if(state.phase==='question' && isCharade(state.current)){ renderCharade(t);
   } else if(state.phase==='question' || state.phase==='answer'){
     const q = state.current, shown = state.phase==='answer', who = state.trap ? state.trap.to : state.turn;
     const after = ['call','double','rest','trap'].filter(k=>t.lifelines.includes(k) && !t.used.includes(k) && !state.trap);
+    const guessNote = state.extraGuess==='ready' ? '<p class="note">جاوب جوابين: إذا الجواب الأول غلط اضغطوا «الجواب غلط» قبل ما تنكشف الإجابة.</p>' : state.extraGuess==='spent' ? '<p class="note">هذا الجواب الثاني. اكشفوه وحكموا عليه.</p>' : '';
+    const restNote = state.rest ? `<label class="restgate"><input id="restOk" type="checkbox"> أقوى لاعب في ${esc(teamName(state.rest.team))} مرتاح وما جاوب</label>` : '';
+    const rightLabel = state.extraGuess==='spent' ? 'الجواب الثاني صح' : state.extraGuess ? 'أحد الجوابين صح' : 'جواب صح';
+    const wrongLabel = state.extraGuess==='spent' ? 'الجواب الثاني غلط' : state.extraGuess ? 'الاثنين غلط' : 'جواب غلط';
     panel.innerHTML = turnHeader(who, state.trap ? 'سؤال الفخ لـ' : 'الدور على') + badges() + `
       <div class="qcard"><div class="cat"><span>${esc(CAT_NAME[q.c]||q.c)}</span><span>${LV[q.l].name} · <span dir="ltr">${LV[q.l].range}</span> خطوات</span></div>${q.flag?`<img class="qflag" src="https://flagcdn.com/w320/${q.flag}.png" alt="علم الدولة">`:''}<p>${isCharade(q)?PHONE_TEXT[modeOf(q)].ans:esc(q.q)}</p>${shown?`<div class="ans">${esc(q.a)}</div>`:''}${shown&&q.x?`<div class="banned">${q.x.map(w=>`<span>${esc(w)}</span>`).join('')}</div>`:''}${shown&&q.r?`<div class="rnote">ملاحظة: ${esc(q.r)}</div>`:''}</div>
       ${shown?'':`<div class="timer" id="timer"><i style="width:${timeLeft/timeTotal*100}%"></i></div><div id="callBox"></div>`}
+      ${guessNote}
       ${!shown && after.length ? `<div class="lifes">${after.map(k=>`<button class="chip" type="button" data-l="${k}">${LIFELINES[k].name}</button>`).join('')}</div>` : ''}
-      ${shown?`<div class="row"><button class="btn good" id="bRight" type="button">جواب صح</button><button class="btn bad" id="bWrong" type="button">جواب غلط</button></div>`
-             :`<button class="btn primary" id="bShow" type="button">اكشف الجواب</button>`}`;
-    if(shown){ $('bRight').onclick = ()=>answered(true); $('bWrong').onclick = ()=>answered(false); }
+      ${shown? restNote+`<div class="row"><button class="btn good" id="bRight" type="button">${rightLabel}</button><button class="btn bad" id="bWrong" type="button">${wrongLabel}</button></div>`
+             :`<div class="row">${state.extraGuess==='ready'?'<button class="btn bad" id="bMiss" type="button">الجواب غلط</button>':''}<button class="btn primary" id="bShow" type="button">اكشف الجواب</button></div>`}`;
+    if(shown){
+      if(state.rest){ $('bRight').disabled = true; $('restOk').onchange = e=>{ $('bRight').disabled = !e.target.checked; }; }
+      confirmBtn($('bRight'), ()=>answered(true)); confirmBtn($('bWrong'), ()=>answered(false));
+    }
     else { $('bShow').onclick = ()=>{ stopTimer(); state.phase='answer'; renderPanel(); };
+      if($('bMiss')) $('bMiss').onclick = ()=>{ state.extraGuess='spent'; toast('جواب غلط', 'قولوا الجواب الثاني، وبعدين اكشفوا الإجابة'); renderPanel(); };
       panel.querySelectorAll('.lifes .chip').forEach(b=>b.onclick=()=>useLifeline(b.dataset.l)); }
   } else if(state.phase==='roll'){
     const lv = LV[state.current.l];
@@ -1501,10 +1513,12 @@ function renderPanel(extra){
   renderTeams();
 }
 
+function confirmBtn(btn, fn){ if(!btn) return; const label = btn.textContent; btn.onclick = ()=>{ btn.textContent = 'تأكيد: '+label; btn.onclick = fn; }; }
 /* question selection */
 function drawQuestion(cat, l){
   let pool = QBANK.filter((q,i)=>q.c===cat && q.l===l && !state.usedQ.includes(i));
-  if(!pool.length){ state.usedQ = state.usedQ.filter(i=>!(QBANK[i].c===cat && QBANK[i].l===l)); pool = QBANK.filter(q=>q.c===cat && q.l===l); }
+  if(!pool.length){ state.usedQ = state.usedQ.filter(i=>!(QBANK[i] && QBANK[i].c===cat && QBANK[i].l===l)); pool = QBANK.filter(q=>q.c===cat && q.l===l); }
+  if(!pool.length) return {c:cat, l:l, q:'ما في سؤال بهالفئة. عدّوها صح وكمّلوا.', a:'—'};
   const q = pool[(Math.random()*pool.length)|0]; state.usedQ.push(QBANK.indexOf(q)); return q;
 }
 function pickTile(ci, ti){
@@ -1518,27 +1532,32 @@ function charadeQR(el, code){ el.textContent = '';
   new QRCode(el, {text: SHARE_URL + '#' + code, width: 300, height: 300, colorDark:'#141a15', colorLight:'#ffffff', correctLevel: QRCode.CorrectLevel.M}); }
 /* كلمة ورسمة: the screen hosts a PeerJS peer; the phone connects and streams strokes */
 let hostPeer = null, hostConn = null, boardStrokes = [];
+function phoneSend(m){ if(hostConn) try{ hostConn.send(m); }catch(e){} if(state && state.charade && state.charade.relay) state.charade.relay.send(m); }
 function phoneCleanup(){
-  if(hostConn) try{ hostConn.send({t:'end'}); }catch(e){}
-  const p = hostPeer; hostPeer = null; hostConn = null; if(p) setTimeout(()=>{ try{ p.destroy(); }catch(e){} }, 300);
+  phoneSend({t:'end'});
+  const p = hostPeer, r = state && state.charade && state.charade.relay;
+  hostPeer = null; hostConn = null; if(p) setTimeout(()=>{ try{ p.destroy(); }catch(e){} }, 300);
+  if(r) setTimeout(()=>{ try{ r.close(); }catch(e){} }, 300);
   $('drawBoard').hidden = true; boardStrokes = []; if(state) state.charade = null;
 }
 function newPhoneStage(){
   phoneCleanup();
-  const q = state.current, st = state.charade = {stage:'hidden', code: encodeWord(QBANK.indexOf(q))};
+  const q = state.current, st = state.charade = {stage:'hidden', code: encodeWord(QBANK.indexOf(q)), seen:new Set()};
   if(modeOf(q)!=='drawing') return;
   st.peerId = 'darb' + Math.random().toString(36).slice(2, 10) + Date.now().toString(36).slice(-4);
   st.code += '-' + st.peerId; st.link = 'wait';
   const relink = l=>{ if(state.charade===st && st.link!==l){ st.link = l; if(state.phase==='question') renderPanel(); } };
-  if(!window.Peer){ st.link = 'fail'; return; }
-  let p; try{ p = hostPeer = new Peer(st.peerId, peerOptions()); }catch(e){ st.link = 'fail'; return; }
-  setTimeout(()=>{ if(st.link==='wait' && !st.peerOpen) relink('fail'); }, 9000);
-  p.on('open', ()=>{ st.peerOpen = true; if(state.charade===st && state.phase==='question') renderPanel(); });
-  p.on('error', ()=>{ if(!st.peerOpen) relink('fail'); });
-  p.on('connection', c=>{ if(state.charade!==st) return; hostConn = c;
-    c.on('open', ()=>relink('ok'));
-    c.on('data', m=>boardMessage(m, st));
-    c.on('close', ()=>{ if(state.charade===st) relink('lost'); }); });
+  st.relay = relayOpen(st.peerId, 'ph', 'tv', m=>{ if(state.charade===st && st.link!=='ok') relink('ok'); boardMessage(m, st); }, status=>{ if(status==='ok' && st.relay) st.relay.send({t:'ping'}); if(status==='fail' && !st.peerOpen && st.link==='wait') relink('fail'); });
+  if(window.Peer){ let p; try{ p = hostPeer = new Peer(st.peerId, peerOptions()); }catch(e){ if(!(st.relay&&st.relay.ok)) st.link = 'fail'; }
+    if(p){ setTimeout(()=>{ if(st.link==='wait' && !st.peerOpen && !(st.relay&&st.relay.ok)) relink('fail'); }, 9000);
+      p.on('open', ()=>{ st.peerOpen = true; if(state.charade===st && state.phase==='question') renderPanel(); });
+      p.on('error', ()=>{ if(!st.peerOpen && !(st.relay&&st.relay.ok)) relink('fail'); });
+      p.on('connection', c=>{ if(state.charade!==st) return; hostConn = c;
+        c.on('open', ()=>relink('ok'));
+        c.on('data', m=>boardMessage(m, st));
+        c.on('close', ()=>{ if(state.charade===st && !(st.relay&&st.relay.ok)) relink('lost'); }); });
+    }
+  } else if(!(st.relay)) st.link = 'fail';
 }
 function boardFit(ar){
   const cv = $('dbCanvas'), wide = window.innerWidth > 700, maxH = wide ? Math.min(window.innerHeight*0.8, 760) : window.innerHeight*0.42, maxW = wide ? Math.min(window.innerWidth - 460, 680) : window.innerWidth - 40;
@@ -1549,12 +1568,14 @@ function boardFit(ar){
 function boardRedraw(){ const cv = $('dbCanvas'), ctx = cv.getContext('2d'); ctx.clearRect(0,0,cv.width,cv.height); boardStrokes.forEach(s=>strokePaint(cv, ctx, s)); }
 function boardMessage(m, st){
   if(!m || state.charade!==st) return;
+  if(m.mid){ st.seen = st.seen || new Set(); if(st.seen.has(m.mid)) return; st.seen.add(m.mid); }
   if(m.t==='start'){ st.ar = Math.min(2.2, Math.max(0.5, +m.ar || 1.4)); $('drawBoard').hidden = false; boardFit(st.ar);
     if(st.stage==='hidden' && state.phase==='question'){ st.stage = 'acting'; const secs = phoneSecs(state.current); timeTotal = timeLeft = secs; renderPanel(); startTimer(secs); } }
   else if(m.t==='seg' && Array.isArray(m.p)){ let s = boardStrokes.find(x=>x.id===m.id);
     if(!s){ s = {id:m.id, c:String(m.c||'#141a15').slice(0,9), w:Math.min(40, +m.w||9), pts:[]}; boardStrokes.push(s); }
+    if(m.full) s.pts = [];
     const from = s.pts.length; m.p.slice(0, 400).forEach(p=>{ if(Array.isArray(p)) s.pts.push([+p[0]||0, +p[1]||0]); });
-    const cv = $('dbCanvas'); strokePaint(cv, cv.getContext('2d'), s, Math.max(1, from)); }
+    if(m.full) boardRedraw(); else { const cv = $('dbCanvas'); strokePaint(cv, cv.getContext('2d'), s, Math.max(1, from)); } }
   else if(m.t==='undo'){ boardStrokes = boardStrokes.filter(x=>x.id!==m.id); boardRedraw(); }
   else if(m.t==='clear'){ boardStrokes = []; boardRedraw(); }
 }
@@ -1576,7 +1597,7 @@ function renderCharade(t){
   panel.innerHTML = turnHeader(who, state.trap ? T.who : 'الدور على') + badges() + body +
     (after.length ? `<div class="lifes">${after.map(k=>`<button class="chip" type="button" data-l="${k}">${LIFELINES[k].name}</button>`).join('')}</div>` : '');
   if(st.stage==='hidden'){ charadeQR($('cQR'), st.code); $('cGo').onclick = ()=>{ st.stage = 'acting'; timeTotal = timeLeft = secs; renderPanel(); startTimer(secs); }; }
-  else $('bShow').onclick = ()=>{ stopTimer(); state.phase = 'answer'; if(hostConn) try{ hostConn.send({t:'end'}); }catch(e){} renderPanel(); };
+  else $('bShow').onclick = ()=>{ stopTimer(); state.phase = 'answer'; phoneSend({t:'end'}); renderPanel(); };
   panel.querySelectorAll('.lifes .chip').forEach(b=>b.onclick=()=>useLifeline(b.dataset.l));
 }
 function refillIfEmpty(){ if(state.board.every(b=>b.tiles.every(x=>x.used))){ state.board.forEach(b=>b.tiles.forEach(x=>{ x.used = false; })); state.round++; toast('لوحة جديدة', 'انتهت الأسئلة، وتعبّت اللوحة بأسئلة جديدة'); } }
@@ -1602,37 +1623,93 @@ async function useLifeline(k){
   if(k==='call'){ t.used.push(k); state.badges.push('اتصال بصديق'); renderPanel(); let left = 30;
     const box = ()=>{ const el=$('callBox'); if(el) el.innerHTML = `<div class="callbox">مكالمة: <b>${left}</b> ثانية</div>`; }; box();
     clearInterval(callId); callId = setInterval(()=>{ left--; box(); if(left<=0){ clearInterval(callId); callId = 0; const el=$('callBox'); if(el) el.innerHTML = '<div class="callbox">خلصت المكالمة</div>'; } }, 1000); }
-  else if(k==='double'){ t.used.push(k); state.badges.push('جاوب جوابين: لكم جوابين'); renderPanel(); toast('جاوب جوابين', `${t.name} يقدر يجاوب جوابين`); }
-  else if(k==='rest'){ const j = await chooseTeam('استريح: أي فريق يطلع أقوى لاعب فيه؟', [state.turn]); t.used.push(k); state.badges.push(`استريح: أقوى لاعب في ${teamName(j)} يرتاح`); renderPanel(); toast('استريح', `أقوى لاعب في ${teamName(j)} ما يشارك في هالسؤال`); }
-  else if(k==='trap'){ const j = await chooseTeam('الفخ: لمين تحولون السؤال؟', [state.turn]); t.used.push(k); state.trap = {from:state.turn, to:j}; state.badges.push(`الفخ: السؤال عند ${teamName(j)}`); toast('الفخ', `السؤال انتقل لـ ${teamName(j)}. إذا غلطوا يرجعون`); if(isCharade(state.current)){ stopTimer(); newPhoneStage(); } else startTimer(); renderPanel(); }
+  else if(k==='double'){ t.used.push(k); state.extraGuess = 'ready'; state.badges.push('جاوب جوابين: لكم جوابين'); renderPanel(); toast('جاوب جوابين', 'إذا غلط الأول اضغطوا «الجواب غلط» قبل الكشف، وبعدين جاوبوا مرة ثانية'); }
+  else if(k==='rest'){ const j = await chooseTeam('استريح: أي فريق يطلع أقوى لاعب فيه؟', [state.turn]); t.used.push(k); state.rest = {team:j}; state.badges.push(`استريح: أقوى لاعب في ${teamName(j)} يرتاح`); renderPanel(); toast('استريح', `أقوى لاعب في ${teamName(j)} ما يشارك. ما ينفع تضغطون صح إلا بعد ما تتأكدون إنه مرتاح`); }
+  else if(k==='trap'){ const j = await chooseTeam('الفخ: لمين تحولون السؤال؟', [state.turn]);
+    if(state.pit){ t.used = t.used.filter(x=>x!=='pit'); state.pit = null; state.badges = state.badges.filter(b=>!String(b).startsWith('الحفرة')); toast('الحفرة رجعت', 'الفخ ألغى الحفرة عشان ما تضيع بدون ما تلعبون السؤال'); }
+    t.used.push(k); state.trap = {from:state.turn, to:j}; state.badges.push(`الفخ: السؤال عند ${teamName(j)}`); toast('الفخ', `السؤال انتقل لـ ${teamName(j)}. إذا غلطوا يرجعون`); if(isCharade(state.current)){ stopTimer(); newPhoneStage(); } else startTimer(); renderPanel(); }
 }
 
 /* answering */
+async function playHiddenReason(i, reason){
+  if(reason==='feud'){ await runFeud(i); return state.phase==='won'; }
+  if(reason==='tt'){ await runTimeTravel(i); return state.phase==='won'; }
+  return false;
+}
+async function settle(i, depth){
+  if(!state.teams[i] || state.phase==='won') return {win:false, again:false};
+  if(state.teams[i].pos>=endAt()) return {win:true, again:false};
+  const sp = SPECIALS[state.teams[i].pos];
+  if(sp && (depth||0)<4){
+    const again = await resolveSpecial(i, sp, (depth||0)+1);
+    if(again==='win' || state.teams[i].pos>=endAt()) return {win: state.teams[i].pos>=endAt(), again:false};
+    return {win:false, again:!!again};
+  }
+  return {win:false, again:false};
+}
+async function travel(i, steps, depth){
+  depth = depth||0; const dir = Math.sign(steps||0); let left = Math.abs(steps||0), guard = 0;
+  while(left>0 && guard++<10){
+    const hop = await moveTeam(i, dir*left);
+    if(state.teams[i].pos>=endAt()) return {win:true, again:false};
+    if(hop.reason==='feud' || hop.reason==='tt'){
+      if(await playHiddenReason(i, hop.reason)) return {win:true, again:false};
+      busy = true; left = hop.left; continue;
+    }
+    break;
+  }
+  if(state.phase==='won' || state.teams[i].pos>=endAt()) return {win: state.teams[i].pos>=endAt(), again:false};
+  const s = await settle(i, depth);
+  if(s.again) grantExtra(i);
+  return s;
+}
+async function walkDie(i, steps){
+  let left = Math.abs(steps), gained = 0, guard = 0;
+  while(left>0 && guard++<10){
+    const before = state.teams[i].pos;
+    const hop = await moveTeam(i, left);
+    gained += state.teams[i].pos - before;
+    if(state.teams[i].pos>=endAt()) return {win:true, gained};
+    if(hop.reason==='feud' || hop.reason==='tt'){
+      if(await playHiddenReason(i, hop.reason)) return {win:true, gained};
+      busy = true; left = hop.left; continue;
+    }
+    break;
+  }
+  return {win:false, gained};
+}
+let answering = false;
 async function answered(ok){
+  if(answering || busy || !state.current || (state.phase!=='question' && state.phase!=='answer')) return;
+  answering = true;
+  try{
   const q = state.current, lv = LV[q.l]; phoneCleanup();
+  state.extraGuess = null;
   if(state.trap){ const j = state.trap.to;
     if(ok){ chime(true); state.rollFor = j; state.phase = 'roll'; renderPanel(); }
-    else { chime(false); state.phase = 'moving'; renderPanel(`${esc(teamName(j))} وقع في الفخ ويرجع ${lv.back}`); toast('الفخ', `${teamName(j)} يرجع ${lv.back}`); await fxQuicksand(j, lv.back, true); endFollow(); nextTurn(); }
+    else { chime(false); state.phase = 'moving'; renderPanel(`${esc(teamName(j))} وقع في الفخ ويرجع ${lv.back}`); toast('الفخ', `${teamName(j)} يرجع ${lv.back}`); await fxQuicksand(j, lv.back, true); const s = await settle(j, 0); if(s.again) grantExtra(j); endFollow(); nextTurn(); }
     return; }
   if(ok){ chime(true); state.rollFor = state.turn; state.phase = 'roll'; renderPanel(); }
-  else if(lv.wrong && state.teams[state.turn].pos>0){ chime(false); const i = state.turn; state.phase = 'moving'; renderPanel(`غلط في الصعب: ${esc(teamName(i))} يرجع ${lv.wrong}`); toast('غلط في الصعب', `${state.teams[i].name} يرجع خطوة وحدة`); await fxQuicksand(i, lv.wrong, true); endFollow(); nextTurn(); }
+  else if(lv.wrong && state.teams[state.turn].pos>0){ chime(false); const i = state.turn; state.phase = 'moving'; renderPanel(`غلط في الصعب: ${esc(teamName(i))} يرجع ${lv.wrong}`); toast('غلط في الصعب', `${state.teams[i].name} يرجع خطوة وحدة`); await fxQuicksand(i, lv.wrong, true); const s = await settle(i, 0); if(s.again) grantExtra(i); endFollow(); nextTurn(); }
   else { chime(false); toast('ما في حركة', `${state.teams[state.turn].name} يبقى مكانه`); nextTurn(); }
+  } finally { answering = false; }
 }
 async function doRoll(){
   if(busy) return; busy = true;
   const i = state.rollFor, lv = LV[state.current.l];
   const roll = 1 + ((Math.random()*lv.max)|0), steps = roll + lv.bonus;
-  state.phase = 'moving'; renderPanel('يرمي النرد…'); await rollDie(roll);
+  state.phase = 'moving'; renderPanel('يرمي النرد…'); await rollDie(Math.min(6, roll));
   renderPanel(`طلع <em>${roll}</em>${lv.bonus?` + <em>${lv.bonus}</em> مكافأة`:''} = <em>${steps}</em> خطوات`);
   await wait(REDUCED?100:500);
-  const before = state.teams[i].pos; await moveTeam(i, steps); const moved = state.teams[i].pos - before;
-  if(state.teams[i].pos >= GOAL){ busy = false; return win(i); }
-  if(state.pit && i===state.turn && !state.trap && moved>0){ const j = state.pit.target; toast('الحفرة', `${teamName(j)} يطيح في الحفرة ويرجع ${moved}`); await fxQuicksand(j, moved, true); }
-  let again = false;
-  const sp = SPECIALS[state.teams[i].pos]; if(sp){ again = await resolveSpecial(i, sp); }
-  if(state.teams[i].pos >= GOAL){ busy = false; return win(i); }
+  const walked = await walkDie(i, steps);
+  if(walked.win || state.teams[i].pos >= endAt()){ busy = false; return win(i); }
+  if(state.pit && i===state.turn && !state.trap && walked.gained>0){ const j = state.pit.target; toast('الحفرة', `${teamName(j)} يطيح في الحفرة ويرجع ${walked.gained}`); await fxQuicksand(j, walked.gained, true); const ps = await settle(j, 0); if(ps.again) grantExtra(j); }
+  if(state.teams[i].pos >= endAt()){ busy = false; return win(i); }
+  const settled = await settle(i, 0);
+  if(settled.win || state.teams[i].pos >= endAt()){ busy = false; return win(i); }
+  if(settled.again) grantExtra(i);
   endFollow(); await wait(REDUCED?50:500); hideDie(); busy = false;
-  if(again && i===state.turn){ state.pit = null; state.trap = null; state.badges = []; refillIfEmpty(); state.phase='pick'; renderPanel(); } else nextTurn();
+  openExtraOrNext();
 }
 /* ================= special-space effects ================= */
 const fxOverlay = $('fxOverlay');
@@ -1726,11 +1803,15 @@ async function fxTornado(i, fwd){
   const upd = (tt)=>{ for(let k=0;k<N;k++){ const sd=seeds[k]; sd.a += sd.s*0.05; const h=sd.h*4.2*grow, r=(0.25+sd.h*1.6)*grow; arr[k*3]=centre.x+Math.cos(sd.a)*r; arr[k*3+1]=TILE_TOP+h; arr[k*3+2]=centre.z+Math.sin(sd.a)*r; } geo.attributes.position.needsUpdate=true; };
   whoosh(3.2, true);
   await tween(REDUCED?60:900, k=>{ grow = k; upd(); m.position.y = start.y + k*2.2; m.rotation.y += 0.4; });
-  const target = Math.min(GOAL, team.pos + fwd); const path = []; for(let s=team.pos; s<=target; s++) path.push(spacePos(s, i));
+  const fromPos = team.pos;
+  const hit = firstHidden(team, fromPos, Math.min(endAt(), fromPos + fwd));
+  const target = hit ? hit.at : Math.min(endAt(), fromPos + fwd); const path = []; for(let s=team.pos; s<=target; s++) path.push(spacePos(s, i));
   await tween(REDUCED?60:1500, k=>{ const f = k*(path.length-1), a = Math.floor(f), b = Math.min(path.length-1, a+1), u = f-a; centre.lerpVectors(path[a], path[b], u); upd(); m.position.set(centre.x, start.y+2.2+Math.sin(k*Math.PI*4)*0.2, centre.z); m.rotation.y += 0.4;
     if(following) camGoal.target.copy(boardRoot.localToWorld(centre.clone())); });
   team.pos = target; renderTeams(); const to = spacePos(team.pos, i);
   await tween(REDUCED?40:450, k=>{ grow = 1-k; upd(); m.position.y = to.y + (1-ease(k))*2.2; }); m.position.copy(to); m.rotation.y = FACE_Y; thump(90); dust(to); boardRoot.remove(funnel); geo.dispose();
+  if(hit && hit.reason==='block'){ clearBlock(hit.at); toast('سد الطريق', `${team.name} نزل عند الحاجز`); }
+  return {hit, left: hit && hit.reason!=='block' ? Math.min(endAt(), fromPos+fwd) - target : 0};
 }
 /* teleport portal */
 function portalRing(color){ const g=new THREE.Group(); const ring=new THREE.Mesh(new THREE.TorusGeometry(0.75,0.07,10,48), new THREE.MeshBasicMaterial({color})); ring.rotation.x=Math.PI/2; g.add(ring);
@@ -1761,20 +1842,37 @@ async function fxTimeWarp(i){
 }
 async function resolveSpecial(i, sp, depth){
   depth = depth||0; await wait(250);
-  following = !REDUCED; camGoal.radius = Math.min(overviewRadius, 1.15); camGoal.target.copy(TABLE_TARGET).lerp(worldPosOf(i), 0.6); // stay framed on the board, leaning toward the statue
+  following = !REDUCED; camGoal.radius = Math.min(overviewRadius, 1.15); camGoal.target.copy(TABLE_TARGET).lerp(worldPosOf(i), 0.6);
+  const afterMove = async ()=>{ const s = await settle(i, depth+1); if(s.win) return 'win'; if(s.again) grantExtra(i); return !!s.again; };
   switch(sp){
     case 'lightning': await fxLightning(i); break;
-    case 'earthquake': await fxEarthquake(i, 3); break;
-    case 'blackhole': await fxBlackHole(i, 5); break;
-    case 'quicksand': await fxQuicksand(i, 2); break;
-    case 'tornado': await fxTornado(i, 3); break;
-    case 'portal': { const here = state.teams[i].pos; await fxPortal(i, Math.min(GOAL - 1, here + 5)); break; }
-    case 'timewarp': await fxTimeWarp(i); await wait(400); return true;
-    case 'reroll': { toast('إعادة رمي', `${teamName(i)} يرمي النرد مرة ثانية`); chime(true); await wait(500); const v = 1 + ((Math.random()*6)|0); await rollDie(v); await moveTeam(i, v);
-      if(state.teams[i].pos < GOAL && depth<2){ const sp2 = SPECIALS[state.teams[i].pos]; if(sp2) return resolveSpecial(i, sp2, depth+1); } break; }
-    case 'block': { const j = await chooseTeam('سد الطريق: قدام أي فريق تحطون الحاجز؟', [i]); const at = Math.min(GOAL-1, state.teams[j].pos + 2);
-      placeBlock(at); toast('سد الطريق', `حاجز على المربع ${at} قدام ${teamName(j)}`); chime(true); await wait(700); break; }
-    case 'swap': { const j = await chooseTeam('تبديل المواقع: مع أي فريق تتبادلون؟', [i]); await swapTeams(i, j); break; }
+    case 'earthquake': await fxEarthquake(i, 3); return afterMove();
+    case 'blackhole': await fxBlackHole(i, 5); return afterMove();
+    case 'quicksand': await fxQuicksand(i, 2); return afterMove();
+    case 'tornado': { const r = await fxTornado(i, 3);
+      if(state.teams[i].pos>=endAt()) return 'win';
+      if(r.hit && (r.hit.reason==='feud' || r.hit.reason==='tt')){ if(await playHiddenReason(i, r.hit.reason)) return 'win'; }
+      if(r.left>0){ const res = await travel(i, r.left, depth+1); if(res.win) return 'win'; return !!res.again; }
+      return afterMove(); }
+    case 'portal': { const here = state.teams[i].pos; const dest = Math.min(endAt()-1, here+5); const hit = firstHidden(state.teams[i], here, dest);
+      if(hit){ await fxPortal(i, hit.at);
+        if(hit.reason==='block'){ clearBlock(hit.at); toast('سد الطريق', `${teamName(i)} طلع عند الحاجز`); }
+        if(hit.reason==='feud' || hit.reason==='tt'){ if(await playHiddenReason(i, hit.reason)) return 'win'; }
+        const left = dest - state.teams[i].pos;
+        if(left>0 && hit.reason!=='block'){ const res = await travel(i, left, depth+1); if(res.win) return 'win'; return !!res.again; }
+        return afterMove(); }
+      await fxPortal(i, dest); return afterMove(); }
+    case 'timewarp': await fxTimeWarp(i); await wait(400); grantExtra(i); return true;
+    case 'reroll': { toast('إعادة رمي', `${teamName(i)} يرمي النرد مرة ثانية`); chime(true); await wait(500); const v = 1 + ((Math.random()*6)|0); await rollDie(v);
+      const res = await travel(i, v, depth+1); if(res.win) return 'win'; return !!res.again; }
+    case 'block': { const j = await chooseTeam('سد الطريق: قدام أي فريق تحطون الحاجز؟', [i]); const at = Math.min(endAt()-1, state.teams[j].pos + 2);
+      if(at>state.teams[j].pos && !SPECIALS[at]){ placeBlock(at); toast('سد الطريق', `حاجز على المربع ${at} قدام ${teamName(j)}`); chime(true); }
+      else toast('سد الطريق', 'ما قدرنا نحط الحاجز بهالمكان');
+      await wait(700); break; }
+    case 'swap': { const j = await chooseTeam('تبديل المواقع: مع أي فريق تتبادلون؟', [i]); await swapTeams(i, j);
+      const a = await settle(j, depth+1); if(a.win || state.teams[j].pos>=endAt()) return 'win'; if(a.again) grantExtra(j);
+      const b = await settle(i, depth+1); if(b.win || state.teams[i].pos>=endAt()) return 'win'; if(b.again) grantExtra(i);
+      return !!(a.again||b.again); }
   }
   await wait(600); return false;
 }
@@ -1808,19 +1906,19 @@ async function swapTeams(i, j){
 const FEUD = window.DARB_FEUD || {cats:[], qs:[]};
 const FEUD_OK = (FEUD.qs||[]).length >= 2;
 const FEUD_TEST = location.hash==='#fftest'; // demo: the hidden square is square 2
-function feudSpotPick(){ if(FEUD_TEST) return 2; const c = []; for(let k=6;k<=34;k++) if(!SPECIALS[k]) c.push(k); return c[(Math.random()*c.length)|0]; }
-function feudDue(){ if(!FEUD_OK || !state || state.feudRun || state.phase==='won') return -1;
-  return state.teams.findIndex(t=>!t.feudDone && t.pos>=state.feudSpot && t.pos<GOAL); }
+function feudSpotPick(){ if(FEUD_TEST) return 2; const cap = Math.min(34, Math.max(6, endAt()-1)); const c = []; for(let k=6;k<=cap;k++) if(!SPECIALS[k]) c.push(k); return c.length ? c[(Math.random()*c.length)|0] : -1; }
+function feudDue(){ if(!FEUD_OK || !state || state.feudSpot<0 || state.feudRun || state.phase==='won') return -1;
+  return state.teams.findIndex(t=>!t.feudDone && t.pos>=state.feudSpot && t.pos<endAt()); }
 const encodeF = idx=>(idx*1296 + ((Math.random()*1296)|0)).toString(36);
 /* ================= سفر عبر الزمن: مربع خفي، نفس قوانين كمّل القائمة بالضبط =================
    مربع ثاني مخفي (عشوائي، مو مربع خاص، ومختلف عن مربع كمّل القائمة). كل فريق يلعبه مرة وحدة: الوقوف عليه
-   أو المرور منه يوقّف الفريق ويبدأ الجولة. فيها 6 أحداث تاريخية لازم يحطّونها تحت سنينها الصحيحة على لوحة
-   محقق ثلاثية الأبعاد على الجدار، وكل حدث صحيح = خطوة وحدة قدام، بدون نرد وبدون ليفلاين. */
+   أو المرور منه يوقّف الفريق ويبدأ الجولة. على تلفزيون الغرفة، يرتّبون الأحداث على خط السنين من اليسار
+   لليمين، وكل حدث في سنته الصحيحة = خطوة وحدة قدام، بدون نرد وبدون ليفلاين. */
 const TTDATA = window.DARB_TIMETRAVEL || {cases:[]};
 const TT_OK = (TTDATA.cases||[]).length >= 1;
-function ttSpotPick(excludeSpot){ const c = []; for(let k=6;k<=34;k++) if(!SPECIALS[k] && k!==excludeSpot) c.push(k); return c.length ? c[(Math.random()*c.length)|0] : -1; }
-function ttDue(){ if(!TT_OK || !state || state.feudRun || state.ttRun || state.phase==='won') return -1;
-  return state.teams.findIndex(t=>!t.ttDone && t.pos>=state.ttSpot && t.pos<GOAL); }
+function ttSpotPick(excludeSpot){ const cap = Math.min(34, Math.max(6, endAt()-1)); const c = []; for(let k=6;k<=cap;k++) if(!SPECIALS[k] && k!==excludeSpot) c.push(k); return c.length ? c[(Math.random()*c.length)|0] : -1; }
+function ttDue(){ if(!TT_OK || !state || state.ttSpot<0 || state.feudRun || state.ttRun || state.phase==='won') return -1;
+  return state.teams.findIndex(t=>!t.ttDone && t.pos>=state.ttSpot && t.pos<endAt()); }
 let feudCam = null; const feudLook = new THREE.Vector3();
 /* the TV board: drawn on a canvas that replaces the TV picture while the round is on */
 const FFW = 1600, FFH = 900, ffCanvas = document.createElement('canvas'); ffCanvas.width = FFW; ffCanvas.height = FFH;
@@ -1922,144 +2020,188 @@ function feudFly(to, dur){ // glide the camera from where it is now
 async function feudCamOn(dur){ await feudFly(feudFrame(), dur); }
 async function feudCamOff(dur){ const to = {pos:camOrbitPos(cam.theta, cam.phi, cam.radius, cam.target, new THREE.Vector3()), look:cam.target.clone()};
   feudCam = Object.assign(to, {from:{pos:camera.position.clone(), look:feudLook.clone()}, t0:performance.now(), dur:REDUCED?1:dur}); await wait(REDUCED?20:dur); feudCam = null; }
-/* ================= سفر عبر الزمن: التنفيذ (لوحة مسطّحة على تلفزيون الغرفة، مثل كمّل القائمة بالضبط) ================= */
-const TT_FONTS = ['Rakkas','Aref Ruqaa','Katibeh','Lemonada','Jomhuria','Lalezar']; // one distinct handwriting-style font per card
-const TT_VARIANTS = ['tt-clip','tt-note','tt-index']; // non-photo paper styles, cycled for visual variety
+/* ================= سفر عبر الزمن: خط زمني على تلفزيون الغرفة، مثل كمّل القائمة =================
+   السنين من الأقدم يسارًا إلى الأحدث يمينًا. السنة الأولى فوق الخط، والثانية على يمينها تحت الخط، والثالثة فوقه، وهكذا.
+   الأحداث أوراق أسفل الشاشة: اختاروا حدثًا ثم اضغطوا سنته. كل سنة صحيحة = خطوة. */
 const TTW = 1600, TTH = 900, ttCanvas = document.createElement('canvas'); ttCanvas.width = TTW; ttCanvas.height = TTH;
 const ttCtx = ttCanvas.getContext('2d'), ttTex = new THREE.CanvasTexture(ttCanvas); ttTex.encoding = THREE.sRGBEncoding; ttTex.anisotropy = 8;
-let ttLast = 0;
+let ttLast = 0, ttHits = [];
+const ttRaycaster = new THREE.Raycaster(), ttNdc = new THREE.Vector2();
 function ttTV(on){ const m = tvScreen.material; m.map = on ? ttTex : tvScreenTex; m.color.set(on ? 0xffffff : 0xb8a090); m.needsUpdate = true; }
 function ttTick(now, t){ if(now - ttLast > 40){ ttLast = now; ttDraw(t); } }
-function ttDraw(t){ const g = ttCtx, R = state.ttRun;
-  ffStage(g, t); g.direction = 'rtl'; g.textAlign = 'center'; g.textBaseline = 'middle';
-  const pulse = 1 + Math.sin(t*3)*0.03; g.save(); g.translate(TTW/2, TTH*0.4); g.scale(pulse, pulse);
-  ffFit(g, 'سفر عبر الزمن', TTW-240, 170, 400, 'Rakkas, serif'); g.fillStyle = '#5a3b0c'; g.fillText('سفر عبر الزمن', 0, 10); g.fillStyle = '#f6c65a'; g.fillText('سفر عبر الزمن', 0, 0); g.restore();
-  g.font = '800 46px Tajawal, sans-serif'; g.fillStyle = '#f3ecdc'; g.fillText(R && R.case ? R.case.title : '', TTW/2, TTH*0.62);
-  g.font = '700 34px Tajawal, sans-serif'; g.fillStyle = '#f6d47a'; g.fillText('اسحبوا الأدلة إلى سنواتها الصحيحة', TTW/2, TTH*0.74);
+function yearKey(y){ const m = String(y).match(/-?\d+/); return m ? +m[0] : NaN; }
+function ttChrono(events){
+  const rows = events.map((e,i)=>({i, n:yearKey(e.y)}));
+  if(rows.length && rows.every(r=>isFinite(r.n))) rows.sort((a,b)=>a.n-b.n || a.i-b.i);
+  return rows.map(r=>r.i);
+}
+function ttShuffle(arr){ const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){ const j = (Math.random()*(i+1))|0; const t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+function ttLines(g, text, maxW, maxLines, size){
+  let s = size, lines;
+  do { g.font = `800 ${s}px Tajawal, sans-serif`; lines = ffWrap(g, String(text||''), maxW);
+    if(lines.length <= maxLines || s <= 16) break; s -= 2; } while(s > 16);
+  if(lines.length > maxLines){ lines = lines.slice(0, maxLines); lines[maxLines-1] = lines[maxLines-1].replace(/[،,.\s]+$/,'') + '…'; }
+  return {lines, size:s};
+}
+function ttLayout(n, chips){
+  const lineY = 408, inset = 168, x0 = inset, x1 = TTW - inset;
+  const step = n<=1 ? 0 : (x1 - x0) / (n - 1);
+  const slotW = Math.min(220, n<=1 ? 280 : Math.max(120, Math.floor(step - 36)));
+  const slotH = 150;
+  const cols = [];
+  for(let i=0;i<n;i++){
+    const cx = n<=1 ? TTW/2 : x0 + step*i, top = i%2===0;
+    const x = cx - slotW/2, y = top ? (lineY - 16 - slotH) : (lineY + 16);
+    cols.push({i, cx, x, y, w:slotW, h:slotH, top});
+  }
+  const gap = 12, ch = 96, cy = 688, count = Math.max(0, chips|0);
+  const inner = TTW - 100;
+  const cw = count ? Math.min(248, (inner - gap*(count-1)) / count) : 0;
+  const total = count*cw + Math.max(0, count-1)*gap;
+  let sx = (TTW - total)/2;
+  const chipRects = [];
+  for(let i=0;i<count;i++){ chipRects.push({x:sx, y:cy, w:cw, h:ch}); sx += cw + gap; }
+  return {lineY, lineX0:72, lineX1:TTW-72, cols, chipRects};
+}
+function ttDraw(t){
+  const g = ttCtx, R = state.ttRun;
+  if(R && R.play) ttDrawBoard(g, t);
+  else {
+    ffStage(g, t); g.direction = 'rtl'; g.textAlign = 'center'; g.textBaseline = 'middle';
+    const pulse = 1 + Math.sin(t*3)*0.03; g.save(); g.translate(TTW/2, TTH*0.4); g.scale(pulse, pulse);
+    ffFit(g, 'سفر عبر الزمن', TTW-240, 150, 400, 'Rakkas, serif'); g.fillStyle = '#5a3b0c'; g.fillText('سفر عبر الزمن', 0, 10); g.fillStyle = '#f6c65a'; g.fillText('سفر عبر الزمن', 0, 0); g.restore();
+    g.font = '800 42px Tajawal, sans-serif'; g.fillStyle = '#f3ecdc'; g.fillText(R && R.case ? R.case.title : '', TTW/2, TTH*0.62);
+    g.font = '700 32px Tajawal, sans-serif'; g.fillStyle = '#f6d47a'; g.fillText('رتّبوا الأحداث على الخط الزمني', TTW/2, TTH*0.74);
+  }
   ttTex.needsUpdate = true;
 }
-function pct(v, total){ return (v/total*100).toFixed(2)+'%'; }
-function ttOpenBoard(R, landerIdx){
-  return new Promise(res=>{
-    const events = R.case.events;
-    const tt = $('tt'); tt.innerHTML = '';
-    const hintEl = document.createElement('p'); hintEl.className = 'tt-hint';
-    hintEl.textContent = 'اسحب كل دليل وحطّه تحت السنة اللي تناسبه. تقدر تغيّر مكانه قد ما تبي، وآخر شي اضغط «تم الإجابة».';
-    const stage = document.createElement('div'); stage.className = 'tt-stage';
-    const cork = document.createElement('div'); cork.className = 'tt-cork'; stage.appendChild(cork);
-    const svg = document.createElementNS('http://www.w3.org/2000/svg','svg'); svg.setAttribute('id','ttStrings'); svg.setAttribute('viewBox','0 0 1280 960'); stage.appendChild(svg);
-    const controls = document.createElement('div'); controls.className = 'tt-controls';
-    const btnDone = document.createElement('button'); btnDone.className = 'btn primary'; btnDone.textContent = 'تم الإجابة';
-    controls.appendChild(btnDone);
-    tt.appendChild(hintEl); tt.appendChild(stage); tt.appendChild(controls); tt.hidden = false;
-
-    const rand = (a,b)=>a+Math.random()*(b-a);
-    const TTVH = 960; // the virtual canvas is 1280 wide x 960 tall (taller than the stage's old 760, to give the now much-bigger cards room)
-    const colXs = [55, 260, 465, 670, 875, 1080], slotW = 150, slotH = 112;
-    const slotYs = colXs.map(()=>100+rand(-15,110)), slotRs = colXs.map(()=>rand(-4,4)), slotXj = colXs.map(()=>rand(-15,15));
-    const tagYs = slotYs.map(sy=>Math.max(14, sy-56-rand(0,22)));
-
-    // 6 year slots, in a loose scattered row -- fixed 1280x960 "virtual canvas", scaled to the stage via CSS percentages
-    const slots = events.map((e,i)=>{
-      const x = colXs[i]+slotXj[i], y = slotYs[i];
-      const tagWrap = document.createElement('div'); tagWrap.className = 'tt-tagwrap';
-      tagWrap.style.cssText = `left:${pct(x+8,1280)};top:${pct(tagYs[i],TTVH)};width:${pct(slotW*0.62,1280)};height:${pct(50,TTVH)};transform:rotate(${rand(-5,5)}deg)`;
-      const tag = document.createElement('div'); tag.className = 'tt-tag'; tag.textContent = e.y; tagWrap.appendChild(tag); stage.appendChild(tagWrap);
-      const slotEl = document.createElement('div'); slotEl.className = 'tt-slot';
-      slotEl.style.cssText = `left:${pct(x,1280)};top:${pct(y,TTVH)};width:${pct(slotW,1280)};height:${pct(slotH,TTVH)};transform:rotate(${slotRs[i]}deg)`;
-      stage.appendChild(slotEl);
-      return { el: slotEl, year: e.y, occupant: null, cx: x+slotW/2, cy: y+slotH/2 };
-    });
-
-    // the pile: 6 draggable evidence cards (now much bigger, per the owner's request), scattered below the
-    // slots in a roomier zone (the taller virtual canvas exists specifically to fit these comfortably)
-    const pileZone = {x0:60,y0:300,x1:1190,y1:895}; // inset from the 1280x960 canvas edges to absorb the extra bounding-box growth from each card's random rotation
-    const placedRects = []; const overlaps = (x,y,w,h)=>placedRects.some(p=>x<p.x+p.w+10 && x+w+10>p.x && y<p.y+p.h+10 && y+h+10>p.y);
-    const shuffled = events.map((e,i)=>({e,i})).sort(()=>Math.random()-0.5);
-    const cards = shuffled.map(({e,i})=>{
-      const hasPhoto = !!(window.DARB_TT_PHOTOS && window.DARB_TT_PHOTOS[e.cap]);
-      const variant = hasPhoto ? 'tt-photo' : TT_VARIANTS[i % TT_VARIANTS.length];
-      const sizes = {'tt-photo':[250,280], 'tt-clip':[235,175], 'tt-note':[225,205], 'tt-index':[250,150]};
-      const [w,h] = sizes[variant];
-      let x,y,tries=0; do{ x=rand(pileZone.x0,pileZone.x1-w); y=rand(pileZone.y0,pileZone.y1-h); tries++; }while(overlaps(x,y,w,h)&&tries<50);
-      placedRects.push({x,y,w,h});
-      const rot = rand(-9,9).toFixed(1);
-      const card = document.createElement('div'); card.className = `tt-card ${variant}`;
-      card.dataset.year = e.y; card.dataset.cap = e.cap; card.dataset.rot = rot; card.dataset.slot = '';
-      card.dataset.home = `left:${pct(x,1280)};top:${pct(y,TTVH)};width:${pct(w,1280)};height:${pct(h,TTVH)}`;
-      card.style.cssText = card.dataset.home + `;transform:rotate(${rot}deg)`;
-      const face = document.createElement('div'); face.className = 'tt-face';
-      face.appendChild(Object.assign(document.createElement('div'), {className:'tt-pin'}));
-      if(hasPhoto){ const inner = document.createElement('div'); inner.className = 'tt-inner';
-        inner.style.cssText = `background-image:url(${window.DARB_TT_PHOTOS[e.cap].data});background-size:cover;background-position:center`;
-        face.appendChild(inner); }
-      const cap = document.createElement('div'); cap.className = 'tt-cap'; cap.textContent = e.cap;
-      cap.style.fontFamily = `'${TT_FONTS[i % TT_FONTS.length]}', cursive`;
-      face.appendChild(cap); card.appendChild(face); stage.appendChild(card);
-      return card;
-    });
-
-    if(window.__ttDebug){ window.__ttCards = cards; window.__ttSlots = slots; window.__ttEvents = events; window.__ttStage = stage; }
-
-    function updateStrings(){ svg.innerHTML = '';
-      for(let i=0;i<slots.length-1;i++){ const a = slots[i], b = slots[i+1]; if(!a.occupant || !b.occupant) continue;
-        const mx = (a.cx+b.cx)/2, my = Math.max(a.cy,b.cy) + 46;
-        const path = document.createElementNS('http://www.w3.org/2000/svg','path');
-        path.setAttribute('d', `M${a.cx},${a.cy} Q${mx},${my} ${b.cx},${b.cy}`);
-        path.setAttribute('stroke', '#b3261e'); path.setAttribute('stroke-width', '3.5'); path.setAttribute('fill', 'none'); path.setAttribute('opacity', '0.85');
-        svg.appendChild(path);
-      } }
-
-    // pointer-based drag and drop, delegated on the stage -- plain 2D math, no 3D projection involved
-    let dragCard = null, offX = 0, offY = 0, stageRect = null;
-    const toLocal = (clientX, clientY)=>({ x:(clientX-stageRect.left)/stageRect.width*1280, y:(clientY-stageRect.top)/stageRect.height*TTVH });
-    function onDown(e){ const card = e.target.closest('.tt-card'); if(!card) return;
-      stageRect = stage.getBoundingClientRect(); dragCard = card; card.classList.add('dragging');
-      if(card.dataset.slot !== ''){ const si = +card.dataset.slot; if(slots[si].occupant === card) slots[si].occupant = null; card.dataset.slot = ''; updateStrings(); }
-      const p = toLocal(e.clientX, e.clientY);
-      const left = parseFloat(card.style.left)/100*1280, top = parseFloat(card.style.top)/100*TTVH;
-      offX = p.x - left; offY = p.y - top;
-      card.setPointerCapture(e.pointerId);
+function ttDrawBoard(g, t){
+  const R = state.ttRun, P = R.play, ev = R.case.events;
+  const L = ttLayout(P.order.length, P.tray.length);
+  ffStage(g, t); g.direction = 'rtl'; g.textAlign = 'center'; g.textBaseline = 'middle';
+  g.font = '800 26px Tajawal, sans-serif'; g.fillStyle = '#f6d47a'; g.fillText('سفر عبر الزمن', TTW/2, 58);
+  const title = ttLines(g, R.case.title, TTW-220, 1, 38);
+  g.fillStyle = '#ffffff'; g.fillText(title.lines[0]||'', TTW/2, 104);
+  const who = teamName(R.lander);
+  g.font = '800 26px Tajawal, sans-serif'; g.fillStyle = TEAM_STYLES[R.lander].color; g.fillText(who, TTW/2, 148);
+  if(P.reveal){ g.font = '800 24px Tajawal, sans-serif'; g.fillStyle = P.steps===P.order.length ? '#7dcea0' : '#f6d47a';
+    g.fillText(`${P.steps} من ${P.order.length} في مكانها`, TTW/2, 186); }
+  g.strokeStyle = '#f6d47a'; g.lineWidth = 5; g.lineCap = 'round'; g.setLineDash([]);
+  g.beginPath(); g.moveTo(L.lineX0, L.lineY); g.lineTo(L.lineX1, L.lineY); g.stroke();
+  g.fillStyle = '#f6d47a'; g.beginPath(); g.moveTo(L.lineX1+16, L.lineY); g.lineTo(L.lineX1-2, L.lineY-11); g.lineTo(L.lineX1-2, L.lineY+11); g.closePath(); g.fill();
+  const hits = [];
+  P.order.forEach((ei, col)=>{
+    const c = L.cols[col], placed = P.slot[col];
+    const mine = ev[ei], ok = P.reveal && placed!=null && String(ev[placed].y)===String(mine.y);
+    const bad = P.reveal && !ok;
+    g.strokeStyle = 'rgba(246,212,122,.9)'; g.lineWidth = 3; g.setLineDash([]);
+    g.beginPath(); g.moveTo(c.cx, L.lineY); g.lineTo(c.cx, c.top ? c.y+c.h : c.y); g.stroke();
+    g.fillStyle = '#f6d47a'; g.beginPath(); g.arc(c.cx, L.lineY, 7, 0, 7); g.fill();
+    const band = 44, by = c.top ? c.y+c.h-band : c.y;
+    let bg = '#fbf3df', stroke = '#f6d47a', yearBg = '#f6d47a', yearFg = '#1b1408', dash = false;
+    if(ok){ bg = '#e7f6ee'; stroke = '#2f9e6b'; yearBg = '#2f9e6b'; yearFg = '#fff'; }
+    else if(bad && placed!=null){ bg = '#fde8e4'; stroke = '#d4593f'; yearBg = '#d4593f'; yearFg = '#fff'; }
+    else if(placed==null){ bg = P.reveal ? '#4a2430' : '#163a5c'; stroke = P.reveal ? '#d4593f' : '#f6d47a'; dash = false; }
+    g.save(); ffRR(g, c.x, c.y, c.w, c.h, 16); g.clip();
+    g.fillStyle = bg; g.fillRect(c.x, c.y, c.w, c.h);
+    g.fillStyle = yearBg; g.fillRect(c.x, by, c.w, band);
+    g.direction = 'ltr'; g.fillStyle = yearFg; g.font = '900 26px Tajawal, sans-serif';
+    g.fillText(String(mine.y), c.cx, by+band/2+1);
+    g.direction = 'rtl';
+    const bodyTop = c.top ? c.y : c.y+band, bodyH = c.h-band;
+    if(placed==null){ g.fillStyle = P.reveal ? '#f0b0a4' : '#f3ecdc'; g.font = '800 22px Tajawal, sans-serif'; g.fillText(P.sel!=null && !P.reveal ? 'هنا' : 'فارغ', c.cx, bodyTop+bodyH/2); }
+    else {
+      const box = ttLines(g, ev[placed].cap, c.w-28, 3, 24);
+      g.fillStyle = ok || (!P.reveal) ? '#2a2116' : '#6e2418';
+      if(!P.reveal) g.fillStyle = '#2a2116';
+      if(ok) g.fillStyle = '#143226';
+      if(bad && placed!=null) g.fillStyle = '#6e2418';
+      const lh = box.size+4, block = box.lines.length*lh;
+      box.lines.forEach((ln,n)=>g.fillText(ln, c.cx, bodyTop+bodyH/2 - block/2 + lh/2 + n*lh));
     }
-    function onMove(e){ if(!dragCard) return; const p = toLocal(e.clientX, e.clientY);
-      const x = p.x - offX, y = p.y - offY;
-      dragCard.style.left = pct(x,1280); dragCard.style.top = pct(y,TTVH); dragCard.style.transform = 'rotate(0deg)';
-      const w = parseFloat(dragCard.style.width)/100*1280, h = parseFloat(dragCard.style.height)/100*TTVH;
-      const ccx = x+w/2, ccy = y+h/2;
-      slots.forEach(s=>s.el.classList.toggle('over', !s.occupant && Math.hypot(s.cx-ccx, s.cy-ccy) < 95));
-    }
-    function onUp(e){ if(!dragCard) return; dragCard.classList.remove('dragging');
-      const w = parseFloat(dragCard.style.width)/100*1280, h = parseFloat(dragCard.style.height)/100*TTVH;
-      const x = parseFloat(dragCard.style.left)/100*1280, y = parseFloat(dragCard.style.top)/100*TTVH;
-      const ccx = x+w/2, ccy = y+h/2;
-      let target = -1, best = 95;
-      slots.forEach((s,i)=>{ s.el.classList.remove('over'); if(s.occupant) return; const d = Math.hypot(s.cx-ccx, s.cy-ccy); if(d<best){ best=d; target=i; } });
-      if(target>=0){
-        if(slots[target].occupant){ const old = slots[target].occupant; old.style.cssText = old.dataset.home+`;transform:rotate(${old.dataset.rot}deg)`; old.dataset.slot = ''; }
-        const s = slots[target];
-        // a card can be wider/taller than the slot it snaps into (slots are a fixed size, cards vary a lot now
-        // that they're much bigger), so centering on the slot could push a card's edge past the board --
-        // clamp so the snapped card always stays fully inside the 1280xTTVH canvas, no matter the slot position
-        const nx = Math.min(Math.max(s.cx-w/2, 6), 1280-w-6), ny = Math.min(Math.max(s.cy-h/2, 6), TTVH-h-6);
-        dragCard.style.left = pct(nx,1280); dragCard.style.top = pct(ny,TTVH); dragCard.style.transform = 'rotate(0deg)';
-        dragCard.dataset.slot = String(target); slots[target].occupant = dragCard;
-      } else { dragCard.style.cssText = dragCard.dataset.home+`;transform:rotate(${dragCard.dataset.rot}deg)`; }
-      dragCard = null; updateStrings();
-    }
-    stage.addEventListener('pointerdown', onDown);
-    stage.addEventListener('pointermove', onMove);
-    stage.addEventListener('pointerup', onUp);
-    stage.addEventListener('pointercancel', onUp);
-
-    btnDone.onclick = ()=>{
-      stage.removeEventListener('pointerdown', onDown);
-      let steps = 0;
-      slots.forEach(s=>{ const c = s.occupant; if(!c) return; const ok = c.dataset.year === s.year;
-        c.classList.add('placed', ok?'correct':'wrong'); if(ok) steps++; });
-      toast('سفر عبر الزمن', `${teamName(landerIdx)} ربط ${steps} من ${events.length} صح`);
-      setTimeout(()=>{ tt.hidden = true; tt.innerHTML = ''; res(steps); }, 2200);
-    };
+    g.restore();
+    g.lineWidth = 4; g.strokeStyle = stroke; if(dash) g.setLineDash([8,7]); else g.setLineDash([]);
+    ffRR(g, c.x, c.y, c.w, c.h, 16); g.stroke(); g.setLineDash([]);
+    if(!P.lock) hits.push({k:'slot', i:col, x:c.x-6, y:c.y-6, w:c.w+12, h:c.h+12});
   });
+  P.tray.forEach((ei, n)=>{
+    const r = L.chipRects[n]; if(!r) return;
+    const on = P.sel===ei;
+    g.save(); ffRR(g, r.x, r.y, r.w, r.h, 14); g.clip();
+    g.fillStyle = on ? '#f6d47a' : '#fbf3df'; g.fillRect(r.x, r.y, r.w, r.h); g.restore();
+    g.lineWidth = on ? 5 : 3; g.strokeStyle = on ? '#fff3c4' : '#c9a15a';
+    ffRR(g, r.x, r.y, r.w, r.h, 14); g.stroke();
+    const box = ttLines(g, ev[ei].cap, r.w-20, 2, 22);
+    g.fillStyle = '#2a2116'; g.direction = 'rtl';
+    const lh = box.size+4, block = box.lines.length*lh;
+    box.lines.forEach((ln,k)=>g.fillText(ln, r.x+r.w/2, r.y+r.h/2 - block/2 + lh/2 + k*lh));
+    if(!P.lock) hits.push({k:'chip', i:ei, x:r.x, y:r.y, w:r.w, h:r.h});
+  });
+  if(!P.tray.length && !P.reveal){
+    g.font = '700 22px Tajawal, sans-serif'; g.fillStyle = 'rgba(243,236,220,.7)';
+    g.fillText('كل الأحداث على الخط. اضغطوا حدثًا إذا تبي تنقلونه.', TTW/2, 736);
+  }
+  ttHits = hits;
+}
+function ttRay(e){
+  if(!state || !state.ttRun || !state.ttRun.play || !ttHits.length) return null;
+  const rect = canvas.getBoundingClientRect();
+  if(!rect.width || !rect.height) return null;
+  ttNdc.x = ((e.clientX-rect.left)/rect.width)*2 - 1;
+  ttNdc.y = -((e.clientY-rect.top)/rect.height)*2 + 1;
+  ttRaycaster.setFromCamera(ttNdc, camera);
+  const hit = ttRaycaster.intersectObject(tvScreen, false)[0];
+  if(!hit || !hit.uv) return null;
+  const x = hit.uv.x*TTW, y = (1-hit.uv.y)*TTH;
+  for(let i=ttHits.length-1;i>=0;i--){ const h = ttHits[i]; if(x>=h.x && x<=h.x+h.w && y>=h.y && y<=h.y+h.h) return h; }
+  return null;
+}
+function ttClickAt(clientX, clientY){ const h = ttRay({clientX, clientY}); if(h) ttActivate(h); return h; }
+function ttActivate(h){
+  const R = state.ttRun; if(!R || !R.play || R.play.lock) return;
+  const P = R.play;
+  if(h.k==='chip'){ P.sel = P.sel===h.i ? null : h.i; thump(150); }
+  else {
+    const cur = P.slot[h.i];
+    if(P.sel==null){ if(cur==null) return; P.slot[h.i] = null; P.tray.push(cur); P.sel = cur; thump(140); }
+    else {
+      const sel = P.sel; P.slot[h.i] = sel; P.tray = P.tray.filter(x=>x!==sel);
+      if(cur!=null && cur!==sel) P.tray.push(cur); P.sel = null; thump(210);
+    }
+  }
+  renderTTBar(); ttDraw(clock.elapsedTime||0);
+}
+function renderTTBar(){
+  const R = state.ttRun, P = R && R.play, bar = $('ttBar');
+  if(!P){ bar.hidden = true; return; }
+  const ev = R.case.events;
+  const filled = P.slot.filter(s=>s!=null).length;
+  const msg = P.reveal ? `${P.steps} من ${P.order.length} في مكانها` : (P.sel!=null ? ev[P.sel].cap : 'اختاروا حدثًا من أسفل الشاشة، ثم اضغطوا سنته');
+  bar.hidden = false;
+  bar.innerHTML = `<div class="who"><span class="swatch" style="--tc:${TEAM_STYLES[R.lander].color}"></span><div><div class="eyebrow">سفر عبر الزمن</div><b>${esc(teamName(R.lander))}</b></div></div>
+    <div class="sel${P.sel!=null||P.reveal?' on':''}">${esc(msg)}${P.reveal?'':` · ${filled} من ${P.order.length}`}</div>
+    <button class="btn primary xbtn" id="ttDone" type="button" ${P.lock?'disabled':''}>تم الإجابة</button>`;
+  const b = $('ttDone'); if(b) b.onclick = ttFinish;
+}
+function ttFinish(){
+  const R = state.ttRun; if(!R || !R.play || R.play.lock) return;
+  const P = R.play, ev = R.case.events;
+  P.lock = true; P.reveal = true; P.sel = null;
+  let steps = 0;
+  P.order.forEach((ei, col)=>{ const p = P.slot[col]; if(p!=null && String(ev[p].y)===String(ev[ei].y)) steps++; });
+  P.steps = steps;
+  if(steps===P.order.length) fanfare(); else if(steps>0) ding(); else buzzer();
+  renderTTBar(); ttDraw(clock.elapsedTime||0);
+  setTimeout(()=>{ $('ttBar').hidden = true; canvas.style.cursor = ''; const done = P.res; R.play = null; ttHits = []; done && done(steps); }, 2800);
+}
+function ttPlay(R){
+  const events = R.case && R.case.events || [];
+  if(!events.length) return Promise.resolve(0);
+  const order = ttChrono(events);
+  const P = R.play = {order, slot:order.map(()=>null), tray:ttShuffle(order), sel:null, lock:false, reveal:false, steps:0, res:null};
+  ttDraw(clock.elapsedTime||0); renderTTBar();
+  return new Promise(res=>{ P.res = res; });
 }
 const TT_CAT_LABELS = {islamic_history:'تاريخ إسلامي', bahrain_history_1:'تأسيس البحرين', bahrain_history_2:'مؤسسات البحرين',
   arab_plays:'مسرحيات عربية', general_history:'تاريخ عالمي', famous_world_events:'أحداث عالمية مشهورة', sports:'رياضة', tech:'تقنية',
@@ -2078,7 +2220,8 @@ function ttCats(i){ return new Promise(res=>{
   draw(); }); }
 async function runTimeTravel(i){
   const t = state.teams[i]; t.ttDone = true; stopTimer(); hideDie(); panel.hidden = true; busy = true;
-  const R = state.ttRun = {lander:i, case:null};
+  const preset = state.ttPreset || null; state.ttPreset = null;
+  const R = state.ttRun = {lander:i, case:preset};
   state.phase = 'timetravel'; activeTeam = i; renderTeams();
   following = !REDUCED; camGoal.radius = Math.min(overviewRadius, 0.8); camGoal.target.copy(worldPosOf(i));
   teamsEl.hidden = true; toastEl.hidden = true; await wait(REDUCED?20:700);
@@ -2091,12 +2234,12 @@ async function runTimeTravel(i){
   lightTween([teamSpot], 0, 1500); lightTween(stageLights, 3, 1800);
   await feudCamOn(3200); setAnim(totems[i], 'idle');
   await wait(REDUCED?20:800);
-  R.case = await ttCats(i);
+  if(!R.case) R.case = await ttCats(i);
   await wait(REDUCED?20:600);
-  const earned = await ttOpenBoard(R, i);
+  const earned = await ttPlay(R);
   lightTween(stageLights, 0, 1200); await feudCamOff(2600); await feudDim(1, 1600); ttTV(false); teamsEl.hidden = false; toastEl.hidden = false;
-  if(earned>0){ await moveTeam(i, earned);
-    if(state.teams[i].pos >= GOAL){ state.ttRun = null; busy = false; win(i); return; } }
+  if(earned>0){ state.ttRun = null; const res = await travel(i, earned);
+    if(res.win || state.phase==='won' || state.teams[i].pos >= endAt()){ busy = false; if(state.phase!=='won') win(i); return; } }
   endFollow(); state.ttRun = null; busy = false;
 }
 /* sounds */
@@ -2242,23 +2385,51 @@ async function runFeud(i){
   R.stage = 'end'; feudPeerStop(); $('feudBar').hidden = true;
   lightTween(stageLights, 0, 1200); await feudCamOff(2600); await feudDim(1, 1600); feudTV(false); teamsEl.hidden = false; toastEl.hidden = false;
   const order = state.teams.map((_,j)=>(i+j) % state.teams.length).filter(j=>R.earned[j]>0);
-  for(const j of order){ await moveTeam(j, R.earned[j]);
-    if(state.teams[j].pos >= GOAL){ state.feudRun = null; busy = false; win(j); return; } }
+  state.feudRun = null;
+  for(const j of order){ const res = await travel(j, R.earned[j]);
+    if(res.win || state.phase==='won' || state.teams[j].pos >= endAt()){ busy = false; if(state.phase!=='won') win(j); return; } }
 
-  endFollow(); state.feudRun = null; busy = false;
+  endFollow(); busy = false;
 }
-function nextTurn(){ stopTimer(); phoneCleanup();
-  const due = feudDue(); if(due>=0){ runFeud(due).then(()=>{ if(state.phase!=='won') nextTurn(); }); return; }
-  const ttDueI = ttDue(); if(ttDueI>=0){ runTimeTravel(ttDueI).then(()=>{ if(state.phase!=='won') nextTurn(); }); return; }
-  state.turn = (state.turn+1) % state.teams.length; state.pit = null; state.trap = null; state.badges = []; refillIfEmpty(); state.phase = 'pick'; renderPanel(); }
-function win(i){ setMood(i, 'happy'); setAnim(totems[i], 'cheer');
+function grantExtra(i){
+  if(i==null || !state || !state.teams[i]) return;
+  if(!state.extraQueue) state.extraQueue = [];
+  if(!state.extraQueue.includes(i)) state.extraQueue.push(i);
+}
+function beginPick(i, extra){
+  stopTimer(); phoneCleanup();
+  state.turn = i;
+  if(!extra) state.afterTurn = i;
+  state.pit = null; state.trap = null; state.rest = null; state.extraGuess = null; state.badges = [];
+  state.rollFor = i;
+  refillIfEmpty();
+  state.phase = 'pick';
+  renderPanel();
+  if(extra) toast('دور إضافي', `${teamName(i)} يلعب مرة ثانية`);
+  saveGame();
+}
+function openExtraOrNext(){
+  if(!state || state.phase==='won') return;
+  const due = feudDue(); if(due>=0){ runFeud(due).then(()=>{ if(state.phase!=='won') openExtraOrNext(); }); return; }
+  const ttDueI = ttDue(); if(ttDueI>=0){ runTimeTravel(ttDueI).then(()=>{ if(state.phase!=='won') openExtraOrNext(); }); return; }
+  const q = state.extraQueue;
+  if(q && q.length){ const i = q.shift(); if(state.teams[i]){ beginPick(i, true); return; } }
+  const base = state.afterTurn!=null ? state.afterTurn : state.turn;
+  state.afterTurn = null;
+  beginPick((base + 1) % state.teams.length, false);
+}
+function nextTurn(){ openExtraOrNext(); }
+function win(i){ if(!state || state.phase==='won') return; setMood(i, 'happy'); setAnim(totems[i], 'cheer');
   endFollow(); hideDie(); stopTimer(); state.phase = 'won'; activeTeam = i; renderTeams(); panel.hidden = true;
   const t = state.teams[i]; $('winName').textContent = t.name; $('winName').style.color = TEAM_STYLES[i].color;
+  const atTower = endAt()>=GOAL;
+  $('winEyebrow').textContent = atTower ? 'أول واحد وصل برج الساعة' : ('أول واحد وصل خط '+endAt());
   const others = state.teams.filter((_,j)=>j!==i).map(o=>`${o.name} على المربع ${o.pos}`).join('، ');
-  $('winLine').textContent = `${t.name} وصل أول للبرج. ${others? 'باقي الفرق: '+others+'.':''}`;
+  $('winLine').textContent = `${t.name} وصل أول ${atTower?'للبرج':('لخط '+endAt())}. ${others? 'باقي الفرق: '+others+'.':''}`;
   chime(true); setTimeout(()=>chime(true), 300);
   for(let k=0;k<6;k++) setTimeout(()=>dust(new THREE.Vector3((Math.random()-.5)*1.5,1.9,(Math.random()-.5)*1.5), [0xe8a33a,0x4fbf98,0xd4593f][k%3]), k*180);
   $('win').hidden = false;
+  saveGame();
 }
 /* ================= setup + statue workshop ================= */
 function renderSetup(){
@@ -2270,6 +2441,8 @@ function renderSetup(){
   $('names').querySelectorAll('.statbtn').forEach(b=>b.onclick=()=>openWorkshop(+b.dataset.i));
 }
 $('seg').addEventListener('click', e=>{ const b=e.target.closest('button'); if(!b) return; teamCount = +b.dataset.n; renderSetup(); });
+$('segGoal').addEventListener('click', e=>{ const b=e.target.closest('button'); if(!b) return; raceGoal = +b.dataset.g===30 ? 30 : 50;
+  $('segGoal').querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed', String(+x.dataset.g===raceGoal))); });
 
 /* step 2: each team picks 3 of the 5 lifelines */
 function renderLifePick(){
@@ -2330,16 +2503,50 @@ function openWorkshop(i){ wsTeam = i;
 $('wsDone').onclick = ()=>{ draft[wsTeam].statue = {...wsSpec}; $('ws').hidden = true; wsOpen = false; renderSetup(); };
 
 function newBoard(cats){ return cats.map(cat=>({cat, tiles:['e','e','n','n','h','h'].map(l=>({l, used:false}))})); }
-async function startGame(teams, cats){
+const SAVE_KEY = 'darb-saa-v1';
+function saveGame(){
+  if(!state || !state.teams.length || state.phase==='setup') return;
+  try{
+    const snap = {v:1, goal:state.goal||GOAL, turn:state.turn|0, afterTurn: state.afterTurn!=null ? state.afterTurn : state.turn,
+      phase: state.phase==='won' ? 'won' : 'pick', win: state.phase==='won' ? activeTeam : null,
+      cats: state.cats, board: state.board, round: state.round||1, usedQ: state.usedQ||[], blocks: state.blocks||[],
+      feudSpot: state.feudSpot, ttSpot: state.ttSpot, feudUsed: state.feudUsed||[],
+      teams: state.teams.map(t=>({name:t.name, statue:t.statue, pos:t.pos|0, lifelines:t.lifelines||[], used:t.used||[], lastL:t.lastL||null, feudDone:!!t.feudDone, ttDone:!!t.ttDone}))};
+    localStorage.setItem(SAVE_KEY, JSON.stringify(snap));
+  }catch(e){}
+}
+function loadSave(){
+  try{ const r = JSON.parse(localStorage.getItem(SAVE_KEY)||'null');
+    if(!r || r.v!==1 || !Array.isArray(r.teams) || !r.teams.length || !Array.isArray(r.board)) return null; return r; }catch(e){ return null; }
+}
+function refreshResume(){ const b = $('btnResume'); if(b) b.hidden = !loadSave(); }
+function resumeGame(){
+  const s = loadSave(); if(!s) return;
   clearAllBlocks();
-  state = {teams:teams.map(t=>({name:t.name, statue:{...t.statue}, pos:0, lifelines:[...t.lifelines], used:[]})), turn:0, phase:'setup',
-    cats:[...cats], board:newBoard(cats), round:1, usedQ:[], blocks:[], pit:null, trap:null, badges:[], current:null, rollFor:0,
-    feudSpot: FEUD_OK ? feudSpotPick() : -1, feudUsed:[], feudRun:null};
-  state.ttSpot = TT_OK ? ttSpotPick(state.feudSpot) : -1; state.ttRun = null;
+  state = {teams:s.teams.map(t=>({name:String(t.name||'فريق').slice(0,22), statue:t.statue, pos:t.pos|0, lifelines:t.lifelines||[], used:t.used||[], lastL:t.lastL||null, feudDone:!!t.feudDone, ttDone:!!t.ttDone})),
+    turn:s.turn|0, afterTurn: s.afterTurn!=null ? s.afterTurn : (s.turn|0), phase:'pick', cats:s.cats||[], board:s.board, round:s.round||1, usedQ:s.usedQ||[],
+    blocks:[], pit:null, trap:null, rest:null, extraGuess:null, extraQueue:[], badges:[], current:null, rollFor:s.turn|0,
+    goal: s.goal===30?30:50, feudSpot: s.feudSpot|0, feudUsed:s.feudUsed||[], feudRun:null, ttSpot: s.ttSpot|0, ttRun:null};
+  (s.blocks||[]).forEach(sp=>{ if(sp>0 && sp<endAt()) placeBlock(sp); });
+  feudMarkerClear(); buildTotems(); renderTeams();
+  ['setup','life','draft','win'].forEach(id=>$(id).hidden = true);
+  wideHold = false; following = false; resetView(); audio();
+  if(s.phase==='won'){ win(Math.min(state.teams.length-1, Math.max(0, s.win|0))); return; }
+  state.phase = 'pick'; renderPanel();
+  toast('كمّلنا', 'رجعت اللوحة من آخر دور محفوظ');
+}
+async function startGame(teams, cats, goal){
+  clearAllBlocks();
+  const g = goal===30 || goal===50 ? goal : (raceGoal===30 ? 30 : 50);
+  state = {teams:teams.map(t=>({name:t.name, statue:{...t.statue}, pos:0, lifelines:[...t.lifelines], used:[], feudDone:false, ttDone:false})), turn:0, afterTurn:0, phase:'setup',
+    cats:[...cats], board:newBoard(cats), round:1, usedQ:[], blocks:[], pit:null, trap:null, rest:null, extraGuess:null, extraQueue:[], badges:[], current:null, rollFor:0,
+    goal:g, feudSpot:-1, feudUsed:[], feudRun:null, ttSpot:-1, ttRun:null};
+  state.feudSpot = FEUD_OK ? feudSpotPick() : -1;
+  state.ttSpot = TT_OK ? ttSpotPick(state.feudSpot) : -1;
   feudMarkerClear();
   buildTotems(); renderTeams(); ['setup','life','draft','win'].forEach(id=>$(id).hidden = true); audio();
   wideHold = false; await startTour();
-  state.phase = 'pick'; renderPanel();
+  state.phase = 'pick'; renderPanel(); saveGame();
 }
 const teamsFromDraft = ()=>draft.slice(0,teamCount).map((d,i)=>({name:(d.name||'').trim()||TEAM_STYLES[i].label, statue:d.statue, lifelines:d.lifelines}));
 $('btnStart').onclick = ()=>{ $('setup').hidden = true; $('life').hidden = false; renderLifePick(); };
@@ -2348,8 +2555,9 @@ $('btnLifeNext').onclick = ()=>{ $('life').hidden = true; picks = []; $('draft')
 $('btnDraftUndo').onclick = ()=>{ picks.pop(); renderDraft(); };
 $('btnDraftBack').onclick = ()=>{ $('draft').hidden = true; $('life').hidden = false; renderLifePick(); };
 $('btnBegin').onclick = ()=>startGame(teamsFromDraft(), picks.map(p=>p.cat));
-$('btnAgain').onclick = ()=>startGame(state.teams.map(t=>({name:t.name, statue:t.statue, lifelines:t.lifelines})), state.cats);
-$('btnNew').onclick = ()=>{ $('win').hidden = true; clearAllBlocks(); state.phase='setup'; panel.hidden = true; wideHold = true; renderSetup(); $('setup').hidden = false; renderTeams(); };
+$('btnAgain').onclick = ()=>startGame(state.teams.map(t=>({name:t.name, statue:t.statue, lifelines:t.lifelines})), state.cats, state.goal);
+$('btnNew').onclick = ()=>{ $('win').hidden = true; clearAllBlocks(); try{ localStorage.removeItem(SAVE_KEY); }catch(e){} state.phase='setup'; panel.hidden = true; wideHold = true; renderSetup(); $('setup').hidden = false; refreshResume(); renderTeams(); };
+$('btnResume').onclick = ()=>resumeGame();
 $('btnView').onclick = ()=>{ if(wideHold) return; following=false; resetView(); };
 $('btnRoom').onclick = ()=>{ if(touring || wideHold) return; startTour(); };
 $('skip').onclick = endTour;
@@ -2442,7 +2650,7 @@ phone(-0.25, 0.44, ROOM.z0+0.62, -0.6, true); // left on the sofa seat (lit)
 
 /* ================= boot ================= */
 const COZY = window.DarbCozy ? window.DarbCozy(scene) : {};
-function showSetupWhenReady(){ const L = $('loading'); L.style.opacity = '0'; setTimeout(()=>{ L.hidden = true; }, 600); $('setup').hidden = false; renderSetup(); }
+function showSetupWhenReady(){ const L = $('loading'); L.style.opacity = '0'; setTimeout(()=>{ L.hidden = true; }, 600); $('setup').hidden = false; renderSetup(); refreshResume(); }
 async function boot(){
   resize(); holdWide();
   requestAnimationFrame(frame);
@@ -2453,6 +2661,27 @@ async function boot(){
   showSetupWhenReady();
 }
 window.addEventListener('resize', ()=>{ resize(); if(!$('drawBoard').hidden && state.charade && state.charade.ar) boardFit(state.charade.ar); if(!following && !wideHold) camGoal.radius = overviewRadius; });
+if(location.hash==='#tttest'){
+  window.__enterTT = function(caseIndex){
+    $('setup').hidden = true; $('life').hidden = true; $('draft').hidden = true;
+    const L = $('loading'); if(L) L.hidden = true;
+    const cases = (window.DARB_TIMETRAVEL && DARB_TIMETRAVEL.cases) || [];
+    state = {teams:draft.slice(0,2).map(d=>({name:d.name, statue:{...d.statue}, pos:2, lifelines:[], used:[], feudDone:true, ttDone:false})),
+      turn:0, afterTurn:0, phase:'pick', cats:[], board:[], round:1, usedQ:[], blocks:[], pit:null, trap:null, rest:null, extraGuess:null, extraQueue:[], badges:[], current:null, rollFor:0,
+      goal:50, feudSpot:-1, feudUsed:[], feudRun:null, ttSpot:2, ttRun:null,
+      ttPreset: cases.length ? cases[(caseIndex|0)%cases.length] : null};
+    try{ buildTotems(); }catch(err){ console.warn(err); }
+    renderTeams(); wideHold = false; following = false; resetView();
+    runTimeTravel(0);
+  };
+  window.__ttClick = (x,y)=>ttClickAt(x,y);
+  window.__ttPlace = (ei, slot)=>{ const P = state.ttRun && state.ttRun.play; if(!P||P.lock) return null; P.sel = ei; ttActivate({k:'slot', i:slot}); return P.slot.slice(); };
+  window.__ttFinish = ()=>ttFinish();
+  window.__ttInfo = ()=>{ const P = state.ttRun && state.ttRun.play; if(!P) return null; return {tray:P.tray.slice(), slot:P.slot.slice(), order:P.order.slice(), sel:P.sel, reveal:P.reveal, steps:P.steps}; };
+  const tvPoint = (u,v)=>{ const hw=1.39/2, hh=0.78/2, p=new THREE.Vector3((u*2-1)*hw,(v*2-1)*hh,0); tvScreen.updateWorldMatrix(true,false); p.applyMatrix4(tvScreen.matrixWorld).project(camera); const r=canvas.getBoundingClientRect(); return {x:r.left+(p.x*0.5+0.5)*r.width, y:r.top+(-p.y*0.5+0.5)*r.height}; };
+  window.__ttXY = kind=>{ const h = ttHits.find(s=>s.k===kind.k && s.i===kind.i); if(!h) return null; return tvPoint((h.x+h.w/2)/TTW, 1-(h.y+h.h/2)/TTH); };
+  window.__ttPNG = ()=>ttCanvas.toDataURL('image/png');
+}
 boot();
 })();
 </script>
